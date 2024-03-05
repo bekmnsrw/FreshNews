@@ -1,9 +1,9 @@
+local.properties
 *.iml
 .gradle
 **/build/
 xcuserdata
 !src/**/build/
-local.properties
 .idea
 .DS_Store
 captures
