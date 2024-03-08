@@ -68,16 +68,16 @@ kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotl
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 androidx-test-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-junit" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidx-espresso-core" }
-mockk-jvm = { module = "io.mockk:mockk", version.ref = "mockk" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 
 # Coroutines
-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
-coroutines-test = { module = "'org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlinx-coroutines-test = { module = "'org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 
 # Immutable
-kotlinx-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref ="immutable" }
+kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "immutable" }
 
 # Serialization
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "serialization" }
@@ -102,8 +102,8 @@ coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coil" }
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatform-settings" }
 
 # SQLDelight
-sql-delight-android-driver = { module = "com.squareup.sqldelight:android-driver", version.ref = "sql-delight" }
-sql-delight-native-driver = { module = "com.squareup.sqldelight:native-driver", version.ref = "sql-delight" }
+sql-delight-android-driver = { module = "com.squareup.sqldelight:android-driver", version.ref = "sql-delight" } # Android
+sql-delight-native-driver = { module = "com.squareup.sqldelight:native-driver", version.ref = "sql-delight" } # iOS
 sql-delight-sqlite-driver = { module = "com.squareup.sqldelight:sqlite-driver", version.ref = "sql-delight" }
 sql-delight-coroutines-extensions = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "sql-delight" }
 
@@ -111,10 +111,10 @@ sql-delight-coroutines-extensions = { module = "com.squareup.sqldelight:coroutin
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 
 # Kodein
-kodein = { module = "org.kodein.di:kodein-di", version.ref = "kodein" }
+kodein-di = { module = "org.kodein.di:kodein-di", version.ref = "kodein" }
 
 # datetime
-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -122,6 +122,7 @@ androidLibrary = { id = "com.android.library", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [bundles]
 ktorClientCommon = [
@@ -129,4 +130,9 @@ ktorClientCommon = [
     "ktor-client-content-negotiation",
     "ktor-serialization",
     "ktor-client-logging"
+]
+
+serialization = [
+    "kotlinx-serialization-core",
+    "kotlinx-serialization-json"
 ]

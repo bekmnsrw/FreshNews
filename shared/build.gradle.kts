@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinCocoapods)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
@@ -32,15 +33,21 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-
+            implementation(libs.bundles.ktorClientCommon)
+            implementation(libs.bundles.serialization)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.kodein.di)
         }
 
         androidMain.dependencies {
-
+            implementation(libs.ktor.client.okhttp)
+            implementation(libs.okhttp3.logging.interceptor)
+            implementation(libs.kotlinx.coroutines.android)
+            implementation(libs.timber)
         }
 
         iosMain.dependencies {
-
+            implementation(libs.ktor.client.ios)
         }
 
         commonTest.dependencies {
