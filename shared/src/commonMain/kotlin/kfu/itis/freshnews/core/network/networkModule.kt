@@ -11,46 +11,62 @@ import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.logging.SIMPLE
 import io.ktor.http.URLProtocol
+import io.ktor.http.path
 import io.ktor.serialization.kotlinx.json.json
 import kfu.itis.freshnews.core.configuration.Configuration
+import kfu.itis.freshnews.core.configuration.PlatformConfiguration
 import kotlinx.serialization.json.Json
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
 import org.kodein.di.instance
 
 private const val MODULE_NAME = "networkModule"
-private const val BASE_URL = "https://newsapi.org/v2/"
+private const val HOST = "newsapi.org"
+private const val BASE_URL = "v2/"
+private const val API_KEY_REQUEST_PARAMETER = "apiKey"
+private const val API_KEY = "91085fe3aa7e4cb2902b927389757f59"
 private const val CONNECT_TIMEOUT_MILLIS = 15000L
 private const val REQUEST_TIMEOUT_MILLIS = 30000L
 private const val SOCKET_TIMEOUT_MILLIS = 30000L
 
 val networkModule = DI.Module(name = MODULE_NAME) {
 
-    bindSingleton<HttpEngineFactory> {
-        HttpEngineFactory()
+    bindSingleton<HttpClientEngineFactory<HttpClientEngineConfig>> {
+        provideHttpClientEngineFactory(
+            platformConfiguration = instance<PlatformConfiguration>()
+        )
     }
 
     bindSingleton<Json> {
-        Json {
-            isLenient = true
-            ignoreUnknownKeys = true
-        }
+        provideJson()
     }
 
     bindSingleton<HttpClient> {
-        buildHttpClient(
-            httpClientEngine = instance(),
-            json = instance(),
-            configuration = instance()
+        provideHttpClient(
+            httpClientEngine = instance<HttpClientEngineFactory<HttpClientEngineConfig>>(),
+            json = instance<Json>(),
+            configuration = instance<Configuration>()
         )
     }
 }
 
-private fun buildHttpClient(
+private fun provideHttpClientEngineFactory(
+    platformConfiguration: PlatformConfiguration
+): HttpClientEngineFactory<HttpClientEngineConfig> = HttpEngineFactory().createEngine(
+    platformConfiguration = platformConfiguration
+)
+
+private fun provideJson(): Json = Json {
+    isLenient = true
+    ignoreUnknownKeys = true
+    prettyPrint = true
+}
+
+private fun provideHttpClient(
     httpClientEngine: HttpClientEngineFactory<HttpClientEngineConfig>,
     json: Json,
     configuration: Configuration
-) = HttpClient(httpClientEngine) {
+): HttpClient = HttpClient(httpClientEngine) {
 
     if (configuration.isHttpLoggingEnabled) {
         install(plugin = Logging) {
@@ -69,10 +85,15 @@ private fun buildHttpClient(
         socketTimeoutMillis = SOCKET_TIMEOUT_MILLIS
     }
 
+    /*
+     * API documentation [here](https://newsapi.org/docs/get-started)
+     */
     defaultRequest {
         url {
-            this.host = BASE_URL
-            this.protocol = URLProtocol.HTTPS
+            protocol = URLProtocol.HTTPS
+            host = HOST
+            path(BASE_URL)
+            parameters.append(API_KEY_REQUEST_PARAMETER, API_KEY)
         }
     }
 }

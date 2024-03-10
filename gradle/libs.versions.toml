@@ -112,6 +112,8 @@ timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 
 # Kodein
 kodein-di = { module = "org.kodein.di:kodein-di", version.ref = "kodein" }
+kodein-di-framework-android = { module = "org.kodein.di:kodein-di-framework-android-x", version.ref = "kodein" }
+kodein-di-framework-compose = { module = "org.kodein.di:kodein-di-framework-compose", version.ref = "kodein" }
 
 # datetime
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime" }
