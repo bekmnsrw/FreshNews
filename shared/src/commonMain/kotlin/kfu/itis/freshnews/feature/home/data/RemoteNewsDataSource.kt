@@ -6,6 +6,7 @@ import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.http.path
 import kfu.itis.freshnews.feature.home.data.response.NewsResponse
+import kfu.itis.freshnews.feature.home.domain.model.TopHeadlinesCategory
 
 internal class RemoteNewsDataSource(
     private val httpClient: HttpClient
@@ -17,7 +18,25 @@ internal class RemoteNewsDataSource(
     suspend fun getTopHeadlines(): NewsResponse = httpClient.get {
         url {
             path("top-headlines")
-            parameter("country", "us")
+            parameter("category", "general")
+        }
+    }.body()
+
+    suspend fun getTopHeadlinesByCategory(
+        category: TopHeadlinesCategory
+    ): NewsResponse = httpClient.get {
+        url {
+            path("top-headlines")
+            parameter("category", category.name.lowercase())
+        }
+    }.body()
+
+    suspend fun searchTopHeadlinesByPhrase(
+        phrase: String
+    ): NewsResponse = httpClient.get {
+        url {
+            path("top-headlines")
+            parameter("q", phrase)
         }
     }.body()
 }
