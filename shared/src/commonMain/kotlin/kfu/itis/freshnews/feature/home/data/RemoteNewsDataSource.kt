@@ -13,7 +13,7 @@ internal class RemoteNewsDataSource(
 ) {
 
     /*
-     * API details [here](https://newsapi.org/docs/endpoints/top-headlines)
+     * API details: https://newsapi.org/docs/endpoints/top-headlines
      */
     suspend fun getTopHeadlines(): NewsResponse = httpClient.get {
         url {

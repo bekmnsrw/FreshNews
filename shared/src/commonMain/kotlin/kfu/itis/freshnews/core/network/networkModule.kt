@@ -86,7 +86,7 @@ private fun provideHttpClient(
     }
 
     /*
-     * API documentation [here](https://newsapi.org/docs/get-started)
+     * API documentation: https://newsapi.org/docs/get-started
      */
     defaultRequest {
         url {

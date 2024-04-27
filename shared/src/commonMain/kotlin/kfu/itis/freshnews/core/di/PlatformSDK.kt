@@ -1,4 +1,4 @@
-package kfu.itis.freshnews
+package kfu.itis.freshnews.core.di
 
 import kfu.itis.freshnews.core.configuration.Configuration
 import kfu.itis.freshnews.core.configuration.PlatformConfiguration

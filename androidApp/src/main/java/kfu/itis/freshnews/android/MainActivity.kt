@@ -11,7 +11,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import kfu.itis.freshnews.Greeting
-import kfu.itis.freshnews.PlatformSDK
+import kfu.itis.freshnews.core.di.PlatformSDK
 import kfu.itis.freshnews.feature.home.domain.usecase.GetTopHeadlinesUseCase
 import kotlinx.coroutines.launch
 import org.kodein.di.instance
