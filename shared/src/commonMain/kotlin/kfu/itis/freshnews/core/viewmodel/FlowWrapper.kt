@@ -9,10 +9,10 @@ import kotlinx.coroutines.launch
 import kotlin.experimental.ExperimentalObjCRefinement
 import kotlin.native.HiddenFromObjC
 
-/*
+/**
  * Source:
- *   - https://habr.com/ru/articles/596497/
- *   - https://github.com/anioutkazharkova/kn_network_sample/blob/main/classic/shared/src/commonMain/kotlin/com/azharkova/kn_network_sample/Flow.kt
+ *   - [Habr Article](https://habr.com/ru/articles/596497/)
+ *   - [GitHub](https://github.com/anioutkazharkova/kn_network_sample/blob/main/classic/shared/src/commonMain/kotlin/com/azharkova/kn_network_sample/Flow.kt)
  */
 class FlowWrapper<T>(
     private val source: Flow<T>,

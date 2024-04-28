@@ -8,6 +8,6 @@ import kfu.itis.freshnews.core.configuration.PlatformConfiguration
 actual open class HttpEngineFactory actual constructor() {
 
     actual open fun createEngine(
-        platformConfiguration: PlatformConfiguration
+        platformConfiguration: PlatformConfiguration,
     ): HttpClientEngineFactory<HttpClientEngineConfig> = Darwin
 }

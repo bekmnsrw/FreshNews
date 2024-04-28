@@ -7,6 +7,6 @@ import kfu.itis.freshnews.core.configuration.PlatformConfiguration
 expect open class HttpEngineFactory() {
 
     fun createEngine(
-        platformConfiguration: PlatformConfiguration
+        platformConfiguration: PlatformConfiguration,
     ): HttpClientEngineFactory<HttpClientEngineConfig>
 }

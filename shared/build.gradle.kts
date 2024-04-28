@@ -46,8 +46,9 @@ kotlin {
             implementation(libs.okhttp3.logging.interceptor)
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.timber)
-            implementation(libs.bundles.androidLifecycle)
+            implementation(libs.kodein.di.framework.android)
             implementation(libs.sql.delight.android.driver)
+            implementation(libs.androidx.lifecycle.viewmodel.compose)
         }
 
         iosMain.dependencies {

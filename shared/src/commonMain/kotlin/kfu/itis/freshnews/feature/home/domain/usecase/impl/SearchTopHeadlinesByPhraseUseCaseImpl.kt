@@ -5,12 +5,10 @@ import kfu.itis.freshnews.feature.home.domain.model.Article
 import kfu.itis.freshnews.feature.home.domain.usecase.SearchTopHeadlinesByPhraseUseCase
 
 class SearchTopHeadlinesByPhraseUseCaseImpl(
-    private val newsRepository: NewsRepository
+    private val newsRepository: NewsRepository,
 ): SearchTopHeadlinesByPhraseUseCase {
 
-    override suspend fun invoke(
-        phrase: String
-    ): List<Article> = newsRepository.searchTopHeadlinesByPhrase(
-        phrase = phrase
-    )
+    override suspend fun invoke(phrase: String): List<Article> {
+        return newsRepository.searchTopHeadlinesByPhrase(phrase)
+    }
 }

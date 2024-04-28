@@ -49,11 +49,14 @@ val networkModule = DI.Module(name = MODULE_NAME) {
         provideHttpClient(
             httpClientEngine = instance<HttpClientEngineFactory<HttpClientEngineConfig>>(),
             json = instance<Json>(),
-            configuration = instance<Configuration>()
+            configuration = instance<Configuration>(),
         )
     }
 }
 
+/**
+ * API documentation: [get-started](https://newsapi.org/docs/get-started)
+ */
 private fun provideHttpClient(
     httpClientEngine: HttpClientEngineFactory<HttpClientEngineConfig>,
     json: Json,
@@ -77,9 +80,6 @@ private fun provideHttpClient(
         socketTimeoutMillis = SOCKET_TIMEOUT_MILLIS
     }
 
-    /*
-     * API documentation: https://newsapi.org/docs/get-started
-     */
     defaultRequest {
         url {
             protocol = URLProtocol.HTTPS

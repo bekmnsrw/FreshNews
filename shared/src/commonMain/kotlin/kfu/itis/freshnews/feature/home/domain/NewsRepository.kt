@@ -3,6 +3,7 @@ package kfu.itis.freshnews.feature.home.domain
 import kfu.itis.freshnews.feature.home.domain.model.Article
 import kfu.itis.freshnews.feature.home.domain.model.ArticleCategory
 import kfu.itis.freshnews.feature.home.domain.model.FavoritesArticle
+import kotlinx.coroutines.flow.Flow
 
 interface NewsRepository {
 
@@ -11,4 +12,5 @@ interface NewsRepository {
     suspend fun searchTopHeadlinesByPhrase(phrase: String): List<Article>
     suspend fun addFavoritesArticle(favoritesArticle: FavoritesArticle)
     suspend fun removeFavoritesArticle(id: Int)
+    suspend fun getAllFavoritesArticle(): Flow<List<FavoritesArticle>>
 }

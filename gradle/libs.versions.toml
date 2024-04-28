@@ -150,3 +150,14 @@ sqlDelightCommon = [
     "sql-delight-coroutines-extensions",
     "sql-delight-adapter",
 ]
+
+compose = [
+    "compose-ui",
+    "compose-ui-tooling-preview",
+    "compose-material3",
+    "androidx-activity-compose",
+]
+
+composeDebug = [
+    "compose-ui-tooling",
+]

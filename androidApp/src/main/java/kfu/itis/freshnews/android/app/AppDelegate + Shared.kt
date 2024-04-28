@@ -15,10 +15,10 @@ fun AppDelegate.initShared() {
             appVersionName = BuildConfig.VERSION_NAME,
             appVersionNumber = BuildConfig.VERSION_CODE.toString(),
             osVersion = Build.VERSION.RELEASE.toString(),
-            deviceType = resources.deviceType
+            deviceType = resources.deviceType,
         ),
         isDebug = BuildConfig.DEBUG,
-        isHttpLoggingEnabled = BuildConfig.DEBUG
+        isHttpLoggingEnabled = BuildConfig.DEBUG,
     )
 
     PlatformSDK.init(configuration = configuration)

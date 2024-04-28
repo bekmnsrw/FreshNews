@@ -6,12 +6,10 @@ import kfu.itis.freshnews.feature.home.domain.model.ArticleCategory
 import kfu.itis.freshnews.feature.home.domain.usecase.GetTopHeadlinesByCategoryUseCase
 
 class GetTopHeadlinesByCategoryUseCaseImpl(
-    private val newsRepository: NewsRepository
+    private val newsRepository: NewsRepository,
 ): GetTopHeadlinesByCategoryUseCase {
 
-    override suspend fun invoke(
-        category: ArticleCategory
-    ): List<Article> = newsRepository.getTopHeadlinesByCategory(
-        category = category
-    )
+    override suspend fun invoke(category: ArticleCategory): List<Article> {
+        return newsRepository.getTopHeadlinesByCategory(category)
+    }
 }

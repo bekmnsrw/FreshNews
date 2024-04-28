@@ -49,14 +49,8 @@ android {
 dependencies {
     implementation(projects.shared)
 
-    // Compose
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.compose.material3)
-    implementation(libs.androidx.activity.compose)
-    debugImplementation(libs.compose.ui.tooling)
-
-    // Kodein
-    implementation(libs.kodein.di.framework.android)
+    implementation(libs.bundles.compose)
+    debugImplementation(libs.bundles.composeDebug)
+    implementation(libs.bundles.androidLifecycle)
     implementation(libs.kodein.di.framework.compose)
 }

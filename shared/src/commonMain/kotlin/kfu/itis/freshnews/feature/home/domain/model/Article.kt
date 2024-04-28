@@ -8,5 +8,5 @@ data class Article(
     val sourceResponse: Source,
     val title: String,
     val url: String,
-    val urlToImage: String
+    val urlToImage: String,
 )

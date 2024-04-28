@@ -9,11 +9,11 @@ import kfu.itis.freshnews.feature.home.data.datasource.remote.response.NewsRespo
 import kfu.itis.freshnews.feature.home.domain.model.ArticleCategory
 
 internal class RemoteNewsDataSource(
-    private val httpClient: HttpClient
+    private val httpClient: HttpClient,
 ) {
 
-    /*
-     * API details: https://newsapi.org/docs/endpoints/top-headlines
+    /**
+     * API documentation: [top-headlines](https://newsapi.org/docs/endpoints/top-headlines)
      */
     suspend fun getTopHeadlines(): NewsResponse = httpClient.get {
         url {

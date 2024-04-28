@@ -12,5 +12,5 @@ data class ArticleResponse(
     @SerialName("source") val sourceResponse: SourceResponse?,
     @SerialName("title") val title: String?,
     @SerialName("url") val url: String?,
-    @SerialName("urlToImage") val urlToImage: String?
+    @SerialName("urlToImage") val urlToImage: String?,
 )

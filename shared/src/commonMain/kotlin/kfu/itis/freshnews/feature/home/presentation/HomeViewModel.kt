@@ -31,6 +31,7 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
                     articlesByCategory = articlesByCategory,
                 )
             } catch (e: Throwable) {
+                state = state.copy(error = e)
                 action = HomeAction.ShowError("Oops, something went wrong")
             } finally {
                 state = state.copy(isLoading = false)
@@ -40,15 +41,23 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
 
     private fun onArticleClick(name: String) {
         scope.launch {
-            action = HomeAction.NavigateDetails(name)
+            try {
+                action = HomeAction.NavigateDetails(name)
+            } catch (e: Throwable) {
+                state = state.copy(error = e)
+                action = HomeAction.ShowError("Oops, something went wrong")
+            }
         }
     }
 
     private fun onQueryChange(query: String) {
         scope.launch {
-            state = state.copy(
-                searchQuery = query,
-            )
+            try {
+                state = state.copy(searchQuery = query)
+            } catch (e: Throwable) {
+                state = state.copy(error = e)
+                action = HomeAction.ShowError("Oops, something went wrong")
+            }
         }
     }
 }

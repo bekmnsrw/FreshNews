@@ -15,9 +15,12 @@ internal class LocalNewsDataSource(
     private val database: FreshNews,
 ) {
 
+    /**
+     * TODO: Move to DetailsFeature
+     */
     suspend fun addFavoritesNews(favoritesArticle: FavoritesArticle) = withContext(Dispatchers.IO) {
         database.freshNewsQueries.addFavoritesNews(
-            id = null,
+            id = favoritesArticle.id?.toLong(),
             image_url = favoritesArticle.imageUrl,
             title = favoritesArticle.title,
             description = favoritesArticle.description,
@@ -26,7 +29,7 @@ internal class LocalNewsDataSource(
         )
     }
 
-    /*
+    /**
      * TODO: Move to FavoritesFeature
      */
     fun getAllFavoritesNews(): Flow<List<FavoritesNews>> {
@@ -35,7 +38,7 @@ internal class LocalNewsDataSource(
             .mapToList(Dispatchers.IO)
     }
 
-    /*
+    /**
      * TODO: Move to FavoritesFeature
      */
     fun getFavoritesNewsById(id: Int): Flow<FavoritesNews> {
@@ -44,6 +47,9 @@ internal class LocalNewsDataSource(
             .mapToOne(Dispatchers.IO)
     }
 
+    /**
+     * TODO: Move to DetailsFeature
+     */
     suspend fun removeFavoritesNewsById(id: Int) = withContext(Dispatchers.IO) {
         database.freshNewsQueries.removeFavoritesNewsById(id.toLong())
     }

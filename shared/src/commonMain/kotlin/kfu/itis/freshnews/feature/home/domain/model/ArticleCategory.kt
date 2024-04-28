@@ -8,5 +8,5 @@ enum class ArticleCategory {
     HEALTH,
     SCIENCE,
     SPORTS,
-    TECHNOLOGY
+    TECHNOLOGY,
 }
