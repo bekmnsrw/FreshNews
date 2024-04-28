@@ -131,7 +131,6 @@ firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "fir
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" } # https://firebase.google.com/docs/analytics/get-started?platform=android
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" } # https://firebase.google.com/docs/crashlytics/get-started?platform=android
 firebase-perf = { module = "com.google.firebase:firebase-perf" } # https://firebase.google.com/docs/perf-mon/get-started-android
-firebase-config = { module = "com.google.firebase:firebase-config" } # https://firebase.google.com/docs/remote-config/get-started?platform=android
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -182,7 +181,6 @@ composeDebug = [
 
 firebase = [
     "firebase-analytics",
-    "firebase-config",
     "firebase-crashlytics",
     "firebase-perf",
 ]
