@@ -1,11 +1,11 @@
-package kfu.itis.freshnews.feature.home.data
+package kfu.itis.freshnews.feature.home.data.datasource.remote
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.http.path
-import kfu.itis.freshnews.feature.home.data.response.NewsResponse
+import kfu.itis.freshnews.feature.home.data.datasource.remote.response.NewsResponse
 import kfu.itis.freshnews.feature.home.domain.model.ArticleCategory
 
 internal class RemoteNewsDataSource(
@@ -22,18 +22,14 @@ internal class RemoteNewsDataSource(
         }
     }.body()
 
-    suspend fun getTopHeadlinesByCategory(
-        category: ArticleCategory
-    ): NewsResponse = httpClient.get {
+    suspend fun getTopHeadlinesByCategory(category: ArticleCategory): NewsResponse = httpClient.get {
         url {
             path("top-headlines")
             parameter("category", category.name.lowercase())
         }
     }.body()
 
-    suspend fun searchTopHeadlinesByPhrase(
-        phrase: String
-    ): NewsResponse = httpClient.get {
+    suspend fun searchTopHeadlinesByPhrase(phrase: String): NewsResponse = httpClient.get {
         url {
             path("top-headlines")
             parameter("q", phrase)

@@ -1,7 +1,7 @@
 package kfu.itis.freshnews.feature.home.data.mapper
 
-import kfu.itis.freshnews.feature.home.data.response.ArticleResponse
-import kfu.itis.freshnews.feature.home.data.response.SourceResponse
+import kfu.itis.freshnews.feature.home.data.datasource.remote.response.ArticleResponse
+import kfu.itis.freshnews.feature.home.data.datasource.remote.response.SourceResponse
 import kfu.itis.freshnews.feature.home.domain.model.Article
 import kfu.itis.freshnews.feature.home.domain.model.Source
 

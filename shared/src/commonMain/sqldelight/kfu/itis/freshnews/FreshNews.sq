@@ -1,0 +1,21 @@
+CREATE TABLE FavoritesNews (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    image_url TEXT NOT NULL,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    source TEXT NOT NULL,
+    published_at TEXT NOT NULL
+);
+
+addFavoritesNews:
+INSERT OR REPLACE INTO FavoritesNews(id, image_url, title, description, source, published_at)
+VALUES (?, ?, ?, ?, ?, ?);
+
+getAllFavoritesNews:
+SELECT * FROM FavoritesNews;
+
+getFavoritesNewsById:
+SELECT * FROM FavoritesNews WHERE id == ?;
+
+removeFavoritesNewsById:
+DELETE FROM FavoritesNews WHERE id == ?;

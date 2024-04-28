@@ -1,8 +1,10 @@
 package kfu.itis.freshnews.feature.home.di
 
 import io.ktor.client.HttpClient
+import kfu.itis.freshnews.FreshNews
 import kfu.itis.freshnews.feature.home.data.NewsRepositoryImpl
-import kfu.itis.freshnews.feature.home.data.RemoteNewsDataSource
+import kfu.itis.freshnews.feature.home.data.datasource.local.LocalNewsDataSource
+import kfu.itis.freshnews.feature.home.data.datasource.remote.RemoteNewsDataSource
 import kfu.itis.freshnews.feature.home.domain.NewsRepository
 import kfu.itis.freshnews.feature.home.domain.usecase.GetTopHeadlinesByCategoryUseCase
 import kfu.itis.freshnews.feature.home.domain.usecase.GetTopHeadlinesUseCase
@@ -19,62 +21,38 @@ private const val MODULE_NAME = "homeModule"
 val homeModule = DI.Module(name = MODULE_NAME) {
 
     bindProvider<RemoteNewsDataSource> {
-        provideRemoteNewsDataSource(
-            httpClient = instance<HttpClient>()
+        RemoteNewsDataSource(
+            httpClient = instance<HttpClient>(),
+        )
+    }
+
+    bindProvider<LocalNewsDataSource> {
+        LocalNewsDataSource(
+            database = instance<FreshNews>(),
         )
     }
 
     bindProvider<NewsRepository> {
-        provideNewsRepository(
-            remoteNewsDataSource = instance<RemoteNewsDataSource>()
+        NewsRepositoryImpl(
+            remoteNewsDataSource = instance<RemoteNewsDataSource>(),
         )
     }
 
     bindProvider<GetTopHeadlinesUseCase> {
-        provideGetTopHeadlinesUseCase(
-            newsRepository = instance<NewsRepository>()
+        GetTopHeadlinesUseCaseImpl(
+            newsRepository = instance<NewsRepository>(),
         )
     }
 
     bindProvider<GetTopHeadlinesByCategoryUseCase> {
-        provideGetTopHeadlinesByCategoryUseCase(
-            newsRepository = instance<NewsRepository>()
+        GetTopHeadlinesByCategoryUseCaseImpl(
+            newsRepository = instance<NewsRepository>(),
         )
     }
 
     bindProvider<SearchTopHeadlinesByPhraseUseCase> {
-        provideSearchTopHeadlinesByPhraseUseCase(
-            newsRepository = instance<NewsRepository>()
+        SearchTopHeadlinesByPhraseUseCaseImpl(
+            newsRepository = instance<NewsRepository>(),
         )
     }
 }
-
-private fun provideRemoteNewsDataSource(
-    httpClient: HttpClient
-): RemoteNewsDataSource = RemoteNewsDataSource(
-    httpClient = httpClient
-)
-
-private fun provideNewsRepository(
-    remoteNewsDataSource: RemoteNewsDataSource
-): NewsRepository = NewsRepositoryImpl(
-    remoteNewsDataSource = remoteNewsDataSource
-)
-
-private fun provideGetTopHeadlinesUseCase(
-    newsRepository: NewsRepository
-): GetTopHeadlinesUseCase = GetTopHeadlinesUseCaseImpl(
-    newsRepository = newsRepository
-)
-
-private fun provideGetTopHeadlinesByCategoryUseCase(
-    newsRepository: NewsRepository
-): GetTopHeadlinesByCategoryUseCase = GetTopHeadlinesByCategoryUseCaseImpl(
-    newsRepository = newsRepository
-)
-
-private fun provideSearchTopHeadlinesByPhraseUseCase(
-    newsRepository: NewsRepository
-): SearchTopHeadlinesByPhraseUseCase = SearchTopHeadlinesByPhraseUseCaseImpl(
-    newsRepository = newsRepository
-)

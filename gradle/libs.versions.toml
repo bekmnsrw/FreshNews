@@ -18,7 +18,7 @@ kotlin = "1.9.20" # https://kotlinlang.org/docs/releases.html#release-details
 coroutines = "1.7.3" # https://github.com/Kotlin/kotlinx.coroutines
 serialization = "1.6.2" # https://github.com/Kotlin/kotlinx.serialization
 immutable = "0.3.5" # https://github.com/Kotlin/kotlinx.collections.immutable
-sql-delight = "1.5.5" # https://github.com/cashapp/sqldelight
+sql-delight = "2.0.2" # https://github.com/cashapp/sqldelight
 ktor = "2.3.7" # https://github.com/ktorio/ktor
 multiplatform-settings = "1.1.1" # https://github.com/russhwolf/multiplatform-settings
 kodein = "7.21.2" # https://github.com/kosi-libs/Kodein
@@ -89,7 +89,6 @@ ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
-ktor-client-mock-jvm = { module = "io.ktor:ktor-client-mock-jvm", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" } # Android
 okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" } # Android
 ktor-client-ios = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" } # iOS
@@ -103,10 +102,10 @@ coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coil" }
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatform-settings" }
 
 # SQLDelight
-sql-delight-android-driver = { module = "com.squareup.sqldelight:android-driver", version.ref = "sql-delight" } # Android
-sql-delight-native-driver = { module = "com.squareup.sqldelight:native-driver", version.ref = "sql-delight" } # iOS
-sql-delight-sqlite-driver = { module = "com.squareup.sqldelight:sqlite-driver", version.ref = "sql-delight" }
-sql-delight-coroutines-extensions = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "sql-delight" }
+sql-delight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sql-delight" } # Android
+sql-delight-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sql-delight" } # iOS
+sql-delight-coroutines-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sql-delight" }
+sql-delight-adapter = { module = "app.cash.sqldelight:primitive-adapters", version.ref = "sql-delight" }
 
 # Timber
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
@@ -126,6 +125,7 @@ kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+sqlDelight = { id = "app.cash.sqldelight", version.ref = "sql-delight" }
 
 [bundles]
 ktorClientCommon = [
@@ -144,4 +144,9 @@ androidLifecycle = [
     "androidx-lifecycle-runtime",
     "androidx-lifecycle-viewmodel-compose",
     "androidx-lifecycle-runtime-compose",
+]
+
+sqlDelightCommon = [
+    "sql-delight-coroutines-extensions",
+    "sql-delight-adapter",
 ]

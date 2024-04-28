@@ -32,13 +32,17 @@ private const val SOCKET_TIMEOUT_MILLIS = 30000L
 val networkModule = DI.Module(name = MODULE_NAME) {
 
     bindSingleton<HttpClientEngineFactory<HttpClientEngineConfig>> {
-        provideHttpClientEngineFactory(
-            platformConfiguration = instance<PlatformConfiguration>()
+        HttpEngineFactory().createEngine(
+            platformConfiguration = instance<PlatformConfiguration>(),
         )
     }
 
     bindSingleton<Json> {
-        provideJson()
+        Json {
+            isLenient = true
+            ignoreUnknownKeys = true
+            prettyPrint = true
+        }
     }
 
     bindSingleton<HttpClient> {
@@ -50,22 +54,10 @@ val networkModule = DI.Module(name = MODULE_NAME) {
     }
 }
 
-private fun provideHttpClientEngineFactory(
-    platformConfiguration: PlatformConfiguration
-): HttpClientEngineFactory<HttpClientEngineConfig> = HttpEngineFactory().createEngine(
-    platformConfiguration = platformConfiguration
-)
-
-private fun provideJson(): Json = Json {
-    isLenient = true
-    ignoreUnknownKeys = true
-    prettyPrint = true
-}
-
 private fun provideHttpClient(
     httpClientEngine: HttpClientEngineFactory<HttpClientEngineConfig>,
     json: Json,
-    configuration: Configuration
+    configuration: Configuration,
 ): HttpClient = HttpClient(httpClientEngine) {
 
     if (configuration.isHttpLoggingEnabled) {

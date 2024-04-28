@@ -2,6 +2,7 @@ package kfu.itis.freshnews.core.di
 
 import kfu.itis.freshnews.core.configuration.Configuration
 import kfu.itis.freshnews.core.configuration.PlatformConfiguration
+import kfu.itis.freshnews.core.db.dbModule
 import kfu.itis.freshnews.core.network.networkModule
 import kfu.itis.freshnews.feature.home.di.homeModule
 import org.kodein.di.DI
@@ -25,7 +26,8 @@ object PlatformSDK {
             importAll(
                 createConfigurationModule(configuration = configuration),
                 networkModule,
-                homeModule
+                dbModule,
+                homeModule,
             )
         }.direct
     }
@@ -33,13 +35,8 @@ object PlatformSDK {
     private fun createConfigurationModule(configuration: Configuration): DI.Module = DI.Module(
         name = MODULE_NAME,
         init = {
-            bindSingleton<Configuration> {
-                configuration
-            }
-
-            bindSingleton<PlatformConfiguration> {
-                configuration.platformConfiguration
-            }
+            bindSingleton<Configuration> { configuration }
+            bindSingleton<PlatformConfiguration> { configuration.platformConfiguration }
         }
     )
 

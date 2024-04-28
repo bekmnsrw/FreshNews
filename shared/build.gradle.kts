@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlinCocoapods)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.sqlDelight)
 }
 
 kotlin {
@@ -37,6 +38,7 @@ kotlin {
             implementation(libs.bundles.serialization)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kodein.di)
+            implementation(libs.bundles.sqlDelightCommon)
         }
 
         androidMain.dependencies {
@@ -45,14 +47,26 @@ kotlin {
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.timber)
             implementation(libs.bundles.androidLifecycle)
+            implementation(libs.sql.delight.android.driver)
         }
 
         iosMain.dependencies {
             implementation(libs.ktor.client.ios)
+            implementation(libs.sql.delight.native.driver)
         }
 
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+    }
+
+    task("testClasses")
+}
+
+sqldelight {
+    databases {
+        create("FreshNews") {
+            packageName.set("kfu.itis.freshnews")
         }
     }
 }

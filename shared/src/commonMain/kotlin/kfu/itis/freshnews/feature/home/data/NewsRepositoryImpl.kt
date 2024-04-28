@@ -1,5 +1,6 @@
 package kfu.itis.freshnews.feature.home.data
 
+import kfu.itis.freshnews.feature.home.data.datasource.remote.RemoteNewsDataSource
 import kfu.itis.freshnews.feature.home.data.mapper.toArticles
 import kfu.itis.freshnews.feature.home.domain.NewsRepository
 import kfu.itis.freshnews.feature.home.domain.model.Article
