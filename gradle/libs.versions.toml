@@ -10,11 +10,11 @@ jvm-target = "17"
 
 # Compose
 compose = "1.6.2" # https://developer.android.com/jetpack/androidx/releases/compose
-compose-compiler = "1.5.5" # https://developer.android.com/jetpack/androidx/releases/compose-kotlin
+compose-compiler = "1.5.11" # https://developer.android.com/jetpack/androidx/releases/compose-kotlin
 compose-material3 = "1.2.0" # https://developer.android.com/jetpack/androidx/releases/compose-material3
 
 # Multiplatform
-kotlin = "1.9.20" # https://kotlinlang.org/docs/releases.html#release-details
+kotlin = "1.9.23" # https://kotlinlang.org/docs/releases.html#release-details
 coroutines = "1.7.3" # https://github.com/Kotlin/kotlinx.coroutines
 serialization = "1.6.2" # https://github.com/Kotlin/kotlinx.serialization
 immutable = "0.3.5" # https://github.com/Kotlin/kotlinx.collections.immutable

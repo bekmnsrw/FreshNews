@@ -1,13 +1,16 @@
 package kfu.itis.freshnews.feature.home.data
 
+import kfu.itis.freshnews.feature.home.data.datasource.local.LocalNewsDataSource
 import kfu.itis.freshnews.feature.home.data.datasource.remote.RemoteNewsDataSource
 import kfu.itis.freshnews.feature.home.data.mapper.toArticles
 import kfu.itis.freshnews.feature.home.domain.NewsRepository
 import kfu.itis.freshnews.feature.home.domain.model.Article
 import kfu.itis.freshnews.feature.home.domain.model.ArticleCategory
+import kfu.itis.freshnews.feature.home.domain.model.FavoritesArticle
 
 internal class NewsRepositoryImpl(
-    private val remoteNewsDataSource: RemoteNewsDataSource
+    private val remoteNewsDataSource: RemoteNewsDataSource,
+    private val localNewsDataSource: LocalNewsDataSource,
 ): NewsRepository {
 
     override suspend fun getTopHeadlines(): List<Article> {
@@ -29,5 +32,13 @@ internal class NewsRepositoryImpl(
             .searchTopHeadlinesByPhrase(phrase = phrase)
             .articleResponses
             .toArticles()
+    }
+
+    override suspend fun addFavoritesArticle(favoritesArticle: FavoritesArticle) {
+        localNewsDataSource.addFavoritesNews(favoritesArticle)
+    }
+
+    override suspend fun removeFavoritesArticle(id: Int) {
+        localNewsDataSource.removeFavoritesNewsById(id)
     }
 }

@@ -26,12 +26,18 @@ internal class LocalNewsDataSource(
         )
     }
 
+    /*
+     * TODO: Move to FavoritesFeature
+     */
     fun getAllFavoritesNews(): Flow<List<FavoritesNews>> {
         return database.freshNewsQueries.getAllFavoritesNews()
             .asFlow()
             .mapToList(Dispatchers.IO)
     }
 
+    /*
+     * TODO: Move to FavoritesFeature
+     */
     fun getFavoritesNewsById(id: Int): Flow<FavoritesNews> {
         return database.freshNewsQueries.getFavoritesNewsById(id.toLong())
             .asFlow()
