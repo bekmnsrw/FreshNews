@@ -3,7 +3,8 @@ package kfu.itis.freshnews.android.app
 import android.os.Build
 import kfu.itis.freshnews.core.di.PlatformSDK
 import kfu.itis.freshnews.android.BuildConfig
-import kfu.itis.freshnews.android.firebase.AndroidFirebaseCrashlyticsBinding
+import kfu.itis.freshnews.android.firebase.AndroidFirebaseAnalytics
+import kfu.itis.freshnews.android.firebase.AndroidFirebaseCrashlytics
 import kfu.itis.freshnews.core.configuration.Configuration
 import kfu.itis.freshnews.core.configuration.PlatformConfiguration
 import kfu.itis.freshnews.utils.deviceType
@@ -20,7 +21,8 @@ fun AppDelegate.initShared() {
         ),
         isDebug = BuildConfig.DEBUG,
         isHttpLoggingEnabled = BuildConfig.DEBUG,
-        firebaseCrashlyticsBinding = AndroidFirebaseCrashlyticsBinding(),
+        firebaseCrashlyticsBinding = AndroidFirebaseCrashlytics(),
+        firebaseAnalyticsBinding = AndroidFirebaseAnalytics(),
     )
 
     PlatformSDK.init(configuration = configuration)

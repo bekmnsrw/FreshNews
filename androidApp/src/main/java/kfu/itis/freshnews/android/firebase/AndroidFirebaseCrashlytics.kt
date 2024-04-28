@@ -4,7 +4,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kfu.itis.freshnews.core.firebase.FirebaseCrashlyticsBinding
 import kfu.itis.freshnews.utils.lazyUnsafe
 
-class AndroidFirebaseCrashlyticsBinding : FirebaseCrashlyticsBinding {
+class AndroidFirebaseCrashlytics : FirebaseCrashlyticsBinding {
 
     private val crashlytics by lazyUnsafe {
         FirebaseCrashlytics.getInstance()

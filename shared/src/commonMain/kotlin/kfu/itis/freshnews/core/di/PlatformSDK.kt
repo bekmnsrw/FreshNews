@@ -3,6 +3,7 @@ package kfu.itis.freshnews.core.di
 import kfu.itis.freshnews.core.configuration.Configuration
 import kfu.itis.freshnews.core.configuration.PlatformConfiguration
 import kfu.itis.freshnews.core.db.dbModule
+import kfu.itis.freshnews.core.firebase.FirebaseAnalyticsBinding
 import kfu.itis.freshnews.core.firebase.FirebaseCrashlyticsBinding
 import kfu.itis.freshnews.core.network.networkModule
 import kfu.itis.freshnews.feature.home.di.homeModule
@@ -39,6 +40,7 @@ object PlatformSDK {
             bindSingleton<Configuration> { configuration }
             bindSingleton<PlatformConfiguration> { configuration.platformConfiguration }
             bindSingleton<FirebaseCrashlyticsBinding> { configuration.firebaseCrashlyticsBinding }
+            bindSingleton<FirebaseAnalyticsBinding> { configuration.firebaseAnalyticsBinding }
         }
     )
 

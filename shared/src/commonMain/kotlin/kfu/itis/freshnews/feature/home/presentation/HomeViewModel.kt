@@ -1,8 +1,10 @@
 package kfu.itis.freshnews.feature.home.presentation
 
 import kfu.itis.freshnews.core.di.PlatformSDK
+import kfu.itis.freshnews.core.firebase.FirebaseAnalyticsBinding
 import kfu.itis.freshnews.core.firebase.FirebaseCrashlyticsBinding
 import kfu.itis.freshnews.core.viewmodel.BaseViewModel
+import kfu.itis.freshnews.feature.home.domain.model.ArticleCategory
 import kfu.itis.freshnews.feature.home.domain.usecase.GetTopHeadlinesByCategoryUseCase
 import kfu.itis.freshnews.feature.home.domain.usecase.GetTopHeadlinesUseCase
 import kfu.itis.freshnews.feature.home.domain.usecase.SearchTopHeadlinesByPhraseUseCase
@@ -16,6 +18,7 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
     private val searchTopHeadlinesByPhraseUseCase: SearchTopHeadlinesByPhraseUseCase by PlatformSDK.lazyInstance()
     private val getTopHeadlinesByCategoryUseCase: GetTopHeadlinesByCategoryUseCase by PlatformSDK.lazyInstance()
     private val firebaseCrashlyticsBinding: FirebaseCrashlyticsBinding by PlatformSDK.lazyInstance()
+    private val firebaseAnalyticsBinding: FirebaseAnalyticsBinding by PlatformSDK.lazyInstance() // TODO: Remove (just for test purposes)
 
     override fun handleEvent(event: HomeEvent) = when (event) {
         HomeEvent.OnInit -> onInit()
@@ -45,6 +48,7 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
     private fun onArticleClick(name: String) {
         scope.launch {
             try {
+                firebaseAnalyticsBinding.logAddingToFavoritesEvent(ArticleCategory.HEALTH, "source") // TODO: Remove (just for test purposes)
                 action = HomeAction.NavigateDetails(name)
             } catch (error: Throwable) {
                 state = state.copy(error = error)
