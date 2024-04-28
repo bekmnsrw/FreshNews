@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<State : Any, Action, Event>(
+abstract class BaseViewModel<State, Action, Event>(
     initialState: State,
 ) : KmpViewModel() {
 

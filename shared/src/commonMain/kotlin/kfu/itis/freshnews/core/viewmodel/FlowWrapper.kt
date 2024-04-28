@@ -6,6 +6,8 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import kotlin.experimental.ExperimentalObjCRefinement
+import kotlin.native.HiddenFromObjC
 
 /*
  * Source:
@@ -59,6 +61,8 @@ fun <T> Flow<T>.collect(
     }
 }
 
+@OptIn(ExperimentalObjCRefinement::class)
+@HiddenFromObjC
 fun <T> Flow<T>.asFlowWrapper(): FlowWrapper<T> = FlowWrapper(this)
 
 interface Cancellable {

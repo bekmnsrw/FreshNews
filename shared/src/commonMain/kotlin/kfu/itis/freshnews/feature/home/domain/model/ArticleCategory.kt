@@ -1,6 +1,6 @@
 package kfu.itis.freshnews.feature.home.domain.model
 
-enum class TopHeadlinesCategory {
+enum class ArticleCategory {
 
     BUSINESS,
     ENTERTAINMENT,

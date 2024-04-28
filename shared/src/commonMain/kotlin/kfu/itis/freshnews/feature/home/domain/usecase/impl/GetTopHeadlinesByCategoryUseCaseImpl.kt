@@ -1,8 +1,8 @@
 package kfu.itis.freshnews.feature.home.domain.usecase.impl
 
 import kfu.itis.freshnews.feature.home.domain.NewsRepository
-import kfu.itis.freshnews.feature.home.domain.model.News
-import kfu.itis.freshnews.feature.home.domain.model.TopHeadlinesCategory
+import kfu.itis.freshnews.feature.home.domain.model.Article
+import kfu.itis.freshnews.feature.home.domain.model.ArticleCategory
 import kfu.itis.freshnews.feature.home.domain.usecase.GetTopHeadlinesByCategoryUseCase
 
 class GetTopHeadlinesByCategoryUseCaseImpl(
@@ -10,8 +10,8 @@ class GetTopHeadlinesByCategoryUseCaseImpl(
 ): GetTopHeadlinesByCategoryUseCase {
 
     override suspend fun invoke(
-        category: TopHeadlinesCategory
-    ): News = newsRepository.getTopHeadlinesByCategory(
+        category: ArticleCategory
+    ): List<Article> = newsRepository.getTopHeadlinesByCategory(
         category = category
     )
 }

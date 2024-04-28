@@ -1,17 +1,9 @@
 package kfu.itis.freshnews.feature.home.data.mapper
 
 import kfu.itis.freshnews.feature.home.data.response.ArticleResponse
-import kfu.itis.freshnews.feature.home.data.response.NewsResponse
 import kfu.itis.freshnews.feature.home.data.response.SourceResponse
 import kfu.itis.freshnews.feature.home.domain.model.Article
-import kfu.itis.freshnews.feature.home.domain.model.News
 import kfu.itis.freshnews.feature.home.domain.model.Source
-
-fun NewsResponse.toNews(): News = News(
-    articles = articleResponses?.toArticles() ?: listOf(),
-    status = status ?: "",
-    totalResults = totalResults ?: 0
-)
 
 fun ArticleResponse.toArticle(): Article = Article(
     author = author ?: "",

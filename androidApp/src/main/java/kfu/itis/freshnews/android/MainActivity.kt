@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val getTopHeadlinesUseCase: GetTopHeadlinesUseCase? = PlatformSDK._di?.instance<GetTopHeadlinesUseCase>()
+        val getTopHeadlinesUseCase: GetTopHeadlinesUseCase = PlatformSDK.di.instance<GetTopHeadlinesUseCase>()
 
         setContent {
             MyApplicationTheme {
@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
                         text = Greeting().greet(),
                         onClick = {
                             coroutineScope.launch {
-                                getTopHeadlinesUseCase?.invoke()?.articles?.forEach {
+                                getTopHeadlinesUseCase().forEach {
                                     println(it.title)
                                 }
                             }

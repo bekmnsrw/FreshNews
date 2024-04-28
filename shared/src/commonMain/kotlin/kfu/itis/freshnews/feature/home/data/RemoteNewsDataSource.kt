@@ -6,7 +6,7 @@ import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.http.path
 import kfu.itis.freshnews.feature.home.data.response.NewsResponse
-import kfu.itis.freshnews.feature.home.domain.model.TopHeadlinesCategory
+import kfu.itis.freshnews.feature.home.domain.model.ArticleCategory
 
 internal class RemoteNewsDataSource(
     private val httpClient: HttpClient
@@ -23,7 +23,7 @@ internal class RemoteNewsDataSource(
     }.body()
 
     suspend fun getTopHeadlinesByCategory(
-        category: TopHeadlinesCategory
+        category: ArticleCategory
     ): NewsResponse = httpClient.get {
         url {
             path("top-headlines")
