@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.googleServices)
+    alias(libs.plugins.firebaseCrashlytics)
+    alias(libs.plugins.firebasePerf)
 }
 
 android {
@@ -49,8 +52,10 @@ android {
 dependencies {
     implementation(projects.shared)
 
-    implementation(libs.bundles.compose)
+    implementation(libs.bundles.composeCore)
     debugImplementation(libs.bundles.composeDebug)
     implementation(libs.bundles.androidLifecycle)
     implementation(libs.kodein.di.framework.compose)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.bundles.firebase)
 }

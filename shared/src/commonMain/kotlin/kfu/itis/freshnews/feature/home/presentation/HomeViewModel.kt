@@ -1,6 +1,7 @@
 package kfu.itis.freshnews.feature.home.presentation
 
 import kfu.itis.freshnews.core.di.PlatformSDK
+import kfu.itis.freshnews.core.firebase.FirebaseCrashlyticsBinding
 import kfu.itis.freshnews.core.viewmodel.BaseViewModel
 import kfu.itis.freshnews.feature.home.domain.usecase.GetTopHeadlinesByCategoryUseCase
 import kfu.itis.freshnews.feature.home.domain.usecase.GetTopHeadlinesUseCase
@@ -14,6 +15,7 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
     private val getTopHeadlinesUseCase: GetTopHeadlinesUseCase by PlatformSDK.lazyInstance()
     private val searchTopHeadlinesByPhraseUseCase: SearchTopHeadlinesByPhraseUseCase by PlatformSDK.lazyInstance()
     private val getTopHeadlinesByCategoryUseCase: GetTopHeadlinesByCategoryUseCase by PlatformSDK.lazyInstance()
+    private val firebaseCrashlyticsBinding: FirebaseCrashlyticsBinding by PlatformSDK.lazyInstance()
 
     override fun handleEvent(event: HomeEvent) = when (event) {
         HomeEvent.OnInit -> onInit()
@@ -30,9 +32,10 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
                     latestArticles = latestArticles,
                     articlesByCategory = articlesByCategory,
                 )
-            } catch (e: Throwable) {
-                state = state.copy(error = e)
+            } catch (error: Throwable) {
+                state = state.copy(error = error)
                 action = HomeAction.ShowError("Oops, something went wrong")
+                firebaseCrashlyticsBinding.sendNonFatalErrorReport(error)
             } finally {
                 state = state.copy(isLoading = false)
             }
@@ -43,9 +46,10 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
         scope.launch {
             try {
                 action = HomeAction.NavigateDetails(name)
-            } catch (e: Throwable) {
-                state = state.copy(error = e)
+            } catch (error: Throwable) {
+                state = state.copy(error = error)
                 action = HomeAction.ShowError("Oops, something went wrong")
+                firebaseCrashlyticsBinding.sendNonFatalErrorReport(error)
             }
         }
     }
@@ -54,9 +58,10 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
         scope.launch {
             try {
                 state = state.copy(searchQuery = query)
-            } catch (e: Throwable) {
-                state = state.copy(error = e)
+            } catch (error: Throwable) {
+                state = state.copy(error = error)
                 action = HomeAction.ShowError("Oops, something went wrong")
+                firebaseCrashlyticsBinding.sendNonFatalErrorReport(error)
             }
         }
     }

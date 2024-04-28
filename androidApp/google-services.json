@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "533983726152",
+    "project_id": "fresh-news-kmp",
+    "storage_bucket": "fresh-news-kmp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533983726152:android:b5fd61c49963a42f4c667d",
+        "android_client_info": {
+          "package_name": "kfu.itis.freshnews.android"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDI9SOsrbvrLDcu7nRjBnrwUOmRN9ch0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

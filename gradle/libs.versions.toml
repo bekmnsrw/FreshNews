@@ -38,6 +38,14 @@ mockk = "1.13.9" # https://github.com/mockk/mockk
 androidx-espresso-core = "3.5.1" # https://developer.android.com/jetpack/androidx/releases/test
 androidx-test-junit = "1.1.5" # https://developer.android.com/jetpack/androidx/releases/test
 
+# Firebase
+firebase-bom = "32.8.1" # https://firebase.google.com/docs/android/learn-more#bom
+firebase-crashlytics = "2.9.9"
+firebase-perf = "1.4.2"
+
+# Google Services
+google-services = "4.4.1"
+
 # Other
 coil = "2.4.0" # https://coil-kt.github.io/coil/
 okhttp = "5.0.0-alpha.12" # https://mvnrepository.com/artifact/com.squareup.okhttp3/logging-interceptor
@@ -118,6 +126,13 @@ kodein-di-framework-compose = { module = "org.kodein.di:kodein-di-framework-comp
 # datetime
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime" }
 
+# Firebase
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" } # https://firebase.google.com/docs/analytics/get-started?platform=android
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" } # https://firebase.google.com/docs/crashlytics/get-started?platform=android
+firebase-perf = { module = "com.google.firebase:firebase-perf" } # https://firebase.google.com/docs/perf-mon/get-started-android
+firebase-config = { module = "com.google.firebase:firebase-config" } # https://firebase.google.com/docs/remote-config/get-started?platform=android
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
@@ -126,6 +141,9 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 sqlDelight = { id = "app.cash.sqldelight", version.ref = "sql-delight" }
+googleServices = { id = "com.google.gms.google-services", version.ref = "google-services" }
+firebaseCrashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics" }
+firebasePerf = { id = "com.google.firebase.firebase-perf", version.ref = "firebase-perf" }
 
 [bundles]
 ktorClientCommon = [
@@ -151,7 +169,7 @@ sqlDelightCommon = [
     "sql-delight-adapter",
 ]
 
-compose = [
+composeCore = [
     "compose-ui",
     "compose-ui-tooling-preview",
     "compose-material3",
@@ -160,4 +178,11 @@ compose = [
 
 composeDebug = [
     "compose-ui-tooling",
+]
+
+firebase = [
+    "firebase-analytics",
+    "firebase-config",
+    "firebase-crashlytics",
+    "firebase-perf",
 ]
