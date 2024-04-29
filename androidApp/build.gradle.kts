@@ -58,4 +58,6 @@ dependencies {
     implementation(libs.kodein.di.framework.compose)
     implementation(platform(libs.firebase.bom))
     implementation(libs.bundles.firebase)
+    implementation(libs.bundles.coil)
+    implementation(libs.kotlinx.datetime)
 }

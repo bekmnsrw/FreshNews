@@ -184,3 +184,9 @@ firebase = [
     "firebase-crashlytics",
     "firebase-perf",
 ]
+
+coil = [
+    "coil",
+    "coil-compose",
+    "coil-svg",
+]

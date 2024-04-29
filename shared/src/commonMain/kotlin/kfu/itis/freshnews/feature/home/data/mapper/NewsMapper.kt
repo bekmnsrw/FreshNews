@@ -12,7 +12,7 @@ fun ArticleResponse.toArticle(): Article = Article(
     content = content ?: "",
     description = description ?: "",
     publishedAt = publishedAt ?: "",
-    sourceResponse = sourceResponse?.toSource() ?: Source(id = "", name = ""),
+    source = sourceResponse?.toSource() ?: Source(id = "", name = ""),
     title = title ?: "",
     url = url ?: "",
     urlToImage = urlToImage ?: "",

@@ -1,4 +1,4 @@
-package kfu.itis.freshnews.android
+package kfu.itis.freshnews.android.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
