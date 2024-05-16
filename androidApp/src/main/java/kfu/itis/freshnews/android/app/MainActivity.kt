@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import kfu.itis.freshnews.android.feature.home.HomeScreen
 import kfu.itis.freshnews.android.navigation.NavHost
-import kfu.itis.freshnews.android.theme.MyApplicationTheme
+import kfu.itis.freshnews.android.theme.FreshNewsTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            MyApplicationTheme {
+            FreshNewsTheme {
                 NavHost(
                     content = { HomeScreen() },
                 )

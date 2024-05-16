@@ -6,7 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import kfu.itis.freshnews.android.theme.MyApplicationTheme
+import kfu.itis.freshnews.android.theme.FreshNewsTheme
 import kfu.itis.freshnews.android.utils.rememberEvent
 import kfu.itis.freshnews.feature.home.presentation.HomeAction
 import kfu.itis.freshnews.feature.home.presentation.HomeEvent
@@ -55,7 +55,7 @@ private fun HomeActions(action: HomeAction?) {
 @Preview(showBackground = true)
 @Composable
 private fun HomeScreenPreview() {
-    MyApplicationTheme {
+    FreshNewsTheme {
         HomeScreen()
     }
 }

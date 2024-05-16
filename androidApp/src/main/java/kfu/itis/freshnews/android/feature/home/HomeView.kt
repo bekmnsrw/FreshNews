@@ -17,18 +17,20 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kfu.itis.freshnews.android.R
+import kfu.itis.freshnews.android.theme.ThemeProvider
 import kfu.itis.freshnews.android.utils.LazyColumnSpacer
+import kfu.itis.freshnews.android.utils.toDate
 import kfu.itis.freshnews.android.widget.FreshNewsImage
 import kfu.itis.freshnews.feature.home.domain.model.Article
 import kfu.itis.freshnews.feature.home.domain.model.ArticleCategory
@@ -60,6 +62,7 @@ fun HomeView(
                 eventHandler = eventHandler,
             )
         },
+        containerColor = ThemeProvider.colors.primary,
     )
 }
 
@@ -122,6 +125,8 @@ private fun LatestNewsTitle() {
                     start = 16.dp,
                 ),
             text = stringResource(id = R.string.latest_news),
+            style = ThemeProvider.typography.screenTitle,
+            color = ThemeProvider.colors.onPrimary,
         )
     }
 }
@@ -142,46 +147,10 @@ private fun LatestNews(
         ) { article ->
             NewsItem(
                 modifier = Modifier
-                    .height(240.dp)
                     .width(320.dp),
                 article = article,
                 onClick = { onArticleClick(article.title) },
             )
-        }
-    }
-}
-
-@Composable
-private fun NewsItem(
-    modifier: Modifier = Modifier,
-    article: Article,
-    onClick: () -> Unit,
-) {
-    Card(
-        modifier = modifier,
-        shape = RoundedCornerShape(8.dp),
-        onClick = onClick,
-    ) {
-        Column {
-            FreshNewsImage(
-                modifier = Modifier.weight(2f),
-                imageUrl = article.urlToImage,
-            )
-            Column(
-                modifier = Modifier.padding(8.dp),
-            ) {
-                Text(
-                    text = article.title,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                )
-                Text(
-                    modifier = Modifier.align(Alignment.End),
-                    text = article.source.name,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-            }
         }
     }
 }
@@ -201,7 +170,9 @@ private fun NewsCategories(
         stringResource(id = R.string.technology) to ArticleCategory.TECHNOLOGY,
     )
 
-    Surface {
+    Surface(
+        color = ThemeProvider.colors.primary,
+    ) {
         LazyRow(
             modifier = Modifier
                 .padding(vertical = 8.dp)
@@ -231,7 +202,16 @@ private fun NewsCategoryItem(
 ) {
     Card(
         shape = RoundedCornerShape(16.dp),
-        border = if (isSelected) BorderStroke(1.dp, Color.Blue) else null,
+        colors = CardDefaults.cardColors(
+            containerColor = ThemeProvider.colors.primary,
+        ),
+        border = BorderStroke(
+            width = 1.dp,
+            color = when (isSelected) {
+                true -> ThemeProvider.colors.accent
+                false -> ThemeProvider.colors.outline
+            }
+        ),
         onClick = onClick,
     ) {
         Text(
@@ -254,14 +234,71 @@ private fun LazyListScope.NewsOfCategory(
     ) { article ->
         NewsItem(
             modifier = Modifier
-                .height(240.dp)
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             article = article,
             onClick = { onArticleClick(article.title) },
         )
-        Spacer(
-            modifier = Modifier.height(8.dp),
+        Spacer(modifier = Modifier.height(24.dp))
+    }
+}
+
+@Composable
+private fun NewsItem(
+    modifier: Modifier = Modifier,
+    article: Article,
+    onClick: () -> Unit,
+) {
+    Card(
+        modifier = modifier,
+        onClick = onClick,
+        colors = CardDefaults.cardColors(
+            containerColor = ThemeProvider.colors.primary,
         )
+    ) {
+        Column(
+            modifier = Modifier.padding(8.dp),
+        ) {
+            FreshNewsImage(
+                modifier = Modifier
+                    .height(128.dp)
+                    .clip(RoundedCornerShape(8.dp)),
+                imageUrl = article.urlToImage,
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = article.publishedAt.toDate(),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                style = ThemeProvider.typography.date,
+                color = ThemeProvider.colors.onPrimaryVariant,
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = article.title,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+                style = ThemeProvider.typography.cardTitle,
+                color = ThemeProvider.colors.onPrimary,
+            )
+            if (article.description.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+            Text(
+                text = article.description,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                style = ThemeProvider.typography.newsDescription,
+                color = ThemeProvider.colors.onPrimary,
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = article.source.name,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                style = ThemeProvider.typography.cardSupportingText,
+                color = ThemeProvider.colors.onPrimaryVariant,
+            )
+        }
     }
 }

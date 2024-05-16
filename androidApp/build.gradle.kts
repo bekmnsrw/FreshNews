@@ -60,4 +60,5 @@ dependencies {
     implementation(libs.bundles.firebase)
     implementation(libs.bundles.coil)
     implementation(libs.kotlinx.datetime)
+    implementation(libs.system.ui.controller)
 }
