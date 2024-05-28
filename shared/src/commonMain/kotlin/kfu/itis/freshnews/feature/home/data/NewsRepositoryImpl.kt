@@ -20,6 +20,7 @@ internal class NewsRepositoryImpl(
         return remoteNewsDataSource
             .getTopHeadlines()
             .articleResponses
+            .filterNot { articleResponse -> articleResponse.title == REMOVED_ARTICLE }
             .toArticles()
     }
 
@@ -27,6 +28,7 @@ internal class NewsRepositoryImpl(
         return remoteNewsDataSource
             .getTopHeadlinesByCategory(category = category)
             .articleResponses
+            .filterNot { articleResponse -> articleResponse.title == REMOVED_ARTICLE }
             .toArticles()
     }
 
@@ -34,6 +36,7 @@ internal class NewsRepositoryImpl(
         return remoteNewsDataSource
             .searchTopHeadlinesByPhrase(phrase = phrase)
             .articleResponses
+            .filterNot { articleResponse -> articleResponse.title == REMOVED_ARTICLE }
             .toArticles()
     }
 
@@ -48,5 +51,10 @@ internal class NewsRepositoryImpl(
     override suspend fun getAllFavoritesArticle(): Flow<List<FavoritesArticle>> {
         return localNewsDataSource.getAllFavoritesNews()
             .map { it.toFavoritesArticleList() }
+    }
+
+    private companion object {
+
+        const val REMOVED_ARTICLE = "[Removed]"
     }
 }
