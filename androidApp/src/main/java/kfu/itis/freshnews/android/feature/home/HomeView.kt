@@ -146,8 +146,7 @@ private fun LatestNews(
             key = { article -> article.title },
         ) { article ->
             NewsItem(
-                modifier = Modifier
-                    .width(320.dp),
+                modifier = Modifier.width(320.dp),
                 article = article,
                 onClick = { onArticleClick(article.title) },
             )

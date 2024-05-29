@@ -6,6 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import kfu.itis.freshnews.android.theme.FreshNewsTheme
 import kfu.itis.freshnews.android.utils.rememberEvent
 import kfu.itis.freshnews.feature.home.presentation.HomeAction
@@ -16,14 +17,11 @@ import kfu.itis.freshnews.feature.home.presentation.HomeViewModel
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = viewModel(),
+    navController: NavController,
 ) {
     val state by viewModel.states.collectAsStateWithLifecycle(initialValue = HomeState())
     val action by viewModel.actions.collectAsStateWithLifecycle(initialValue = null)
     val eventHandler = rememberEvent<HomeEvent> { homeEvent -> viewModel.handleEvent(homeEvent) }
-
-    LaunchedEffect(Unit) {
-        eventHandler(HomeEvent.OnInit)
-    }
 
     HomeView(
         state = state,
@@ -32,19 +30,20 @@ fun HomeScreen(
 
     HomeActions(
         action = action,
+        navController = navController,
     )
 }
 
 @Composable
-private fun HomeActions(action: HomeAction?) {
+private fun HomeActions(
+    action: HomeAction?,
+    navController: NavController,
+) {
     LaunchedEffect(action) {
         when (action) {
-            /**
-             * TODO: Implement
-             */
-            is HomeAction.NavigateDetails -> Unit
-            is HomeAction.ShowError -> Unit
             null -> Unit
+            is HomeAction.NavigateDetails -> navController.navigate("details/${action.title}")
+            is HomeAction.ShowError -> Unit
         }
     }
 }
@@ -53,6 +52,9 @@ private fun HomeActions(action: HomeAction?) {
 @Composable
 private fun HomeScreenPreview() {
     FreshNewsTheme {
-        HomeScreen()
+        HomeView(
+            state = HomeState(),
+            eventHandler = {},
+        )
     }
 }

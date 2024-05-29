@@ -14,15 +14,14 @@ import kotlin.native.HiddenFromObjC
  *   - [Habr Article](https://habr.com/ru/articles/596497/)
  *   - [GitHub](https://github.com/anioutkazharkova/kn_network_sample/blob/main/classic/shared/src/commonMain/kotlin/com/azharkova/kn_network_sample/Flow.kt)
  */
-class FlowWrapper<T>(
-    private val source: Flow<T>,
-): Flow<T> by source {
+class FlowWrapper<T>(source: Flow<T>): Flow<T> by source {
 
     fun collect(
         onEach: (T) -> Unit,
         onCompletion: (cause: Throwable?) -> Unit,
     ): Cancellable {
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+
         scope.launch {
             try {
                 collect { data -> onEach(data) }
@@ -42,9 +41,10 @@ class FlowWrapper<T>(
 
 fun <T> Flow<T>.collect(
     onEach: (T) -> Unit,
-    onCompletion: (cause: Throwable?) -> Unit
+    onCompletion: (cause: Throwable?) -> Unit,
 ): Cancellable {
     val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+
     scope.launch {
         try {
             collect { data -> onEach(data) }

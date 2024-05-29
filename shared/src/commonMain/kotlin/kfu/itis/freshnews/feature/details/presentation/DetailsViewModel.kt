@@ -49,13 +49,7 @@ class DetailsViewModel : BaseViewModel<DetailsState, DetailsAction, DetailsEvent
     }
 
     private fun onArrowBackClick() {
-        scope.launch {
-            try {
-                action = DetailsAction.NavigateBack
-            } catch (e: Throwable) {
-                handleError(e)
-            }
-        }
+       action = DetailsAction.NavigateBack
     }
 
     private fun handleError(e: Throwable) {

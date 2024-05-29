@@ -6,6 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import kfu.itis.freshnews.android.theme.FreshNewsTheme
 import kfu.itis.freshnews.android.utils.rememberEvent
 import kfu.itis.freshnews.feature.details.presentation.DetailsAction
@@ -16,34 +17,38 @@ import kfu.itis.freshnews.feature.details.presentation.DetailsViewModel
 @Composable
 fun DetailsScreen(
     viewModel: DetailsViewModel = viewModel(),
+    navController: NavController,
+    title: String,
 ) {
     val state by viewModel.states.collectAsStateWithLifecycle(initialValue = DetailsState())
     val action by viewModel.actions.collectAsStateWithLifecycle(initialValue = null)
     val eventHandler = rememberEvent<DetailsEvent> { detailsEvent -> viewModel.handleEvent(detailsEvent) }
 
     LaunchedEffect(Unit) {
-        eventHandler(DetailsEvent.OnInit("Eating more fruits and vegetables"))
+        eventHandler(DetailsEvent.OnInit(title))
     }
 
     DetailsView(
         state = state,
         eventHandler = eventHandler,
+        title
     )
 
     DetailsActions(
         action = action,
+        navController = navController,
     )
 }
 
 @Composable
-private fun DetailsActions(action: DetailsAction?) {
+private fun DetailsActions(
+    action: DetailsAction?,
+    navController: NavController,
+) {
     LaunchedEffect(action) {
         when (action) {
-            /**
-             * TODO: Implement
-             */
             null -> Unit
-            DetailsAction.NavigateBack -> Unit
+            DetailsAction.NavigateBack -> navController.navigateUp()
             is DetailsAction.ShowError -> Unit
         }
     }
@@ -53,6 +58,10 @@ private fun DetailsActions(action: DetailsAction?) {
 @Composable
 private fun DetailsScreenPreview() {
     FreshNewsTheme {
-        DetailsScreen()
+        DetailsView(
+            state = DetailsState(),
+            eventHandler = {},
+            title = "",
+        )
     }
 }

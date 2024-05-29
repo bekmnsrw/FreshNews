@@ -19,15 +19,14 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
     private val firebaseCrashlyticsBinding: FirebaseCrashlyticsBinding by PlatformSDK.lazyInstance()
 
     override fun handleEvent(event: HomeEvent) = when (event) {
-        HomeEvent.OnInit -> onInit()
-        is HomeEvent.OnArticleClick -> onArticleClick(event.name)
+        is HomeEvent.OnArticleClick -> onArticleClick(event.title)
         is HomeEvent.OnQueryChange -> onQueryChange(event.query)
         is HomeEvent.OnActiveChange -> onActiveChange(event.isSearchActive)
         is HomeEvent.OnArticleCategoryClick -> onArticleCategoryClick(event.category)
         is HomeEvent.OnSearch -> onSearch(event.query)
     }
 
-    private fun onInit() {
+    init {
         loadLatestArticles()
         loadArticlesOfCategory()
     }
@@ -60,41 +59,27 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
         }
     }
 
-    private fun onArticleClick(name: String) {
-        scope.launch {
-            try {
-                action = HomeAction.NavigateDetails(name)
-            } catch (e: Throwable) {
-                handleError(e)
-            }
-        }
+    private fun onArticleClick(title: String) {
+        action = HomeAction.NavigateDetails(title)
     }
 
     private fun onQueryChange(query: String) {
-        scope.launch {
-            try {
-                if (query.isEmpty()) state = state.copy(searchedArticles = emptyList())
-                state = state.copy(searchQuery = query)
-            } catch (e: Throwable) {
-                handleError(e)
-            }
-        }
+        if (query.isEmpty()) state = state.copy(searchedArticles = emptyList())
+        state = state.copy(searchQuery = query)
     }
 
     private fun onActiveChange(isSearchActive: Boolean) {
-        scope.launch {
-            try {
-                state = state.copy(isSearchActive = isSearchActive)
-            } catch (e: Throwable) {
-                handleError(e)
-            }
-        }
+        state = state.copy(isSearchActive = isSearchActive)
     }
 
     private fun onArticleCategoryClick(category: ArticleCategory) {
         scope.launch {
-            state = state.copy(selectedArticleCategory = category)
-            loadArticlesOfCategory()
+            try {
+                state = state.copy(selectedArticleCategory = category)
+                loadArticlesOfCategory()
+            } catch (e: Throwable) {
+                handleError(e)
+            }
         }
     }
 
