@@ -6,7 +6,7 @@ import kfu.itis.freshnews.feature.home.domain.usecase.GetTopHeadlinesUseCase
 
 internal class GetTopHeadlinesUseCaseImpl(
     private val newsRepository: NewsRepository,
-): GetTopHeadlinesUseCase {
+) : GetTopHeadlinesUseCase {
 
     override suspend fun invoke(): List<Article> {
         return newsRepository.getTopHeadlines()

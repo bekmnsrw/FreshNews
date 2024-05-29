@@ -21,9 +21,6 @@ fun HomeScreen(
     val action by viewModel.actions.collectAsStateWithLifecycle(initialValue = null)
     val eventHandler = rememberEvent<HomeEvent> { homeEvent -> viewModel.handleEvent(homeEvent) }
 
-    /**
-     * TODO: Move to...?
-     */
     LaunchedEffect(Unit) {
         eventHandler(HomeEvent.OnInit)
     }

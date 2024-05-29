@@ -293,7 +293,7 @@ private fun NewsItem(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = article.source.name,
+                text = article.source,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 style = ThemeProvider.typography.cardSupportingText,

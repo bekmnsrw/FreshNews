@@ -1,4 +1,4 @@
-package kfu.itis.freshnews.feature.home.domain.usecase
+package kfu.itis.freshnews.feature.favorites.domain.usecase
 
 interface RemoveFavoritesArticleUseCase {
 

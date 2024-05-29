@@ -4,9 +4,9 @@ import kfu.itis.freshnews.feature.home.domain.NewsRepository
 import kfu.itis.freshnews.feature.home.domain.model.Article
 import kfu.itis.freshnews.feature.home.domain.usecase.SearchTopHeadlinesByPhraseUseCase
 
-class SearchTopHeadlinesByPhraseUseCaseImpl(
+internal class SearchTopHeadlinesByPhraseUseCaseImpl(
     private val newsRepository: NewsRepository,
-): SearchTopHeadlinesByPhraseUseCase {
+) : SearchTopHeadlinesByPhraseUseCase {
 
     override suspend fun invoke(phrase: String): List<Article> {
         return newsRepository.searchTopHeadlinesByPhrase(phrase)

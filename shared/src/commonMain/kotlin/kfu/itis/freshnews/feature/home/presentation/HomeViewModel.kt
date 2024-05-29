@@ -38,10 +38,8 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
                 state = state.copy(isLatestArticlesLoading = true)
                 val latestArticles = getTopHeadlinesUseCase()
                 state = state.copy(latestArticles = latestArticles)
-            } catch (error: Throwable) {
-                state = state.copy(error = error)
-                action = HomeAction.ShowError("Oops, something went wrong")
-                firebaseCrashlyticsBinding.sendNonFatalErrorReport(error)
+            } catch (e: Throwable) {
+                handleError(e)
             } finally {
                 state = state.copy(isLatestArticlesLoading = false)
             }
@@ -54,10 +52,8 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
                 state = state.copy(isArticlesOfCategoryLoading = true)
                 val articlesOfCategory = getTopHeadlinesByCategoryUseCase(state.selectedArticleCategory)
                 state = state.copy(articlesOfCategory = articlesOfCategory)
-            } catch (error: Throwable) {
-                state = state.copy(error = error)
-                action = HomeAction.ShowError("Oops, something went wrong")
-                firebaseCrashlyticsBinding.sendNonFatalErrorReport(error)
+            } catch (e: Throwable) {
+                handleError(e)
             } finally {
                 state = state.copy(isArticlesOfCategoryLoading = false)
             }
@@ -68,10 +64,8 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
         scope.launch {
             try {
                 action = HomeAction.NavigateDetails(name)
-            } catch (error: Throwable) {
-                state = state.copy(error = error)
-                action = HomeAction.ShowError("Oops, something went wrong")
-                firebaseCrashlyticsBinding.sendNonFatalErrorReport(error)
+            } catch (e: Throwable) {
+                handleError(e)
             }
         }
     }
@@ -81,10 +75,8 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
             try {
                 if (query.isEmpty()) state = state.copy(searchedArticles = emptyList())
                 state = state.copy(searchQuery = query)
-            } catch (error: Throwable) {
-                state = state.copy(error = error)
-                action = HomeAction.ShowError("Oops, something went wrong")
-                firebaseCrashlyticsBinding.sendNonFatalErrorReport(error)
+            } catch (e: Throwable) {
+                handleError(e)
             }
         }
     }
@@ -93,10 +85,8 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
         scope.launch {
             try {
                 state = state.copy(isSearchActive = isSearchActive)
-            } catch (error: Throwable) {
-                state = state.copy(error = error)
-                action = HomeAction.ShowError("Oops, something went wrong")
-                firebaseCrashlyticsBinding.sendNonFatalErrorReport(error)
+            } catch (e: Throwable) {
+                handleError(e)
             }
         }
     }
@@ -117,13 +107,17 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
                     searchQuery = query,
                     searchedArticles = searchedArticles,
                 )
-            } catch (error: Throwable) {
-                state = state.copy(error = error)
-                action = HomeAction.ShowError("Oops, something went wrong")
-                firebaseCrashlyticsBinding.sendNonFatalErrorReport(error)
+            } catch (e: Throwable) {
+                handleError(e)
             } finally {
                 state = state.copy(isSearchedArticlesLoading = false)
             }
         }
+    }
+
+    private fun handleError(e: Throwable) {
+        state = state.copy(error = e)
+        action = HomeAction.ShowError("Oops, something went wrong")
+        firebaseCrashlyticsBinding.sendNonFatalErrorReport(e)
     }
 }
