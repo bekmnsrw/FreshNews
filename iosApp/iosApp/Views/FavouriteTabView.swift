@@ -2,10 +2,9 @@ import SwiftUI
 import Shared
 
 
-struct HomeScreenView: View {
-
+struct FavouriteTabView: View {
     var body: some View {
-        
+        Text("Favourite Tab")
     }
 }
 
