@@ -29,7 +29,7 @@ private const val CONNECT_TIMEOUT_MILLIS = 15000L
 private const val REQUEST_TIMEOUT_MILLIS = 30000L
 private const val SOCKET_TIMEOUT_MILLIS = 30000L
 
-val networkModule = DI.Module(name = MODULE_NAME) {
+val networkModule = DI.Module(MODULE_NAME) {
 
     bindSingleton<HttpClientEngineFactory<HttpClientEngineConfig>> {
         HttpEngineFactory().createEngine(

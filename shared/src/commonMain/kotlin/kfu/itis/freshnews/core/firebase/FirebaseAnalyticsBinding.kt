@@ -6,4 +6,6 @@ interface FirebaseAnalyticsBinding {
 
     fun logAddingToFavoritesEvent(category: ArticleCategory, source: String)
     fun logOpenScreen(screenName: String)
+    fun logSignIn(login: String)
+    fun logSignUp(login: String)
 }

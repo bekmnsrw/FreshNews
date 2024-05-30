@@ -20,7 +20,7 @@ import org.kodein.di.instance
 
 private const val MODULE_NAME = "favoritesModule"
 
-val favoritesModule = DI.Module(name = MODULE_NAME) {
+val favoritesModule = DI.Module(MODULE_NAME) {
 
     bindProvider<LocalFavoritesDataSource> {
         LocalFavoritesDataSource(

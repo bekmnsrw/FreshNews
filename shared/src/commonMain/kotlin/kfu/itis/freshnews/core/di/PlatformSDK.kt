@@ -2,10 +2,11 @@ package kfu.itis.freshnews.core.di
 
 import kfu.itis.freshnews.core.configuration.Configuration
 import kfu.itis.freshnews.core.configuration.PlatformConfiguration
-import kfu.itis.freshnews.core.db.dbModule
+import kfu.itis.freshnews.core.storage.di.storageModule
 import kfu.itis.freshnews.core.firebase.FirebaseAnalyticsBinding
 import kfu.itis.freshnews.core.firebase.FirebaseCrashlyticsBinding
 import kfu.itis.freshnews.core.network.networkModule
+import kfu.itis.freshnews.feature.auth.di.authModule
 import kfu.itis.freshnews.feature.details.di.detailsModule
 import kfu.itis.freshnews.feature.favorites.di.favoritesModule
 import kfu.itis.freshnews.feature.home.di.homeModule
@@ -30,10 +31,11 @@ object PlatformSDK {
             importAll(
                 createConfigurationModule(configuration = configuration),
                 networkModule,
-                dbModule,
+                storageModule,
                 homeModule,
                 detailsModule,
                 favoritesModule,
+                authModule,
             )
         }.direct
     }
