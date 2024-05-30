@@ -9,7 +9,10 @@ data class DetailsState(
 )
 
 sealed class DetailsEvent {
-    class OnInit(val articleDetails: ArticleDetails?) : DetailsEvent()
+    class OnInit(
+        val articleDetails: ArticleDetails?,
+        val favoriteArticleId: Int?,
+    ) : DetailsEvent()
     object OnArrowBackClick : DetailsEvent()
     object OnAddToFavoritesClick : DetailsEvent()
 }

@@ -10,5 +10,6 @@ object FreshNewsRoutes {
     const val FAVORITES_GRAPH_ROUTE = "favorites_graph"
     const val PROFILE_GRAPH_ROUTE = "profile_graph"
 
-    const val DETAILS_SCREEN_ROUTE = "details"
+    const val DETAILS_SCREEN_ROUTE_FROM_HOME = "home_details"
+    const val DETAILS_SCREEN_ROUTE_FROM_FAVORITES = "favorites_details"
 }

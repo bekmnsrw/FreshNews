@@ -44,11 +44,13 @@ private fun HomeActions(
         when (action) {
             null -> Unit
             is HomeAction.NavigateDetails -> {
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = NestedScreen.DetailsScreen.argKey,
-                    value = action.article,
-                )
-                navController.navigate(NestedScreen.DetailsScreen.route)
+                navController.currentBackStackEntry
+                    ?.savedStateHandle
+                    ?.set(
+                        key = NestedScreen.DetailsScreenFromHome.argKey,
+                        value = action.article,
+                    )
+                navController.navigate(NestedScreen.DetailsScreenFromHome.route)
             }
             is HomeAction.ShowError -> Unit
         }

@@ -18,8 +18,8 @@ internal class FavoritesRepositoryImpl(
         localFavoritesDataSource.addFavoritesNews(articleDetails.toFavoritesArticle())
     }
 
-    override suspend fun removeFavoritesArticle(id: Int) {
-        localFavoritesDataSource.removeFavoritesNewsById(id)
+    override suspend fun removeFavoritesArticle(title: String) {
+        localFavoritesDataSource.removeFavoritesNewsByTitle(title)
     }
 
     override fun getAllFavoritesArticle(): Flow<List<FavoritesArticle>> {

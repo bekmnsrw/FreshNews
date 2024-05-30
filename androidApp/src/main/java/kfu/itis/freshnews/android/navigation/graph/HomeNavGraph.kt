@@ -19,14 +19,13 @@ fun NavGraphBuilder.homeNavGraph(navController: NavController) {
         composable(route = FreshNewsRoutes.HOME_SCREEN_ROUTE) {
             HomeScreen(navController = navController)
         }
-        composable(NestedScreen.DetailsScreen.route) {
-            val article: Article? = navController.previousBackStackEntry
-                ?.savedStateHandle
-                ?.get(NestedScreen.DetailsScreen.argKey)
-
+        composable(NestedScreen.DetailsScreenFromHome.route) {
             DetailsScreen(
                 navController = navController,
-                articleDetails = article?.toArticleDetails(),
+                articleDetails = navController.previousBackStackEntry
+                    ?.savedStateHandle
+                    ?.get<Article>(NestedScreen.DetailsScreenFromHome.argKey)
+                    ?.toArticleDetails(),
             )
         }
     }

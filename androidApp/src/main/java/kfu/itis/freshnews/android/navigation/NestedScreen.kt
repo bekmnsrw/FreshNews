@@ -5,8 +5,13 @@ sealed class NestedScreen(
     val argKey: String,
 ) {
 
-    object DetailsScreen : NestedScreen(
-        route = FreshNewsRoutes.DETAILS_SCREEN_ROUTE,
+    object DetailsScreenFromHome : NestedScreen(
+        route = FreshNewsRoutes.DETAILS_SCREEN_ROUTE_FROM_HOME,
         argKey = "article",
+    )
+
+    object DetailsScreenFromFavorites : NestedScreen(
+        route = FreshNewsRoutes.DETAILS_SCREEN_ROUTE_FROM_FAVORITES,
+        argKey = "favorites_id",
     )
 }

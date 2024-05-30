@@ -10,7 +10,6 @@ import kfu.itis.freshnews.feature.favorites.domain.model.FavoritesArticle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.withContext
 
 internal class LocalFavoritesDataSource(
@@ -46,7 +45,7 @@ internal class LocalFavoritesDataSource(
             .mapToOneOrNull(Dispatchers.IO)
     }
 
-    suspend fun removeFavoritesNewsById(id: Int) = withContext(Dispatchers.IO) {
-        database.freshNewsQueries.removeFavoritesNewsById(id.toLong())
+    suspend fun removeFavoritesNewsByTitle(title: String) = withContext(Dispatchers.IO) {
+        database.freshNewsQueries.removeFavoritesNewsByTitle(title)
     }
 }

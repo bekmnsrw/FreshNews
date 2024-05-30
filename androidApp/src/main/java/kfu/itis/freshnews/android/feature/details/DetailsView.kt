@@ -3,7 +3,6 @@ package kfu.itis.freshnews.android.feature.details
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -21,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kfu.itis.freshnews.android.theme.FreshNewsIcons
 import kfu.itis.freshnews.android.theme.ThemeProvider
+import kfu.itis.freshnews.android.utils.ColumnSpacer
 import kfu.itis.freshnews.android.utils.toDate
 import kfu.itis.freshnews.android.widget.FreshNewsImage
 import kfu.itis.freshnews.feature.details.domain.model.ArticleDetails
@@ -33,6 +33,7 @@ fun DetailsView(
     eventHandler: (DetailsEvent) -> Unit,
 ) {
     Scaffold(
+        modifier = Modifier.fillMaxSize(),
         content = { paddingValues ->
             DetailsContent(
                 scaffoldPadding = paddingValues,
@@ -47,11 +48,7 @@ fun DetailsView(
                 containerColor = ThemeProvider.colors.accent,
             ) {
                 Icon(
-                    imageVector = if (state.isFavorite) {
-                        FreshNewsIcons.FAVORITE_FILL
-                    } else {
-                        FreshNewsIcons.FAVORITE_BORDER
-                    },
+                    imageVector = if (state.isFavorite) FreshNewsIcons.FAVORITE_FILL else FreshNewsIcons.FAVORITE_BORDER,
                     contentDescription = null,
                 )
             }
@@ -100,32 +97,32 @@ private fun ArticleDetailsContent(
                     imageUrl = article.urlToImage,
                 )
             }
-            Spacer(modifier = Modifier.padding(vertical = 16.dp))
+            ColumnSpacer(16.dp)
             Column(modifier = Modifier.padding(horizontal = 16.dp)) {
                 Text(
                     text = article.publishedAt.toDate(),
                     style = ThemeProvider.typography.date,
                     color = ThemeProvider.colors.onPrimaryVariant,
                 )
-                Spacer(modifier = Modifier.padding(vertical = 8.dp))
+                ColumnSpacer(8.dp)
                 Text(
                     text = article.title,
                     style = ThemeProvider.typography.cardTitle,
                     color = ThemeProvider.colors.onPrimaryVariant,
                 )
-                Spacer(modifier = Modifier.padding(vertical = 8.dp))
+                ColumnSpacer(8.dp)
                 Text(
                     text = article.source,
                     style = ThemeProvider.typography.cardSupportingText,
                     color = ThemeProvider.colors.onPrimaryVariant,
                 )
-                Spacer(modifier = Modifier.padding(vertical = 20.dp))
+                ColumnSpacer(20.dp)
                 Text(
                     text = article.description,
                     style = ThemeProvider.typography.newsDescription,
                     color = ThemeProvider.colors.onPrimary,
                 )
-                Spacer(modifier = Modifier.padding(vertical = 16.dp))
+                ColumnSpacer(16.dp)
             }
         }
     }
