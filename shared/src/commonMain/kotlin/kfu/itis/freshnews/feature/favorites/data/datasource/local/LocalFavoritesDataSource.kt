@@ -3,12 +3,14 @@ package kfu.itis.freshnews.feature.favorites.data.datasource.local
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
+import app.cash.sqldelight.coroutines.mapToOneOrNull
 import kfu.itis.freshnews.FavoritesNews
 import kfu.itis.freshnews.FreshNews
 import kfu.itis.freshnews.feature.favorites.domain.model.FavoritesArticle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.withContext
 
 internal class LocalFavoritesDataSource(
@@ -20,7 +22,6 @@ internal class LocalFavoritesDataSource(
             id = favoritesArticle.id?.toLong(),
             image_url = favoritesArticle.imageUrl,
             title = favoritesArticle.title,
-            content = favoritesArticle.content,
             description = favoritesArticle.description,
             source = favoritesArticle.source,
             published_at = favoritesArticle.publishedAt,
@@ -42,7 +43,7 @@ internal class LocalFavoritesDataSource(
     fun getFavoritesNewsByTitle(title: String): Flow<FavoritesNews?> {
         return database.freshNewsQueries.getFavoritesNewsByTitle(title)
             .asFlow()
-            .mapToOne(Dispatchers.IO)
+            .mapToOneOrNull(Dispatchers.IO)
     }
 
     suspend fun removeFavoritesNewsById(id: Int) = withContext(Dispatchers.IO) {

@@ -121,7 +121,7 @@ private fun ArticleDetailsContent(
                 )
                 Spacer(modifier = Modifier.padding(vertical = 20.dp))
                 Text(
-                    text = article.content,
+                    text = article.description,
                     style = ThemeProvider.typography.newsDescription,
                     color = ThemeProvider.colors.onPrimary,
                 )

@@ -43,8 +43,8 @@ fun BottomBar(
 
 private fun NavController.navigateToRootScreen(rootScreen: TabItem) {
     navigate(rootScreen.route) {
+        popUpTo(graph.findStartDestination().id) { saveState = true }
         launchSingleTop = true
         restoreState = true
-        popUpTo(graph.findStartDestination().id) { saveState = true }
     }
 }

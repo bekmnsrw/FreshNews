@@ -38,7 +38,7 @@ fun SearchToolbar(
     isSearchActive: Boolean,
     onActiveChange: (Boolean) -> Unit,
     onSearch: (String) -> Unit,
-    onArticleClick: (String) -> Unit,
+    onArticleClick: (Article) -> Unit,
     searchedArticles: List<Article>,
     isLoading: Boolean,
 ) {
@@ -121,7 +121,7 @@ fun SearchToolbar(
 @Composable
 private fun SearchedNews(
     searchedArticles: List<Article>,
-    onArticleClick: (String) -> Unit,
+    onArticleClick: (Article) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -132,7 +132,7 @@ private fun SearchedNews(
         ) { article ->
             SearchedNewsItem(
                 article = article,
-                onClick = { onArticleClick(article.title) },
+                onClick = { onArticleClick(article) },
             )
             Spacer(modifier = Modifier.height(8.dp))
         }

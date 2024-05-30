@@ -4,6 +4,7 @@ import kfu.itis.freshnews.core.di.PlatformSDK
 import kfu.itis.freshnews.core.firebase.FirebaseAnalyticsBinding
 import kfu.itis.freshnews.core.firebase.FirebaseCrashlyticsBinding
 import kfu.itis.freshnews.core.viewmodel.BaseViewModel
+import kfu.itis.freshnews.feature.home.domain.model.Article
 import kfu.itis.freshnews.feature.home.domain.model.ArticleCategory
 import kfu.itis.freshnews.feature.home.domain.usecase.GetTopHeadlinesByCategoryUseCase
 import kfu.itis.freshnews.feature.home.domain.usecase.GetTopHeadlinesUseCase
@@ -21,7 +22,7 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
     private val firebaseAnalyticsBinding: FirebaseAnalyticsBinding by PlatformSDK.lazyInstance()
 
     override fun handleEvent(event: HomeEvent) = when (event) {
-        is HomeEvent.OnArticleClick -> onArticleClick(event.title)
+        is HomeEvent.OnArticleClick -> onArticleClick(event.article)
         is HomeEvent.OnQueryChange -> onQueryChange(event.query)
         is HomeEvent.OnActiveChange -> onActiveChange(event.isSearchActive)
         is HomeEvent.OnArticleCategoryClick -> onArticleCategoryClick(event.category)
@@ -62,8 +63,8 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
         }
     }
 
-    private fun onArticleClick(title: String) {
-        action = HomeAction.NavigateDetails(title)
+    private fun onArticleClick(article: Article) {
+        action = HomeAction.NavigateDetails(article)
     }
 
     private fun onQueryChange(query: String) {

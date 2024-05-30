@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.sqlDelight)
+    alias(libs.plugins.kotlinParcelize)
 }
 
 kotlin {
@@ -39,6 +40,7 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kodein.di)
             implementation(libs.bundles.sqlDelightCommon)
+            implementation(libs.moko.parcelize)
         }
 
         androidMain.dependencies {

@@ -24,6 +24,7 @@ ktor = "2.3.7" # https://github.com/ktorio/ktor
 multiplatform-settings = "1.1.1" # https://github.com/russhwolf/multiplatform-settings
 kodein = "7.21.2" # https://github.com/kosi-libs/Kodein
 datetime = "0.5.0" # https://github.com/Kotlin/kotlinx-datetime
+moko-parcelize = "0.9.0"
 
 # AndroidX
 # https://developer.android.com/jetpack/androidx/versions
@@ -138,7 +139,8 @@ firebase-perf = { module = "com.google.firebase:firebase-perf" } # https://fireb
 
 # System UI Controller
 system-ui-controller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "system-ui-controller" }
-androidx-runtime-saved-instance-state = { group = "androidx.compose.runtime", name = "runtime-saved-instance-state", version.ref = "runtimeSavedInstanceState" }
+
+moko-parcelize = { module = "dev.icerock.moko:parcelize", version.ref = "moko-parcelize" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -151,6 +153,7 @@ sqlDelight = { id = "app.cash.sqldelight", version.ref = "sql-delight" }
 googleServices = { id = "com.google.gms.google-services", version.ref = "google-services" }
 firebaseCrashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics" }
 firebasePerf = { id = "com.google.firebase.firebase-perf", version.ref = "firebase-perf" }
+kotlinParcelize = { id = "org.jetbrains.kotlin.plugin.parcelize",  version.ref = "kotlin" }
 
 [bundles]
 ktorClientCommon = [

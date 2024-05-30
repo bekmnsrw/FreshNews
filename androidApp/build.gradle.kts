@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.googleServices)
     alias(libs.plugins.firebaseCrashlytics)
     alias(libs.plugins.firebasePerf)
+    alias(libs.plugins.kotlinParcelize)
 }
 
 android {

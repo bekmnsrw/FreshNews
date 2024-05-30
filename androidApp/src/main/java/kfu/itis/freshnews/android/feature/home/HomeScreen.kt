@@ -7,6 +7,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import kfu.itis.freshnews.android.navigation.NestedScreen
 import kfu.itis.freshnews.android.theme.FreshNewsTheme
 import kfu.itis.freshnews.android.utils.rememberEvent
 import kfu.itis.freshnews.feature.home.presentation.HomeAction
@@ -42,7 +43,13 @@ private fun HomeActions(
     LaunchedEffect(action) {
         when (action) {
             null -> Unit
-            is HomeAction.NavigateDetails -> navController.navigate("details/${action.title}")
+            is HomeAction.NavigateDetails -> {
+                navController.currentBackStackEntry?.savedStateHandle?.set(
+                    key = NestedScreen.DetailsScreen.argKey,
+                    value = action.article,
+                )
+                navController.navigate(NestedScreen.DetailsScreen.route)
+            }
             is HomeAction.ShowError -> Unit
         }
     }

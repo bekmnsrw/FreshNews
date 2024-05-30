@@ -17,7 +17,7 @@ data class HomeState(
 )
 
 sealed class HomeEvent {
-    class OnArticleClick(val title: String) : HomeEvent()
+    class OnArticleClick(val article: Article) : HomeEvent()
     class OnQueryChange(val query: String) : HomeEvent()
     class OnArticleCategoryClick(val category: ArticleCategory) : HomeEvent()
     class OnActiveChange(val isSearchActive: Boolean) : HomeEvent()
@@ -25,6 +25,6 @@ sealed class HomeEvent {
 }
 
 sealed class HomeAction {
-    class NavigateDetails(val title: String) : HomeAction()
+    class NavigateDetails(val article: Article) : HomeAction()
     class ShowError(val errorMessage: String) : HomeAction()
 }

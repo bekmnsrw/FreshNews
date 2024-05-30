@@ -6,7 +6,7 @@ sealed class NestedScreen(
 ) {
 
     object DetailsScreen : NestedScreen(
-        route = "${FreshNewsRoutes.DETAILS_SCREEN_ROUTE}/{title}",
-        argKey = "title",
+        route = FreshNewsRoutes.DETAILS_SCREEN_ROUTE,
+        argKey = "article",
     )
 }

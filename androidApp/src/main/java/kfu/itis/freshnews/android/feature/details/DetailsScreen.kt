@@ -9,6 +9,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import kfu.itis.freshnews.android.theme.FreshNewsTheme
 import kfu.itis.freshnews.android.utils.rememberEvent
+import kfu.itis.freshnews.feature.details.domain.model.ArticleDetails
 import kfu.itis.freshnews.feature.details.presentation.DetailsAction
 import kfu.itis.freshnews.feature.details.presentation.DetailsEvent
 import kfu.itis.freshnews.feature.details.presentation.DetailsState
@@ -18,14 +19,14 @@ import kfu.itis.freshnews.feature.details.presentation.DetailsViewModel
 fun DetailsScreen(
     viewModel: DetailsViewModel = viewModel(),
     navController: NavController,
-    title: String,
+    articleDetails: ArticleDetails?,
 ) {
     val state by viewModel.states.collectAsStateWithLifecycle(initialValue = DetailsState())
     val action by viewModel.actions.collectAsStateWithLifecycle(initialValue = null)
     val eventHandler = rememberEvent<DetailsEvent> { detailsEvent -> viewModel.handleEvent(detailsEvent) }
 
     LaunchedEffect(Unit) {
-        eventHandler(DetailsEvent.OnInit(title))
+        eventHandler(DetailsEvent.OnInit(articleDetails))
     }
 
     DetailsView(

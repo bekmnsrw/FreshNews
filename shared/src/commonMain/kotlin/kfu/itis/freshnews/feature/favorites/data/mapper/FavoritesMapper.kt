@@ -7,7 +7,6 @@ fun FavoritesNews.toFavoritesArticle(): FavoritesArticle = FavoritesArticle(
     id = id.toInt(),
     imageUrl = image_url,
     title = title,
-    content = content,
     description = description,
     source = source,
     publishedAt = published_at,

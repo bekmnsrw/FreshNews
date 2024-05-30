@@ -134,7 +134,7 @@ private fun LatestNewsTitle() {
 @Composable
 private fun LatestNews(
     latestNews: List<Article>,
-    onArticleClick: (String) -> Unit,
+    onArticleClick: (Article) -> Unit,
 ) {
     LazyRow(
         modifier = Modifier.fillMaxWidth(),
@@ -148,7 +148,7 @@ private fun LatestNews(
             NewsItem(
                 modifier = Modifier.width(320.dp),
                 article = article,
-                onClick = { onArticleClick(article.title) },
+                onClick = { onArticleClick(article) },
             )
         }
     }
@@ -225,7 +225,7 @@ private fun NewsCategoryItem(
 
 private fun LazyListScope.NewsOfCategory(
     articlesByCategory: List<Article>,
-    onArticleClick: (String) -> Unit,
+    onArticleClick: (Article) -> Unit,
 ) {
     items(
         items = articlesByCategory,
@@ -236,7 +236,7 @@ private fun LazyListScope.NewsOfCategory(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             article = article,
-            onClick = { onArticleClick(article.title) },
+            onClick = { onArticleClick(article) },
         )
         Spacer(modifier = Modifier.height(24.dp))
     }

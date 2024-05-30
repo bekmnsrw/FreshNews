@@ -5,12 +5,11 @@ import kfu.itis.freshnews.feature.details.domain.model.ArticleDetails
 data class DetailsState(
     val articleDetails: ArticleDetails? = null,
     val isFavorite: Boolean = false,
-    val isLoading: Boolean = false,
     val error: Throwable? = null,
 )
 
 sealed class DetailsEvent {
-    class OnInit(val title: String) : DetailsEvent()
+    class OnInit(val articleDetails: ArticleDetails?) : DetailsEvent()
     object OnArrowBackClick : DetailsEvent()
     object OnAddToFavoritesClick : DetailsEvent()
 }

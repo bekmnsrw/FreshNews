@@ -4,7 +4,6 @@ data class FavoritesArticle(
     val id: Int?,
     val imageUrl: String,
     val title: String,
-    val content: String,
     val description: String,
     val source: String,
     val publishedAt: String,
