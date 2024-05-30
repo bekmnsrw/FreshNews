@@ -34,7 +34,7 @@ class AuthViewModel : BaseViewModel<AuthState, AuthAction, AuthEvent>(
     }
 
     private fun onHidePasswordClick() {
-
+        state = state.copy(isPasswordHidden = !state.isPasswordHidden)
     }
 
     private fun onLoginChange(login: String) {
@@ -54,6 +54,7 @@ class AuthViewModel : BaseViewModel<AuthState, AuthAction, AuthEvent>(
     private fun onSignInClick() {
         scope.launch {
             try {
+                if (areTextFieldsEmpty()) return@launch
                 val userProfile = signInUseCase(state.login, state.password).first()
                 if (userProfile == null) {
                     state = state.copy(
@@ -77,6 +78,7 @@ class AuthViewModel : BaseViewModel<AuthState, AuthAction, AuthEvent>(
     private fun onSignUpClick() {
         scope.launch {
             try {
+                if (areTextFieldsEmpty()) return@launch
                 val userProfile = signUpUseCase(state.login, state.password).first()
                 if (userProfile == null) {
                     state = state.copy(
@@ -95,6 +97,14 @@ class AuthViewModel : BaseViewModel<AuthState, AuthAction, AuthEvent>(
                 handleError(e)
             }
         }
+    }
+
+    private fun areTextFieldsEmpty(): Boolean {
+        state = state.copy(
+            isEmptyLogin = state.login.isBlank(),
+            isEmptyPassword = state.password.isBlank(),
+        )
+        return state.isEmptyLogin || state.isEmptyPassword
     }
 
     private fun onSkipAuthClick() {

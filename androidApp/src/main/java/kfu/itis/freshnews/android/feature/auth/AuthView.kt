@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import kfu.itis.freshnews.android.theme.FreshNewsIcons
 import kfu.itis.freshnews.android.theme.ThemeProvider
@@ -54,55 +55,51 @@ private fun AuthContent(
     state: AuthState,
     eventHandler: (AuthEvent) -> Unit,
 ) {
-    Box(
+    Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(scaffoldPadding),
+            .padding(scaffoldPadding)
+            .padding(horizontal = 24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Column(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .padding(horizontal = 24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            WelcomeLabel()
+        ColumnSpacer(22.dp)
 
-            ColumnSpacer(16.dp)
+        WelcomeLabel()
 
-            LoginField(
-                login = state.login,
-                onLoginChange = { login -> eventHandler(AuthEvent.OnLoginChange(login)) },
-                isSignUpErrorShown = state.isSignUpErrorShown,
-                isSignInErrorShown = state.isSignInErrorShown,
-                isTextFieldEmpty = state.isEmptyLogin,
-            )
+        ColumnSpacer(16.dp)
 
-            PasswordField(
-                password = state.password,
-                isPasswordHidden = state.isPasswordHidden,
-                onPasswordChange = { password -> eventHandler(AuthEvent.OnPasswordChange(password)) },
-                onHidePasswordClick = { eventHandler(AuthEvent.OnHidePasswordClick) },
-                isTextFieldEmpty = state.isEmptyLogin,
-            )
+        LoginField(
+            login = state.login,
+            onLoginChange = { login -> eventHandler(AuthEvent.OnLoginChange(login)) },
+            isSignUpErrorShown = state.isSignUpErrorShown,
+            isSignInErrorShown = state.isSignInErrorShown,
+            isTextFieldEmpty = state.isEmptyLogin,
+        )
 
-            ColumnSpacer(16.dp)
+        PasswordField(
+            password = state.password,
+            isPasswordHidden = state.isPasswordHidden,
+            onPasswordChange = { password -> eventHandler(AuthEvent.OnPasswordChange(password)) },
+            onHidePasswordClick = { eventHandler(AuthEvent.OnHidePasswordClick) },
+            isTextFieldEmpty = state.isEmptyPassword,
+        )
 
-            SignInButton(
-                onClick = { eventHandler(AuthEvent.OnSignInClick) },
-                isEnabled = !state.isEmptyLogin,
-            )
+        ColumnSpacer(16.dp)
 
-            SingUpButton(
-                onClick = { eventHandler(AuthEvent.OnSignUpClick) },
-                isEnabled = !state.isEmptyPassword,
-            )
+        SignInButton(
+            onClick = { eventHandler(AuthEvent.OnSignInClick) },
+            isEnabled = !state.isEmptyLogin && !state.isEmptyPassword,
+        )
 
-            ColumnSpacer(4.dp)
+        SingUpButton(
+            onClick = { eventHandler(AuthEvent.OnSignUpClick) },
+            isEnabled = !state.isEmptyLogin && !state.isEmptyPassword,
+        )
 
-            SkipAuthButton(
-                onClick = { eventHandler(AuthEvent.OnSkipAuthClick) },
-            )
-        }
+        ColumnSpacer(4.dp)
+
+        SkipAuthButton(
+            onClick = { eventHandler(AuthEvent.OnSkipAuthClick) },
+        )
     }
 }
 
@@ -146,6 +143,8 @@ private fun LoginField(
         },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = ThemeProvider.colors.accent,
+            focusedLabelColor = ThemeProvider.colors.accent,
+            cursorColor = ThemeProvider.colors.accent,
         )
     )
 }
@@ -164,7 +163,7 @@ private fun PasswordField(
         value = password,
         onValueChange = { passwordInput -> onPasswordChange(passwordInput) },
         label = { Text(text = "Password") },
-        visualTransformation = PasswordVisualTransformation(),
+        visualTransformation = if (isPasswordHidden) PasswordVisualTransformation() else VisualTransformation.None,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         trailingIcon = {
             FreshNewsIconButton(
@@ -184,6 +183,8 @@ private fun PasswordField(
         singleLine = true,
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = ThemeProvider.colors.accent,
+            focusedLabelColor = ThemeProvider.colors.accent,
+            cursorColor = ThemeProvider.colors.accent,
         )
     )
 }

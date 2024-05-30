@@ -16,6 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import kfu.itis.freshnews.android.navigation.bottombar.BottomBar
 import kfu.itis.freshnews.android.navigation.bottombar.TabItem
+import kfu.itis.freshnews.android.navigation.graph.authNavGraph
 import kfu.itis.freshnews.android.navigation.graph.favoritesNavGraph
 import kfu.itis.freshnews.android.navigation.graph.homeNavGraph
 import kfu.itis.freshnews.android.navigation.graph.profileNavGraph
@@ -45,8 +46,9 @@ fun NavigationHost() {
     ) {
         NavHost(
             navController = navController,
-            startDestination = FreshNewsRoutes.HOME_GRAPH_ROUTE,
+            startDestination = FreshNewsRoutes.AUTH_GRAPH_ROUTE,
         ) {
+            authNavGraph(navController)
             homeNavGraph(navController)
             favoritesNavGraph(navController)
             profileNavGraph(navController)
