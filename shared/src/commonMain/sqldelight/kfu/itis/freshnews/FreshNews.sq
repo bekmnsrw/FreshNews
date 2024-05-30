@@ -18,5 +18,8 @@ SELECT * FROM FavoritesNews;
 getFavoritesNewsById:
 SELECT * FROM FavoritesNews WHERE id == ?;
 
+getFavoritesNewsByTitle:
+SELECT * FROM FavoritesNews WHERE title == ?;
+
 removeFavoritesNewsById:
 DELETE FROM FavoritesNews WHERE id == ?;

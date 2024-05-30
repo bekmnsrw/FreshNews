@@ -6,11 +6,13 @@ import kfu.itis.freshnews.feature.favorites.data.datasource.local.LocalFavorites
 import kfu.itis.freshnews.feature.favorites.domain.FavoritesRepository
 import kfu.itis.freshnews.feature.favorites.domain.usecase.AddFavoritesArticleUseCase
 import kfu.itis.freshnews.feature.favorites.domain.usecase.GetAllFavoritesArticlesUseCase
-import kfu.itis.freshnews.feature.favorites.domain.usecase.GetFavoritesArticleUseCase
+import kfu.itis.freshnews.feature.favorites.domain.usecase.GetFavoritesArticleByIdUseCase
+import kfu.itis.freshnews.feature.favorites.domain.usecase.GetFavoritesArticleByTitleUseCase
 import kfu.itis.freshnews.feature.favorites.domain.usecase.RemoveFavoritesArticleUseCase
 import kfu.itis.freshnews.feature.favorites.domain.usecase.impl.AddFavoritesArticleUseCaseImpl
 import kfu.itis.freshnews.feature.favorites.domain.usecase.impl.GetAllFavoritesArticlesUseCaseImpl
-import kfu.itis.freshnews.feature.favorites.domain.usecase.impl.GetFavoritesArticleUseCaseImpl
+import kfu.itis.freshnews.feature.favorites.domain.usecase.impl.GetFavoritesArticleByIdUseCaseImpl
+import kfu.itis.freshnews.feature.favorites.domain.usecase.impl.GetFavoritesArticleByTitleUseCaseImpl
 import kfu.itis.freshnews.feature.favorites.domain.usecase.impl.RemoveFavoritesArticleUseCaseImpl
 import org.kodein.di.DI
 import org.kodein.di.bindProvider
@@ -32,8 +34,8 @@ val favoritesModule = DI.Module(name = MODULE_NAME) {
         )
     }
 
-    bindProvider<GetFavoritesArticleUseCase> {
-        GetFavoritesArticleUseCaseImpl(
+    bindProvider<GetFavoritesArticleByIdUseCase> {
+        GetFavoritesArticleByIdUseCaseImpl(
             favoritesRepository = instance<FavoritesRepository>(),
         )
     }
@@ -52,6 +54,12 @@ val favoritesModule = DI.Module(name = MODULE_NAME) {
 
     bindProvider<GetAllFavoritesArticlesUseCase> {
         GetAllFavoritesArticlesUseCaseImpl(
+            favoritesRepository = instance<FavoritesRepository>(),
+        )
+    }
+
+    bindProvider<GetFavoritesArticleByTitleUseCase> {
+        GetFavoritesArticleByTitleUseCaseImpl(
             favoritesRepository = instance<FavoritesRepository>(),
         )
     }

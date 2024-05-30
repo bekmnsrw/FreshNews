@@ -2,14 +2,14 @@ package kfu.itis.freshnews.feature.favorites.domain.usecase.impl
 
 import kfu.itis.freshnews.feature.favorites.domain.FavoritesRepository
 import kfu.itis.freshnews.feature.favorites.domain.model.FavoritesArticle
-import kfu.itis.freshnews.feature.favorites.domain.usecase.GetFavoritesArticleUseCase
+import kfu.itis.freshnews.feature.favorites.domain.usecase.GetFavoritesArticleByIdUseCase
 import kotlinx.coroutines.flow.Flow
 
-internal class GetFavoritesArticleUseCaseImpl(
+internal class GetFavoritesArticleByIdUseCaseImpl(
     private val favoritesRepository: FavoritesRepository,
-) : GetFavoritesArticleUseCase {
+) : GetFavoritesArticleByIdUseCase {
 
-    override suspend fun invoke(id: Int): Flow<FavoritesArticle> {
+    override fun invoke(id: Int): Flow<FavoritesArticle> {
         return favoritesRepository.getFavoritesArticleById(id)
     }
 }

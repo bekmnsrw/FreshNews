@@ -21,7 +21,7 @@ sealed class TabItem(
     object Favorite : TabItem(
         route = FreshNewsRoutes.FAVORITES_GRAPH_ROUTE,
         name = R.string.bottom_bar_favorite,
-        icon = FreshNewsIcons.FAVORITE,
+        icon = FreshNewsIcons.FAVORITE_FILL,
     )
 
     object Profile : TabItem(

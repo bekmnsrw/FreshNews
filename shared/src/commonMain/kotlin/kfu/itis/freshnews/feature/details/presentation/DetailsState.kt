@@ -4,6 +4,7 @@ import kfu.itis.freshnews.feature.details.domain.model.ArticleDetails
 
 data class DetailsState(
     val articleDetails: ArticleDetails? = null,
+    val isFavorite: Boolean = false,
     val isLoading: Boolean = false,
     val error: Throwable? = null,
 )

@@ -31,7 +31,6 @@ fun DetailsScreen(
     DetailsView(
         state = state,
         eventHandler = eventHandler,
-        title
     )
 
     DetailsActions(
@@ -61,7 +60,6 @@ private fun DetailsScreenPreview() {
         DetailsView(
             state = DetailsState(),
             eventHandler = {},
-            title = "",
         )
     }
 }

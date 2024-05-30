@@ -1,6 +1,7 @@
 package kfu.itis.freshnews.feature.home.presentation
 
 import kfu.itis.freshnews.core.di.PlatformSDK
+import kfu.itis.freshnews.core.firebase.FirebaseAnalyticsBinding
 import kfu.itis.freshnews.core.firebase.FirebaseCrashlyticsBinding
 import kfu.itis.freshnews.core.viewmodel.BaseViewModel
 import kfu.itis.freshnews.feature.home.domain.model.ArticleCategory
@@ -17,6 +18,7 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
     private val searchTopHeadlinesByPhraseUseCase: SearchTopHeadlinesByPhraseUseCase by PlatformSDK.lazyInstance()
     private val getTopHeadlinesByCategoryUseCase: GetTopHeadlinesByCategoryUseCase by PlatformSDK.lazyInstance()
     private val firebaseCrashlyticsBinding: FirebaseCrashlyticsBinding by PlatformSDK.lazyInstance()
+    private val firebaseAnalyticsBinding: FirebaseAnalyticsBinding by PlatformSDK.lazyInstance()
 
     override fun handleEvent(event: HomeEvent) = when (event) {
         is HomeEvent.OnArticleClick -> onArticleClick(event.title)
@@ -29,6 +31,7 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
     init {
         loadLatestArticles()
         loadArticlesOfCategory()
+        logOpenScreen()
     }
 
     private fun loadLatestArticles() {
@@ -98,6 +101,10 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
                 state = state.copy(isSearchedArticlesLoading = false)
             }
         }
+    }
+
+    private fun logOpenScreen() {
+        firebaseAnalyticsBinding.logOpenScreen("home_screen")
     }
 
     private fun handleError(e: Throwable) {

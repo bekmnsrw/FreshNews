@@ -39,6 +39,12 @@ internal class LocalFavoritesDataSource(
             .mapToOne(Dispatchers.IO)
     }
 
+    fun getFavoritesNewsByTitle(title: String): Flow<FavoritesNews?> {
+        return database.freshNewsQueries.getFavoritesNewsByTitle(title)
+            .asFlow()
+            .mapToOne(Dispatchers.IO)
+    }
+
     suspend fun removeFavoritesNewsById(id: Int) = withContext(Dispatchers.IO) {
         database.freshNewsQueries.removeFavoritesNewsById(id.toLong())
     }

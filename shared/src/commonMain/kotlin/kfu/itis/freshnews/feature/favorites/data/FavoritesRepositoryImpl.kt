@@ -1,5 +1,7 @@
 package kfu.itis.freshnews.feature.favorites.data
 
+import kfu.itis.freshnews.feature.details.data.mapper.toFavoritesArticle
+import kfu.itis.freshnews.feature.details.domain.model.ArticleDetails
 import kfu.itis.freshnews.feature.favorites.domain.FavoritesRepository
 import kfu.itis.freshnews.feature.favorites.data.datasource.local.LocalFavoritesDataSource
 import kfu.itis.freshnews.feature.favorites.data.mapper.toFavoritesArticle
@@ -12,8 +14,8 @@ internal class FavoritesRepositoryImpl(
     private val localFavoritesDataSource: LocalFavoritesDataSource,
 ) : FavoritesRepository {
 
-    override suspend fun addFavoritesArticle(favoritesArticle: FavoritesArticle) {
-        localFavoritesDataSource.addFavoritesNews(favoritesArticle)
+    override suspend fun addFavoritesArticle(articleDetails: ArticleDetails) {
+        localFavoritesDataSource.addFavoritesNews(articleDetails.toFavoritesArticle())
     }
 
     override suspend fun removeFavoritesArticle(id: Int) {
@@ -28,5 +30,10 @@ internal class FavoritesRepositoryImpl(
     override fun getFavoritesArticleById(id: Int): Flow<FavoritesArticle> {
         return localFavoritesDataSource.getFavoritesNewsById(id)
             .map { favoritesNews -> favoritesNews.toFavoritesArticle() }
+    }
+
+    override fun getFavoritesArticleByTitle(title: String): Flow<FavoritesArticle?> {
+        return localFavoritesDataSource.getFavoritesNewsByTitle(title)
+            .map { favoritesNews -> favoritesNews?.toFavoritesArticle() }
     }
 }
