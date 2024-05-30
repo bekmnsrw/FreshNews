@@ -5,4 +5,5 @@ import kfu.itis.freshnews.feature.home.domain.model.ArticleCategory
 interface FirebaseAnalyticsBinding {
 
     fun logAddingToFavoritesEvent(category: ArticleCategory, source: String)
+    fun logOpenScreen(screenName: String)
 }

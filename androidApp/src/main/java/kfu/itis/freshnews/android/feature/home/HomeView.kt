@@ -146,8 +146,7 @@ private fun LatestNews(
             key = { article -> article.title },
         ) { article ->
             NewsItem(
-                modifier = Modifier
-                    .width(320.dp),
+                modifier = Modifier.width(320.dp),
                 article = article,
                 onClick = { onArticleClick(article.title) },
             )
@@ -293,7 +292,7 @@ private fun NewsItem(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = article.source.name,
+                text = article.source,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 style = ThemeProvider.typography.cardSupportingText,

@@ -4,13 +4,10 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ArticleResponse(
-    @SerialName("author") val author: String?,
-    @SerialName("content") val content: String?,
+class ArticleResponse(
     @SerialName("description") val description: String?,
     @SerialName("publishedAt") val publishedAt: String?,
     @SerialName("source") val sourceResponse: SourceResponse?,
     @SerialName("title") val title: String?,
-    @SerialName("url") val url: String?,
     @SerialName("urlToImage") val urlToImage: String?,
 )

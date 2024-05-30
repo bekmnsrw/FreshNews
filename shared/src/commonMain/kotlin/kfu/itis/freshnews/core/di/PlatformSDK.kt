@@ -6,6 +6,8 @@ import kfu.itis.freshnews.core.db.dbModule
 import kfu.itis.freshnews.core.firebase.FirebaseAnalyticsBinding
 import kfu.itis.freshnews.core.firebase.FirebaseCrashlyticsBinding
 import kfu.itis.freshnews.core.network.networkModule
+import kfu.itis.freshnews.feature.details.di.detailsModule
+import kfu.itis.freshnews.feature.favorites.di.favoritesModule
 import kfu.itis.freshnews.feature.home.di.homeModule
 import org.kodein.di.DI
 import org.kodein.di.DirectDI
@@ -30,6 +32,8 @@ object PlatformSDK {
                 networkModule,
                 dbModule,
                 homeModule,
+                detailsModule,
+                favoritesModule,
             )
         }.direct
     }

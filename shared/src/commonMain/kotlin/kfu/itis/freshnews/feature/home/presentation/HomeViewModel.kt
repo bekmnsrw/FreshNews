@@ -1,6 +1,7 @@
 package kfu.itis.freshnews.feature.home.presentation
 
 import kfu.itis.freshnews.core.di.PlatformSDK
+import kfu.itis.freshnews.core.firebase.FirebaseAnalyticsBinding
 import kfu.itis.freshnews.core.firebase.FirebaseCrashlyticsBinding
 import kfu.itis.freshnews.core.viewmodel.BaseViewModel
 import kfu.itis.freshnews.feature.home.domain.model.ArticleCategory
@@ -17,19 +18,20 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
     private val searchTopHeadlinesByPhraseUseCase: SearchTopHeadlinesByPhraseUseCase by PlatformSDK.lazyInstance()
     private val getTopHeadlinesByCategoryUseCase: GetTopHeadlinesByCategoryUseCase by PlatformSDK.lazyInstance()
     private val firebaseCrashlyticsBinding: FirebaseCrashlyticsBinding by PlatformSDK.lazyInstance()
+    private val firebaseAnalyticsBinding: FirebaseAnalyticsBinding by PlatformSDK.lazyInstance()
 
     override fun handleEvent(event: HomeEvent) = when (event) {
-        HomeEvent.OnInit -> onInit()
-        is HomeEvent.OnArticleClick -> onArticleClick(event.name)
+        is HomeEvent.OnArticleClick -> onArticleClick(event.title)
         is HomeEvent.OnQueryChange -> onQueryChange(event.query)
         is HomeEvent.OnActiveChange -> onActiveChange(event.isSearchActive)
         is HomeEvent.OnArticleCategoryClick -> onArticleCategoryClick(event.category)
         is HomeEvent.OnSearch -> onSearch(event.query)
     }
 
-    private fun onInit() {
+    init {
         loadLatestArticles()
         loadArticlesOfCategory()
+        logOpenScreen()
     }
 
     private fun loadLatestArticles() {
@@ -38,10 +40,8 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
                 state = state.copy(isLatestArticlesLoading = true)
                 val latestArticles = getTopHeadlinesUseCase()
                 state = state.copy(latestArticles = latestArticles)
-            } catch (error: Throwable) {
-                state = state.copy(error = error)
-                action = HomeAction.ShowError("Oops, something went wrong")
-                firebaseCrashlyticsBinding.sendNonFatalErrorReport(error)
+            } catch (e: Throwable) {
+                handleError(e)
             } finally {
                 state = state.copy(isLatestArticlesLoading = false)
             }
@@ -54,57 +54,35 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
                 state = state.copy(isArticlesOfCategoryLoading = true)
                 val articlesOfCategory = getTopHeadlinesByCategoryUseCase(state.selectedArticleCategory)
                 state = state.copy(articlesOfCategory = articlesOfCategory)
-            } catch (error: Throwable) {
-                state = state.copy(error = error)
-                action = HomeAction.ShowError("Oops, something went wrong")
-                firebaseCrashlyticsBinding.sendNonFatalErrorReport(error)
+            } catch (e: Throwable) {
+                handleError(e)
             } finally {
                 state = state.copy(isArticlesOfCategoryLoading = false)
             }
         }
     }
 
-    private fun onArticleClick(name: String) {
-        scope.launch {
-            try {
-                action = HomeAction.NavigateDetails(name)
-            } catch (error: Throwable) {
-                state = state.copy(error = error)
-                action = HomeAction.ShowError("Oops, something went wrong")
-                firebaseCrashlyticsBinding.sendNonFatalErrorReport(error)
-            }
-        }
+    private fun onArticleClick(title: String) {
+        action = HomeAction.NavigateDetails(title)
     }
 
     private fun onQueryChange(query: String) {
-        scope.launch {
-            try {
-                if (query.isEmpty()) state = state.copy(searchedArticles = emptyList())
-                state = state.copy(searchQuery = query)
-            } catch (error: Throwable) {
-                state = state.copy(error = error)
-                action = HomeAction.ShowError("Oops, something went wrong")
-                firebaseCrashlyticsBinding.sendNonFatalErrorReport(error)
-            }
-        }
+        if (query.isEmpty()) state = state.copy(searchedArticles = emptyList())
+        state = state.copy(searchQuery = query)
     }
 
     private fun onActiveChange(isSearchActive: Boolean) {
-        scope.launch {
-            try {
-                state = state.copy(isSearchActive = isSearchActive)
-            } catch (error: Throwable) {
-                state = state.copy(error = error)
-                action = HomeAction.ShowError("Oops, something went wrong")
-                firebaseCrashlyticsBinding.sendNonFatalErrorReport(error)
-            }
-        }
+        state = state.copy(isSearchActive = isSearchActive)
     }
 
     private fun onArticleCategoryClick(category: ArticleCategory) {
         scope.launch {
-            state = state.copy(selectedArticleCategory = category)
-            loadArticlesOfCategory()
+            try {
+                state = state.copy(selectedArticleCategory = category)
+                loadArticlesOfCategory()
+            } catch (e: Throwable) {
+                handleError(e)
+            }
         }
     }
 
@@ -117,13 +95,21 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
                     searchQuery = query,
                     searchedArticles = searchedArticles,
                 )
-            } catch (error: Throwable) {
-                state = state.copy(error = error)
-                action = HomeAction.ShowError("Oops, something went wrong")
-                firebaseCrashlyticsBinding.sendNonFatalErrorReport(error)
+            } catch (e: Throwable) {
+                handleError(e)
             } finally {
                 state = state.copy(isSearchedArticlesLoading = false)
             }
         }
+    }
+
+    private fun logOpenScreen() {
+        firebaseAnalyticsBinding.logOpenScreen("home_screen")
+    }
+
+    private fun handleError(e: Throwable) {
+        state = state.copy(error = e)
+        action = HomeAction.ShowError("Oops, something went wrong")
+        firebaseCrashlyticsBinding.sendNonFatalErrorReport(e)
     }
 }

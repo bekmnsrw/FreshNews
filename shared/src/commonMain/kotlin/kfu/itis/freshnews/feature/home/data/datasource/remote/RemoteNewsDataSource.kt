@@ -19,6 +19,7 @@ internal class RemoteNewsDataSource(
         url {
             path("top-headlines")
             parameter("category", "general")
+            parameter("country", "us")
         }
     }.body()
 
@@ -26,6 +27,7 @@ internal class RemoteNewsDataSource(
         url {
             path("top-headlines")
             parameter("category", category.name.lowercase())
+            parameter("country", "us")
         }
     }.body()
 
@@ -33,6 +35,7 @@ internal class RemoteNewsDataSource(
         url {
             path("top-headlines")
             parameter("q", phrase)
+            parameter("country", "us")
         }
     }.body()
 }

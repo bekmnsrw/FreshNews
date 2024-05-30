@@ -20,10 +20,19 @@ class AndroidFirebaseAnalytics : FirebaseAnalyticsBinding {
         }
     }
 
+    override fun logOpenScreen(screenName: String) {
+        analytics.logEvent(OPEN_SCREEN) {
+            param(SCREEN_NAME, screenName)
+        }
+    }
+
     private companion object {
 
         const val ADD_TO_FAVORITES = "add_to_favorites"
         const val ARTICLE_CATEGORY = "article_category"
         const val ARTICLE_SOURCE = "article_source"
+
+        const val OPEN_SCREEN = "open_screen"
+        const val SCREEN_NAME = "screen_name"
     }
 }
