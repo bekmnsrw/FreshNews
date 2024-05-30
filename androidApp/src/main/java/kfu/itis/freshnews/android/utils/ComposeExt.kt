@@ -1,6 +1,9 @@
 package kfu.itis.freshnews.android.utils
 
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisallowComposableCalls
@@ -30,8 +33,13 @@ inline fun <T> rememberEvent(crossinline block: @DisallowComposableCalls (T) -> 
 
 fun LazyListScope.LazyColumnSpacer(height: Dp) {
     item {
-        androidx.compose.foundation.layout.Spacer(
+        Spacer(
             modifier = Modifier.height(height),
         )
     }
+}
+
+@Composable
+fun ColumnScope.ColumnSpacer(height: Dp) {
+    Spacer(modifier = Modifier.padding(vertical = height))
 }

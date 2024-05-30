@@ -19,14 +19,20 @@ import kfu.itis.freshnews.feature.details.presentation.DetailsViewModel
 fun DetailsScreen(
     viewModel: DetailsViewModel = viewModel(),
     navController: NavController,
-    articleDetails: ArticleDetails?,
+    articleDetails: ArticleDetails? = null,
+    favoriteArticleId: Int? = null,
 ) {
     val state by viewModel.states.collectAsStateWithLifecycle(initialValue = DetailsState())
     val action by viewModel.actions.collectAsStateWithLifecycle(initialValue = null)
     val eventHandler = rememberEvent<DetailsEvent> { detailsEvent -> viewModel.handleEvent(detailsEvent) }
 
     LaunchedEffect(Unit) {
-        eventHandler(DetailsEvent.OnInit(articleDetails))
+        eventHandler(
+            DetailsEvent.OnInit(
+                articleDetails = articleDetails,
+                favoriteArticleId = favoriteArticleId,
+            )
+        )
     }
 
     DetailsView(

@@ -29,6 +29,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kfu.itis.freshnews.android.R
 import kfu.itis.freshnews.android.theme.ThemeProvider
+import kfu.itis.freshnews.android.utils.ColumnSpacer
 import kfu.itis.freshnews.android.utils.LazyColumnSpacer
 import kfu.itis.freshnews.android.utils.toDate
 import kfu.itis.freshnews.android.widget.FreshNewsImage
@@ -43,6 +44,7 @@ fun HomeView(
     eventHandler: (HomeEvent) -> Unit,
 ) {
     Scaffold(
+        modifier = Modifier.fillMaxSize(),
         topBar = {
             SearchToolbar(
                 searchQuery = state.searchQuery,
@@ -264,7 +266,7 @@ private fun NewsItem(
                     .clip(RoundedCornerShape(8.dp)),
                 imageUrl = article.urlToImage,
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            ColumnSpacer(16.dp)
             Text(
                 text = article.publishedAt.toDate(),
                 maxLines = 1,
@@ -272,7 +274,7 @@ private fun NewsItem(
                 style = ThemeProvider.typography.date,
                 color = ThemeProvider.colors.onPrimaryVariant,
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            ColumnSpacer(8.dp)
             Text(
                 text = article.title,
                 maxLines = 2,
@@ -281,7 +283,7 @@ private fun NewsItem(
                 color = ThemeProvider.colors.onPrimary,
             )
             if (article.description.isNotEmpty()) {
-                Spacer(modifier = Modifier.height(8.dp))
+                ColumnSpacer(8.dp)
             }
             Text(
                 text = article.description,
@@ -290,7 +292,7 @@ private fun NewsItem(
                 style = ThemeProvider.typography.newsDescription,
                 color = ThemeProvider.colors.onPrimary,
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            ColumnSpacer(8.dp)
             Text(
                 text = article.source,
                 maxLines = 1,
