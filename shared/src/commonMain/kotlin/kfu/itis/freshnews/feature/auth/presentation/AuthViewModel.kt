@@ -24,8 +24,8 @@ class AuthViewModel : BaseViewModel<AuthState, AuthAction, AuthEvent>(
         AuthEvent.OnHidePasswordClick -> onHidePasswordClick()
         is AuthEvent.OnLoginChange -> onLoginChange(event.login)
         is AuthEvent.OnPasswordChange -> onPasswordChange(event.password)
-        is AuthEvent.OnSignInClick -> onSignInClick(event.login, event.password)
-        is AuthEvent.OnSignUpClick -> onSignUpClick(event.login, event.password)
+        is AuthEvent.OnSignInClick -> onSignInClick()
+        is AuthEvent.OnSignUpClick -> onSignUpClick()
         AuthEvent.OnSkipAuthClick -> onSkipAuthClick()
     }
 
@@ -38,17 +38,23 @@ class AuthViewModel : BaseViewModel<AuthState, AuthAction, AuthEvent>(
     }
 
     private fun onLoginChange(login: String) {
-        state = state.copy(login = login)
+        state = state.copy(
+            login = login,
+            isEmptyLogin = login.isBlank(),
+        )
     }
 
     private fun onPasswordChange(password: String) {
-        state = state.copy(password = password)
+        state = state.copy(
+            password = password,
+            isEmptyPassword = password.isBlank(),
+        )
     }
 
-    private fun onSignInClick(login: String, password: String) {
+    private fun onSignInClick() {
         scope.launch {
             try {
-                val userProfile = signInUseCase(login, password).first()
+                val userProfile = signInUseCase(state.login, state.password).first()
                 if (userProfile == null) {
                     state = state.copy(
                         isSignInErrorShown = true,
@@ -58,7 +64,7 @@ class AuthViewModel : BaseViewModel<AuthState, AuthAction, AuthEvent>(
                 } else {
                     userProfile.id?.let { userId ->
                         saveUserIdUseCase(userId)
-                        firebaseAnalyticsBinding.logSignIn(login)
+                        firebaseAnalyticsBinding.logSignIn(state.login)
                         action = AuthAction.NavigateHome
                     }
                 }
@@ -68,10 +74,10 @@ class AuthViewModel : BaseViewModel<AuthState, AuthAction, AuthEvent>(
         }
     }
 
-    private fun onSignUpClick(login: String, password: String) {
+    private fun onSignUpClick() {
         scope.launch {
             try {
-                val userProfile = signUpUseCase(login, password).first()
+                val userProfile = signUpUseCase(state.login, state.password).first()
                 if (userProfile == null) {
                     state = state.copy(
                         isSignUpErrorShown = true,
@@ -81,7 +87,7 @@ class AuthViewModel : BaseViewModel<AuthState, AuthAction, AuthEvent>(
                 } else {
                     userProfile.id?.let { userId ->
                         saveUserIdUseCase(userId)
-                        firebaseAnalyticsBinding.logSignUp(login)
+                        firebaseAnalyticsBinding.logSignUp(state.login)
                         action = AuthAction.NavigateHome
                     }
                 }

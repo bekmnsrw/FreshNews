@@ -6,13 +6,15 @@ data class AuthState(
     val isSignInErrorShown: Boolean = false,
     val isSignUpErrorShown: Boolean = false,
     val isPasswordHidden: Boolean = true,
+    val isEmptyLogin: Boolean = false,
+    val isEmptyPassword: Boolean = false,
 )
 
 sealed class AuthEvent {
     class OnLoginChange(val login: String) : AuthEvent()
     class OnPasswordChange(val password: String) : AuthEvent()
-    class OnSignUpClick(val login: String, val password: String) : AuthEvent()
-    class OnSignInClick(val login: String, val password: String) : AuthEvent()
+    object OnSignUpClick : AuthEvent()
+    object OnSignInClick : AuthEvent()
     object OnSkipAuthClick : AuthEvent()
     object OnHidePasswordClick : AuthEvent()
 }
