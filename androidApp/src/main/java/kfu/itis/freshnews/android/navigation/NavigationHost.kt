@@ -20,6 +20,7 @@ import kfu.itis.freshnews.android.navigation.graph.authNavGraph
 import kfu.itis.freshnews.android.navigation.graph.favoritesNavGraph
 import kfu.itis.freshnews.android.navigation.graph.homeNavGraph
 import kfu.itis.freshnews.android.navigation.graph.profileNavGraph
+import kfu.itis.freshnews.android.navigation.graph.splashNavGraph
 
 @Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -46,8 +47,9 @@ fun NavigationHost() {
     ) {
         NavHost(
             navController = navController,
-            startDestination = FreshNewsRoutes.AUTH_GRAPH_ROUTE,
+            startDestination = FreshNewsRoutes.SPLASH_GRAPH_ROUTE,
         ) {
+            splashNavGraph(navController)
             authNavGraph(navController)
             homeNavGraph(navController)
             favoritesNavGraph(navController)

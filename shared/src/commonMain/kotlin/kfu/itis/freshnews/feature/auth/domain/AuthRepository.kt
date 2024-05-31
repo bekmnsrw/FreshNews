@@ -9,4 +9,6 @@ interface AuthRepository {
     fun signIn(login: String, password: String): Flow<UserProfile?>
     suspend fun saveUserId(id: Int)
     suspend fun getUserId(): Int?
+    suspend fun setWelcomeScreenShown()
+    suspend fun isWelcomeScreenShown(): Boolean
 }

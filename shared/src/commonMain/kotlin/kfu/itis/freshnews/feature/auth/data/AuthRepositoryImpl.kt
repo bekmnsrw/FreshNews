@@ -39,8 +39,17 @@ internal class AuthRepositoryImpl(
         return settings.getIntOrNull(USER_ID_KEY)
     }
 
+    override suspend fun setWelcomeScreenShown() {
+        settings.putBoolean(IS_WELCOME_SCREEN_SHOWN_KEY, true)
+    }
+
+    override suspend fun isWelcomeScreenShown(): Boolean {
+        return settings.getBoolean(IS_WELCOME_SCREEN_SHOWN_KEY, false)
+    }
+
     private companion object {
 
         const val USER_ID_KEY = "id"
+        const val IS_WELCOME_SCREEN_SHOWN_KEY = "isWelcomeScreenShown"
     }
 }
