@@ -35,29 +35,24 @@ class ProfileViewModel : BaseViewModel<ProfileState, ProfileAction, ProfileEvent
     override fun handleEvent(event: ProfileEvent) = when (event) {
         ProfileEvent.OnDeleteAccountClick -> onDeleteAccountClick()
         ProfileEvent.OnAuthenticateClick -> onAuthenticateClick()
-        ProfileEvent.OnDarkModeClick -> onDarkModeClick()
+        ProfileEvent.OnDarkModeChanged -> onDarkModeChanged()
         ProfileEvent.OnLogOutClick -> onLogOutClick()
+        is ProfileEvent.OnDialogConfirm -> onDialogConfirm(event.dialogType)
+        is ProfileEvent.OnDialogDismiss -> onDialogDismiss()
     }
 
     private fun onDeleteAccountClick() {
-        scope.launch {
-            try {
-                val userId = getUserIdUseCase()
-                userId?.let { id ->
-                    deleteProfileUseCase(id)
-                    state = state.copy(isUserAuthenticated = false)
-                }
-            } catch (e: Throwable) {
-                handleError(e)
-            }
-        }
+        state = state.copy(
+            isDialogShown = true,
+            shownDialogType = DialogType.PROFILE_DELETION,
+        )
     }
 
     private fun onAuthenticateClick() {
         action = ProfileAction.NavigateAuth
     }
 
-    private fun onDarkModeClick() {
+    private fun onDarkModeChanged() {
         scope.launch {
             try {
                 changeDarkModeUseCase(!state.isDarkModeEnabled)
@@ -69,14 +64,10 @@ class ProfileViewModel : BaseViewModel<ProfileState, ProfileAction, ProfileEvent
     }
 
     private fun onLogOutClick() {
-        scope.launch {
-            try {
-                logOutUseCase()
-                state = state.copy(isUserAuthenticated = false)
-            } catch (e: Throwable) {
-                handleError(e)
-            }
-        }
+        state = state.copy(
+            isDialogShown = true,
+            shownDialogType = DialogType.LOGOUT,
+        )
     }
 
     private fun loadProfile() {
@@ -91,6 +82,41 @@ class ProfileViewModel : BaseViewModel<ProfileState, ProfileAction, ProfileEvent
                         isUserAuthenticated = true,
                         profile = userProfile,
                     )
+                }
+            } catch (e: Throwable) {
+                handleError(e)
+            }
+        }
+    }
+
+    private fun onDialogDismiss() {
+        state = state.copy(isDialogShown = false)
+    }
+
+    private fun onDialogConfirm(dialogType: DialogType) {
+        scope.launch {
+            try {
+                when (dialogType) {
+                    DialogType.LOGOUT -> {
+                        logOutUseCase()
+                        state = state.copy(
+                            isUserAuthenticated = false,
+                            profile = null,
+                            isDialogShown = false,
+                        )
+                    }
+                    DialogType.PROFILE_DELETION -> {
+                        val userId = getUserIdUseCase()
+                        userId?.let { id ->
+                            deleteProfileUseCase(id)
+                            logOutUseCase()
+                            state = state.copy(
+                                isUserAuthenticated = false,
+                                profile = null,
+                                isDialogShown = false,
+                            )
+                        }
+                    }
                 }
             } catch (e: Throwable) {
                 handleError(e)

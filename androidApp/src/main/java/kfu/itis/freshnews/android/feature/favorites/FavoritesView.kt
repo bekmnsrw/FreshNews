@@ -75,7 +75,7 @@ private fun FavoritesContent(
                 )
             }
         } else {
-            AuthenticateButton(
+            NotAuthenticatedContent(
                 onClick = onAuthButtonClick,
             )
         }
@@ -90,7 +90,7 @@ private fun EmptyFavoritesList() {
 }
 
 @Composable
-private fun AuthenticateButton(
+private fun NotAuthenticatedContent(
     onClick: () -> Unit,
 ) {
     Column(
