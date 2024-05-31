@@ -4,13 +4,14 @@ import kfu.itis.freshnews.feature.details.domain.model.ArticleDetails
 import kfu.itis.freshnews.feature.favorites.domain.model.FavoritesArticle
 import kfu.itis.freshnews.feature.home.domain.model.Article
 
-fun ArticleDetails.toFavoritesArticle(): FavoritesArticle = FavoritesArticle(
+fun ArticleDetails.toFavoritesArticle(userId: Long): FavoritesArticle = FavoritesArticle(
     id = null,
     imageUrl = urlToImage,
     title = title,
     description = description,
     source = source,
     publishedAt = publishedAt,
+    profileId = userId,
 )
 
 fun Article.toArticleDetails(): ArticleDetails = ArticleDetails(

@@ -5,12 +5,13 @@ import kfu.itis.freshnews.feature.details.domain.model.ArticleDetails
 import kfu.itis.freshnews.feature.favorites.domain.model.FavoritesArticle
 
 fun FavoritesNews.toFavoritesArticle(): FavoritesArticle = FavoritesArticle(
-    id = id.toInt(),
+    id = id,
     imageUrl = image_url,
     title = title,
     description = description,
     source = source,
     publishedAt = published_at,
+    profileId = profile_id,
 )
 
 fun List<FavoritesNews>.toFavoritesArticleList(): List<FavoritesArticle> = this

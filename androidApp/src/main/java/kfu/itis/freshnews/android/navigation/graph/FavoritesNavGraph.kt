@@ -22,7 +22,7 @@ fun NavGraphBuilder.favoritesNavGraph(navController: NavController) {
                 navController = navController,
                 favoriteArticleId = navController.previousBackStackEntry
                     ?.savedStateHandle
-                    ?.get<Int>(NestedScreen.DetailsScreenFromFavorites.argKey),
+                    ?.get<Long>(NestedScreen.DetailsScreenFromFavorites.argKey),
             )
         }
     }

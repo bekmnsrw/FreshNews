@@ -31,12 +31,12 @@ internal class AuthRepositoryImpl(
             .map { profile -> profile?.toUserProfile() }
     }
 
-    override suspend fun saveUserId(id: Int) {
-        settings.putInt(USER_ID_KEY, id)
+    override suspend fun saveUserId(id: Long) {
+        settings.putLong(USER_ID_KEY, id)
     }
 
-    override suspend fun getUserId(): Int? {
-        return settings.getIntOrNull(USER_ID_KEY)
+    override suspend fun getUserId(): Long? {
+        return settings.getLongOrNull(USER_ID_KEY)
     }
 
     override suspend fun setWelcomeScreenShown() {

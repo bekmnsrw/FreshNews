@@ -5,5 +5,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface GetFavoritesArticleByTitleUseCase {
 
-    operator fun invoke(title: String): Flow<FavoritesArticle?>
+    operator fun invoke(
+        title: String,
+        userId: Long,
+    ): Flow<FavoritesArticle?>
 }

@@ -7,7 +7,10 @@ internal class RemoveFavoritesArticleUseCaseImpl(
     private val favoritesRepository: FavoritesRepository,
 ) : RemoveFavoritesArticleUseCase {
 
-    override suspend fun invoke(title: String) {
-        favoritesRepository.removeFavoritesArticle(title)
+    override suspend fun invoke(
+        title: String,
+        userId: Long,
+    ) {
+        favoritesRepository.removeFavoritesArticle(title, userId)
     }
 }

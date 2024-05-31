@@ -5,24 +5,26 @@ CREATE TABLE FavoritesNews (
     title TEXT NOT NULL,
     description TEXT NOT NULL,
     source TEXT NOT NULL,
-    published_at TEXT NOT NULL
+    published_at TEXT NOT NULL,
+    profile_id INTEGER NOT NULL,
+    FOREIGN KEY (profile_id) REFERENCES Profile (id)
 );
 
 addFavoritesNews:
-INSERT OR REPLACE INTO FavoritesNews(id, image_url, title, description, source, published_at)
-VALUES (?, ?, ?, ?, ?, ?);
+INSERT OR REPLACE INTO FavoritesNews(id, image_url, title, description, source, published_at, profile_id)
+VALUES (?, ?, ?, ?, ?, ?, ?);
 
 getAllFavoritesNews:
-SELECT * FROM FavoritesNews;
+SELECT * FROM FavoritesNews WHERE profile_id == ?;
 
 getFavoritesNewsById:
-SELECT * FROM FavoritesNews WHERE id == ?;
+SELECT * FROM FavoritesNews WHERE id == ? AND profile_id == ?;
 
 getFavoritesNewsByTitle:
-SELECT * FROM FavoritesNews WHERE title == ?;
+SELECT * FROM FavoritesNews WHERE title == ? AND profile_id == ?;
 
 removeFavoritesNewsByTitle:
-DELETE FROM FavoritesNews WHERE title == ?;
+DELETE FROM FavoritesNews WHERE title == ? AND profile_id == ?;
 
 -- Profile
 CREATE TABLE Profile (

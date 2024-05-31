@@ -45,6 +45,7 @@ private fun AuthActions(
             null -> Unit
             AuthAction.NavigateHome -> navController.navigate(FreshNewsRoutes.HOME_GRAPH_ROUTE) {
                 popUpTo(FreshNewsRoutes.AUTH_GRAPH_ROUTE) { inclusive = true }
+                popUpTo(FreshNewsRoutes.HOME_GRAPH_ROUTE) { inclusive = true }
             }
             is AuthAction.ShowError -> Unit
         }

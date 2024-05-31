@@ -14,26 +14,26 @@ internal class FavoritesRepositoryImpl(
     private val localFavoritesDataSource: LocalFavoritesDataSource,
 ) : FavoritesRepository {
 
-    override suspend fun addFavoritesArticle(articleDetails: ArticleDetails) {
-        return localFavoritesDataSource.addFavoritesNews(articleDetails.toFavoritesArticle())
+    override suspend fun addFavoritesArticle(articleDetails: ArticleDetails, userId: Long) {
+        return localFavoritesDataSource.addFavoritesNews(articleDetails.toFavoritesArticle(userId))
     }
 
-    override suspend fun removeFavoritesArticle(title: String) {
-        return localFavoritesDataSource.removeFavoritesNewsByTitle(title)
+    override suspend fun removeFavoritesArticle(title: String, userId: Long) {
+        return localFavoritesDataSource.removeFavoritesNewsByTitle(title, userId)
     }
 
-    override fun getAllFavoritesArticle(): Flow<List<FavoritesArticle>> {
-        return localFavoritesDataSource.getAllFavoritesNews()
+    override fun getAllFavoritesArticle(userId: Long): Flow<List<FavoritesArticle>> {
+        return localFavoritesDataSource.getAllFavoritesNews(userId)
             .map { favoritesNews -> favoritesNews.toFavoritesArticleList() }
     }
 
-    override fun getFavoritesArticleById(id: Int): Flow<FavoritesArticle> {
-        return localFavoritesDataSource.getFavoritesNewsById(id)
+    override fun getFavoritesArticleById(articleId: Long, userId: Long): Flow<FavoritesArticle> {
+        return localFavoritesDataSource.getFavoritesNewsById(articleId, userId)
             .map { favoritesNews -> favoritesNews.toFavoritesArticle() }
     }
 
-    override fun getFavoritesArticleByTitle(title: String): Flow<FavoritesArticle?> {
-        return localFavoritesDataSource.getFavoritesNewsByTitle(title)
+    override fun getFavoritesArticleByTitle(title: String, userId: Long): Flow<FavoritesArticle?> {
+        return localFavoritesDataSource.getFavoritesNewsByTitle(title, userId)
             .map { favoritesNews -> favoritesNews?.toFavoritesArticle() }
     }
 }

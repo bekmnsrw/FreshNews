@@ -18,34 +18,35 @@ internal class LocalFavoritesDataSource(
 
     suspend fun addFavoritesNews(favoritesArticle: FavoritesArticle) = withContext(Dispatchers.IO) {
         database.freshNewsQueries.addFavoritesNews(
-            id = favoritesArticle.id?.toLong(),
+            id = favoritesArticle.id,
             image_url = favoritesArticle.imageUrl,
             title = favoritesArticle.title,
             description = favoritesArticle.description,
             source = favoritesArticle.source,
             published_at = favoritesArticle.publishedAt,
+            profile_id = favoritesArticle.profileId,
         )
     }
 
-    fun getAllFavoritesNews(): Flow<List<FavoritesNews>> {
-        return database.freshNewsQueries.getAllFavoritesNews()
+    fun getAllFavoritesNews(userId: Long): Flow<List<FavoritesNews>> {
+        return database.freshNewsQueries.getAllFavoritesNews(userId)
             .asFlow()
             .mapToList(Dispatchers.IO)
     }
 
-    fun getFavoritesNewsById(id: Int): Flow<FavoritesNews> {
-        return database.freshNewsQueries.getFavoritesNewsById(id.toLong())
+    fun getFavoritesNewsById(articleId: Long, userId: Long): Flow<FavoritesNews> {
+        return database.freshNewsQueries.getFavoritesNewsById(articleId, userId)
             .asFlow()
             .mapToOne(Dispatchers.IO)
     }
 
-    fun getFavoritesNewsByTitle(title: String): Flow<FavoritesNews?> {
-        return database.freshNewsQueries.getFavoritesNewsByTitle(title)
+    fun getFavoritesNewsByTitle(title: String, userId: Long): Flow<FavoritesNews?> {
+        return database.freshNewsQueries.getFavoritesNewsByTitle(title, userId)
             .asFlow()
             .mapToOneOrNull(Dispatchers.IO)
     }
 
-    suspend fun removeFavoritesNewsByTitle(title: String) = withContext(Dispatchers.IO) {
-        database.freshNewsQueries.removeFavoritesNewsByTitle(title)
+    suspend fun removeFavoritesNewsByTitle(title: String, userId: Long) = withContext(Dispatchers.IO) {
+        database.freshNewsQueries.removeFavoritesNewsByTitle(title, userId)
     }
 }

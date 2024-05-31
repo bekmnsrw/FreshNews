@@ -20,7 +20,7 @@ fun DetailsScreen(
     viewModel: DetailsViewModel = viewModel(),
     navController: NavController,
     articleDetails: ArticleDetails? = null,
-    favoriteArticleId: Int? = null,
+    favoriteArticleId: Long? = null,
 ) {
     val state by viewModel.states.collectAsStateWithLifecycle(initialValue = DetailsState())
     val action by viewModel.actions.collectAsStateWithLifecycle(initialValue = null)
