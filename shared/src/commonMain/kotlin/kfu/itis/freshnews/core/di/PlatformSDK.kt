@@ -10,6 +10,7 @@ import kfu.itis.freshnews.feature.auth.di.authModule
 import kfu.itis.freshnews.feature.details.di.detailsModule
 import kfu.itis.freshnews.feature.favorites.di.favoritesModule
 import kfu.itis.freshnews.feature.home.di.homeModule
+import kfu.itis.freshnews.feature.profile.di.profileModule
 import org.kodein.di.DI
 import org.kodein.di.DirectDI
 import org.kodein.di.LazyDelegate
@@ -36,6 +37,7 @@ object PlatformSDK {
                 detailsModule,
                 favoritesModule,
                 authModule,
+                profileModule,
             )
         }.direct
     }
