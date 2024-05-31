@@ -15,11 +15,11 @@ internal class FavoritesRepositoryImpl(
 ) : FavoritesRepository {
 
     override suspend fun addFavoritesArticle(articleDetails: ArticleDetails) {
-        localFavoritesDataSource.addFavoritesNews(articleDetails.toFavoritesArticle())
+        return localFavoritesDataSource.addFavoritesNews(articleDetails.toFavoritesArticle())
     }
 
     override suspend fun removeFavoritesArticle(title: String) {
-        localFavoritesDataSource.removeFavoritesNewsByTitle(title)
+        return localFavoritesDataSource.removeFavoritesNewsByTitle(title)
     }
 
     override fun getAllFavoritesArticle(): Flow<List<FavoritesArticle>> {

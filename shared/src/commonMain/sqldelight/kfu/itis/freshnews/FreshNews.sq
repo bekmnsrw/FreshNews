@@ -1,3 +1,4 @@
+-- Favorite News
 CREATE TABLE FavoritesNews (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     image_url TEXT NOT NULL,
@@ -22,3 +23,20 @@ SELECT * FROM FavoritesNews WHERE title == ?;
 
 removeFavoritesNewsByTitle:
 DELETE FROM FavoritesNews WHERE title == ?;
+
+-- Profile
+CREATE TABLE Profile (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    login TEXT NOT NULL,
+    password TEXT NOT NULL
+);
+
+signUp:
+INSERT INTO Profile(id, login, password)
+VALUES (?, ?, ?);
+
+signIn:
+SELECT * FROM Profile WHERE login == ? AND password == ?;
+
+isProfileExists:
+SELECT EXISTS (SELECT 1 FROM Profile WHERE login == ?);

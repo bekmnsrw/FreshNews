@@ -1,4 +1,4 @@
-package kfu.itis.freshnews.core.db
+package kfu.itis.freshnews.core.storage.db
 
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver

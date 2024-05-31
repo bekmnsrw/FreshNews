@@ -201,3 +201,8 @@ coil = [
     "coil-compose",
     "coil-svg",
 ]
+
+composeIcons = [
+    "compose-material-icons-core",
+    "compose-material-icons-ext",
+]

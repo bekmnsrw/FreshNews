@@ -17,6 +17,7 @@ sealed interface FreshNewsColors {
     val bottomBarContainer: Color
     val bottomBarItemUnselected: Color
     val cardTransparent: Color
+    val errorColor: Color
 
     class FreshNewsLightThemeColors(
         override val primary: Color = Color(0xFFFFFFFF),
@@ -28,6 +29,7 @@ sealed interface FreshNewsColors {
         override val bottomBarContainer: Color = Color(0xFFF9F9F9),
         override val bottomBarItemUnselected: Color = Color(0xFF959595),
         override val cardTransparent: Color = Color(0xFFF5F5F5),
+        override val errorColor: Color = Color(0xFFF44336),
     ) : FreshNewsColors
 
     class FreshNewsDarkThemeColors(
@@ -40,5 +42,6 @@ sealed interface FreshNewsColors {
         override val bottomBarContainer: Color = Color(0xFFF9F9F9),
         override val bottomBarItemUnselected: Color = Color(0xFF959595),
         override val cardTransparent: Color = Color(0xFFF5F5F5),
+        override val errorColor: Color = Color(0xFFF44336),
     ) : FreshNewsColors
 }

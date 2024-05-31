@@ -41,6 +41,7 @@ kotlin {
             implementation(libs.kodein.di)
             implementation(libs.bundles.sqlDelightCommon)
             implementation(libs.moko.parcelize)
+            implementation(libs.multiplatform.settings)
         }
 
         androidMain.dependencies {

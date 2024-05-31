@@ -16,7 +16,7 @@ import org.kodein.di.instance
 
 private const val MODULE_NAME = "homeModule"
 
-val homeModule = DI.Module(name = MODULE_NAME) {
+val homeModule = DI.Module(MODULE_NAME) {
 
     bindProvider<RemoteNewsDataSource> {
         RemoteNewsDataSource(

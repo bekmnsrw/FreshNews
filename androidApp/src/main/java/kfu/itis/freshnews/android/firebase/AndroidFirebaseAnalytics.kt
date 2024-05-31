@@ -26,6 +26,18 @@ class AndroidFirebaseAnalytics : FirebaseAnalyticsBinding {
         }
     }
 
+    override fun logSignIn(login: String) {
+        analytics.logEvent(SIGN_IN) {
+            param(LOGIN, login)
+        }
+    }
+
+    override fun logSignUp(login: String) {
+        analytics.logEvent(SIGN_UP) {
+            param(LOGIN, login)
+        }
+    }
+
     private companion object {
 
         const val ADD_TO_FAVORITES = "add_to_favorites"
@@ -34,5 +46,9 @@ class AndroidFirebaseAnalytics : FirebaseAnalyticsBinding {
 
         const val OPEN_SCREEN = "open_screen"
         const val SCREEN_NAME = "screen_name"
+
+        const val SIGN_UP = "sign_up"
+        const val SIGN_IN = "sign_in"
+        const val LOGIN = "login"
     }
 }

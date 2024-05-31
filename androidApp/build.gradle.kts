@@ -63,4 +63,5 @@ dependencies {
     implementation(libs.kotlinx.datetime)
     implementation(libs.system.ui.controller)
     implementation(libs.compose.nav)
+    implementation(libs.bundles.composeIcons)
 }

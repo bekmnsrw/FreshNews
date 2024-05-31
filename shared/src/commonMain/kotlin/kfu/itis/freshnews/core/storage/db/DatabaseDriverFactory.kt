@@ -1,4 +1,4 @@
-package kfu.itis.freshnews.core.db
+package kfu.itis.freshnews.core.storage.db
 
 import app.cash.sqldelight.db.SqlDriver
 import kfu.itis.freshnews.core.configuration.PlatformConfiguration

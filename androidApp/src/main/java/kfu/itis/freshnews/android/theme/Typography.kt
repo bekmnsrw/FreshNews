@@ -10,6 +10,10 @@ val LocalTypography = staticCompositionLocalOf<FreshNewsTypography> {
 }
 
 class FreshNewsTypography(
+    val welcomeTitle: TextStyle = TextStyle(
+        fontWeight = FontWeight.Bold,
+        fontSize = 24.sp,
+    ),
     val screenHeadline: TextStyle = TextStyle(
         fontWeight = FontWeight.SemiBold,
         fontSize = 17.sp,
