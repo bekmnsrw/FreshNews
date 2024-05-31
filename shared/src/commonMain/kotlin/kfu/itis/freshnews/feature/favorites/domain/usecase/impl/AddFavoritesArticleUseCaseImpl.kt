@@ -9,7 +9,10 @@ internal class AddFavoritesArticleUseCaseImpl(
     private val favoritesRepository: FavoritesRepository,
 ) : AddFavoritesArticleUseCase {
 
-    override suspend fun invoke(articleDetails: ArticleDetails) {
-        return favoritesRepository.addFavoritesArticle(articleDetails)
+    override suspend fun invoke(
+        articleDetails: ArticleDetails,
+        userId: Long,
+    ) {
+        return favoritesRepository.addFavoritesArticle(articleDetails, userId)
     }
 }

@@ -6,12 +6,13 @@ data class DetailsState(
     val articleDetails: ArticleDetails? = null,
     val isFavorite: Boolean = false,
     val error: Throwable? = null,
+    val isUserAuthenticated: Boolean = false,
 )
 
 sealed class DetailsEvent {
     class OnInit(
         val articleDetails: ArticleDetails?,
-        val favoriteArticleId: Int?,
+        val favoriteArticleId: Long?,
     ) : DetailsEvent()
     object OnArrowBackClick : DetailsEvent()
     object OnAddToFavoritesClick : DetailsEvent()

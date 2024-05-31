@@ -9,7 +9,7 @@ internal class GetAllFavoritesArticlesUseCaseImpl(
     private val favoritesRepository: FavoritesRepository,
 ) : GetAllFavoritesArticlesUseCase {
 
-    override fun invoke(): Flow<List<FavoritesArticle>> {
-        return favoritesRepository.getAllFavoritesArticle()
+    override fun invoke(userId: Long): Flow<List<FavoritesArticle>> {
+        return favoritesRepository.getAllFavoritesArticle(userId)
     }
 }

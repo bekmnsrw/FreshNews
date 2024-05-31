@@ -4,6 +4,7 @@ import kfu.itis.freshnews.core.di.PlatformSDK
 import kfu.itis.freshnews.core.firebase.FirebaseAnalyticsBinding
 import kfu.itis.freshnews.core.firebase.FirebaseCrashlyticsBinding
 import kfu.itis.freshnews.core.viewmodel.BaseViewModel
+import kfu.itis.freshnews.feature.auth.domain.usecase.GetUserIdUseCase
 import kfu.itis.freshnews.feature.details.domain.model.ArticleDetails
 import kfu.itis.freshnews.feature.favorites.data.mapper.toArticleDetails
 import kfu.itis.freshnews.feature.favorites.domain.usecase.AddFavoritesArticleUseCase
@@ -23,6 +24,7 @@ class DetailsViewModel : BaseViewModel<DetailsState, DetailsAction, DetailsEvent
     private val firebaseAnalyticsBinding: FirebaseAnalyticsBinding by PlatformSDK.lazyInstance()
     private val getFavoritesArticleByIdUseCase: GetFavoritesArticleByIdUseCase by PlatformSDK.lazyInstance()
     private val removeFavoritesArticleUseCase: RemoveFavoritesArticleUseCase by PlatformSDK.lazyInstance()
+    private val getUserIdUseCase: GetUserIdUseCase by PlatformSDK.lazyInstance()
 
     override fun handleEvent(event: DetailsEvent) = when (event) {
         is DetailsEvent.OnInit -> onInit(event.articleDetails, event.favoriteArticleId)
@@ -32,36 +34,66 @@ class DetailsViewModel : BaseViewModel<DetailsState, DetailsAction, DetailsEvent
 
     private fun onInit(
         articleDetails: ArticleDetails?,
-        favoriteArticleId: Int?,
+        favoriteArticleId: Long?,
     ) {
         scope.launch {
-            articleDetails?.let { article ->
-                val isFavorite = getFavoritesArticleByTitleUseCase(article.title).first() != null
-                state = state.copy(isFavorite = isFavorite)
-                state = state.copy(articleDetails = article)
+            try {
+                logOpenScreen()
+                val userId = getUserIdUseCase()
+                articleDetails?.let { article ->
+                    val isFavorite = if (userId != null) {
+                        getFavoritesArticleByTitleUseCase(article.title, userId).first() != null
+                    } else {
+                        false
+                    }
+                    state = state.copy(
+                        isFavorite = isFavorite,
+                        articleDetails = article,
+                        isUserAuthenticated = true,
+                    )
+                }
+                favoriteArticleId?.let { articleId ->
+                    if (userId != null) {
+                        val favoritesArticle = getFavoritesArticleByIdUseCase(articleId, userId).first()
+                        state = state.copy(
+                            articleDetails = favoritesArticle.toArticleDetails(),
+                            isFavorite = true,
+                            isUserAuthenticated = true
+                        )
+                    } else {
+                        state = state.copy(
+                            isUserAuthenticated = false,
+                            isFavorite = false,
+                        )
+                    }
+                }
+            } catch (e: Throwable) {
+                handleError(e)
             }
-            favoriteArticleId?.let { id ->
-                val favoritesArticle = getFavoritesArticleByIdUseCase(id).first()
-                state = state.copy(
-                    articleDetails = favoritesArticle.toArticleDetails(),
-                    isFavorite = true,
-                )
-            }
-            logOpenScreen()
         }
     }
 
     private fun onAddToFavoritesClick() {
         scope.launch {
             try {
-                state.articleDetails?.let { article ->
-                    if (state.isFavorite) {
-                        removeFavoritesArticleUseCase(article.title)
-                    } else {
-                        addFavoritesArticleUseCase(article)
+                val userId = getUserIdUseCase()
+                if (userId != null) {
+                    state.articleDetails?.let { article ->
+                        if (state.isFavorite) {
+                            removeFavoritesArticleUseCase(article.title, userId)
+                            firebaseAnalyticsBinding.logRemovingFromFavorites(article.title, userId)
+                        } else {
+                            addFavoritesArticleUseCase(article, userId)
+                            firebaseAnalyticsBinding.logAddingToFavorites(article.title, userId)
+                        }
                     }
+                    state = state.copy(
+                        isFavorite = !state.isFavorite,
+                        isUserAuthenticated = true,
+                    )
+                } else {
+                    state = state.copy(isUserAuthenticated = false)
                 }
-                state = state.copy(isFavorite = !state.isFavorite)
             } catch (e: Throwable) {
                 handleError(e)
             }

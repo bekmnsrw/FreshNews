@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface GetAllFavoritesArticlesUseCase {
 
-    operator fun invoke(): Flow<List<FavoritesArticle>>
+    operator fun invoke(userId: Long): Flow<List<FavoritesArticle>>
 }

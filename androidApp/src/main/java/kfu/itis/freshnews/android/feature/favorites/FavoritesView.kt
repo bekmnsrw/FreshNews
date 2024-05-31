@@ -1,6 +1,7 @@
 package kfu.itis.freshnews.android.feature.favorites
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,11 +11,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
@@ -39,7 +43,9 @@ fun FavoritesView(
             FavoritesContent(
                 scaffoldPadding = paddingValues,
                 favoriteArticles = state.favoritesArticles,
-                onArticleClick = { eventHandler(FavoritesEvent.OnArticleClick(it)) }
+                isUserAuthenticated = state.isUserAuthenticated,
+                onArticleClick = { articleId -> eventHandler(FavoritesEvent.OnArticleClick(articleId)) },
+                onAuthButtonClick = { eventHandler(FavoritesEvent.OnAuthButtonClick) }
             )
         }
     )
@@ -49,12 +55,77 @@ fun FavoritesView(
 private fun FavoritesContent(
     scaffoldPadding: PaddingValues,
     favoriteArticles: List<FavoritesArticle>,
-    onArticleClick: (Int) -> Unit,
+    isUserAuthenticated: Boolean,
+    onArticleClick: (Long) -> Unit,
+    onAuthButtonClick: () -> Unit,
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(scaffoldPadding),
+        contentAlignment = Alignment.Center,
+    ) {
+        if (isUserAuthenticated) {
+            if (favoriteArticles.isEmpty()) {
+                EmptyFavoritesList()
+            } else {
+                FavoritesArticleList(
+                    favoriteArticles = favoriteArticles,
+                    onArticleClick = onArticleClick,
+                )
+            }
+        } else {
+            AuthenticateButton(
+                onClick = onAuthButtonClick,
+            )
+        }
+    }
+}
+
+@Composable
+private fun EmptyFavoritesList() {
+    Text(
+        text = "You have no favorites articles added",
+    )
+}
+
+@Composable
+private fun AuthenticateButton(
+    onClick: () -> Unit,
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(horizontal = 24.dp),
+    ) {
+        Text(
+            text = "Log In to add favorite articles",
+            style = ThemeProvider.typography.screenHeadline,
+        )
+        ColumnSpacer(8.dp)
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = onClick,
+            colors = ButtonDefaults.buttonColors(
+                containerColor = ThemeProvider.colors.accent,
+            ),
+            shape = RoundedCornerShape(8.dp),
+        ) {
+            Text(
+                text = "Log In",
+                color = ThemeProvider.colors.primary,
+            )
+        }
+    }
+}
+
+@Composable
+private fun FavoritesArticleList(
+    favoriteArticles: List<FavoritesArticle>,
+    onArticleClick: (Long) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(scaffoldPadding)
             .padding(
                 start = 16.dp,
                 end = 16.dp,
@@ -78,7 +149,7 @@ private fun FavoritesContent(
 @Composable
 private fun FavoritesArticleItem(
     favoritesArticle: FavoritesArticle,
-    onItemClick: (Int) -> Unit
+    onItemClick: (Long) -> Unit
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),

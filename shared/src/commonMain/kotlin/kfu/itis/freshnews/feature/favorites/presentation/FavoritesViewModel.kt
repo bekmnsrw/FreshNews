@@ -4,6 +4,7 @@ import kfu.itis.freshnews.core.di.PlatformSDK
 import kfu.itis.freshnews.core.firebase.FirebaseAnalyticsBinding
 import kfu.itis.freshnews.core.firebase.FirebaseCrashlyticsBinding
 import kfu.itis.freshnews.core.viewmodel.BaseViewModel
+import kfu.itis.freshnews.feature.auth.domain.usecase.GetUserIdUseCase
 import kfu.itis.freshnews.feature.favorites.domain.usecase.GetAllFavoritesArticlesUseCase
 import kotlinx.coroutines.launch
 
@@ -14,9 +15,11 @@ class FavoritesViewModel : BaseViewModel<FavoritesState, FavoritesAction, Favori
     private val firebaseCrashlyticsBinding: FirebaseCrashlyticsBinding by PlatformSDK.lazyInstance()
     private val firebaseAnalyticsBinding: FirebaseAnalyticsBinding by PlatformSDK.lazyInstance()
     private val getAllFavoritesArticleUseCase: GetAllFavoritesArticlesUseCase by PlatformSDK.lazyInstance()
+    private val getUserIdUseCase: GetUserIdUseCase by PlatformSDK.lazyInstance()
 
     override fun handleEvent(event: FavoritesEvent) = when (event) {
         is FavoritesEvent.OnArticleClick -> onArticleClick(event.id)
+        FavoritesEvent.OnAuthButtonClick -> onAuthButtonClick()
     }
 
     init {
@@ -27,18 +30,30 @@ class FavoritesViewModel : BaseViewModel<FavoritesState, FavoritesAction, Favori
     private fun loadFavoriteArticles() {
         scope.launch {
             try {
-                getAllFavoritesArticleUseCase()
-                    .collect { favorites ->
-                        state = state.copy(favoritesArticles = favorites)
-                    }
+                val userId = getUserIdUseCase()
+                if (userId == null) {
+                    state = state.copy(isUserAuthenticated = false)
+                } else {
+                    getAllFavoritesArticleUseCase(userId)
+                        .collect { favorites ->
+                            state = state.copy(
+                                favoritesArticles = favorites,
+                                isUserAuthenticated = true,
+                            )
+                        }
+                }
             } catch (e: Throwable) {
                 handleError(e)
             }
         }
     }
 
-    private fun onArticleClick(id: Int) {
+    private fun onArticleClick(id: Long) {
         action = FavoritesAction.NavigateDetails(id)
+    }
+
+    private fun onAuthButtonClick() {
+        action = FavoritesAction.NavigateAuth
     }
 
     private fun logOpenScreen() {

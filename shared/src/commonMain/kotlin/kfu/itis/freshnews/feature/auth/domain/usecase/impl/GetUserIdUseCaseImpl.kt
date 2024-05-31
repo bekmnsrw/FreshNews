@@ -7,7 +7,7 @@ internal class GetUserIdUseCaseImpl(
     private val authRepository: AuthRepository,
 ) : GetUserIdUseCase {
 
-    override suspend fun invoke(): Int? {
+    override suspend fun invoke(): Long? {
         return authRepository.getUserId()
     }
 }
