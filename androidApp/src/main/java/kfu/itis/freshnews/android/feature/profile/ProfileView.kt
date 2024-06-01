@@ -4,7 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -12,20 +12,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Switch
-import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import kfu.itis.freshnews.android.app.AppSettingsEvent
-import kfu.itis.freshnews.android.designsystem.icon.FreshNewsIcons
-//import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
+import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
+import kfu.itis.freshnews.android.utils.ColumnSpacer
 import kfu.itis.freshnews.feature.profile.presentation.DialogType
 import kfu.itis.freshnews.feature.profile.presentation.ProfileEvent
 import kfu.itis.freshnews.feature.profile.presentation.ProfileState
@@ -33,7 +28,6 @@ import kfu.itis.freshnews.feature.profile.presentation.ProfileState
 @Composable
 fun ProfileView(
     state: ProfileState,
-    appSettingsEventHandler: (AppSettingsEvent) -> Unit,
     eventHandler: (ProfileEvent) -> Unit,
 ) {
     Scaffold(
@@ -43,12 +37,7 @@ fun ProfileView(
                 scaffoldPadding = paddingValues,
                 isUserAuthenticated = state.isUserAuthenticated,
                 login = state.profile?.login,
-                isDarkModeEnabled = state.isDarkModeEnabled,
                 onAuthenticateClick = { eventHandler(ProfileEvent.OnAuthenticateClick) },
-                onDarkModeChanged = {
-                    eventHandler(ProfileEvent.OnDarkModeChanged)
-                    appSettingsEventHandler(AppSettingsEvent.ChangeDarkModeEnabled)
-                },
                 onLogOutClick = { eventHandler(ProfileEvent.OnLogOutClick) },
                 onDeleteProfileClick = { eventHandler(ProfileEvent.OnDeleteAccountClick) },
             )
@@ -59,7 +48,8 @@ fun ProfileView(
                     onConfirm = { dialogType -> eventHandler(ProfileEvent.OnDialogConfirm(dialogType)) },
                 )
             }
-        }
+        },
+        containerColor = ThemeProvider.colors.background,
     )
 }
 
@@ -68,9 +58,7 @@ private fun ProfileContent(
     scaffoldPadding: PaddingValues,
     isUserAuthenticated: Boolean,
     login: String?,
-    isDarkModeEnabled: Boolean,
     onAuthenticateClick: () -> Unit,
-    onDarkModeChanged: () -> Unit,
     onLogOutClick: () -> Unit,
     onDeleteProfileClick: () -> Unit,
 ) {
@@ -80,25 +68,14 @@ private fun ProfileContent(
             .padding(scaffoldPadding),
     ) {
         Column(modifier = Modifier.padding(horizontal = 24.dp)) {
-            ProfileTitle(
-                login = login,
-            )
-            DarkThemeSwitch(
-                isDarkModeEnabled = isDarkModeEnabled,
-                onCheckedChange = onDarkModeChanged,
-            )
+            ProfileTitle(login)
+            ColumnSpacer(16.dp)
             if (!isUserAuthenticated) {
-                AuthenticateButton(
-                    onClick = onAuthenticateClick,
-                )
+                AuthenticateButton(onAuthenticateClick)
             }
             if (isUserAuthenticated) {
-                LogOutButton(
-                    onClick = onLogOutClick,
-                )
-                DeleteProfileButton(
-                    onClick = onDeleteProfileClick,
-                )
+                LogOutButton(onLogOutClick)
+                DeleteProfileButton(onDeleteProfileClick)
             }
         }
     }
@@ -111,49 +88,9 @@ private fun ProfileTitle(
     val visibleText = login ?: "Dear Guest"
     Text(
         text = "Hello, $visibleText!",
-//        style = ThemeProvider.typography.screenHeadline,
+        style = ThemeProvider.typography.screenHeading,
+        color = ThemeProvider.colors.mainText,
     )
-}
-
-@Composable
-private fun DarkThemeSwitch(
-    isDarkModeEnabled: Boolean,
-    onCheckedChange: () -> Unit,
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Text(
-            text = "Dark mode",
-        )
-        Column(
-            horizontalAlignment = Alignment.End,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Switch(
-                checked = isDarkModeEnabled,
-                onCheckedChange = { onCheckedChange() },
-                colors = SwitchDefaults.colors(
-//                    checkedThumbColor = ThemeProvider.colors.primary,
-//                    checkedTrackColor = ThemeProvider.colors.accent,
-//                    uncheckedThumbColor = ThemeProvider.colors.accent,
-//                    uncheckedTrackColor = ThemeProvider.colors.outline,
-//                    checkedBorderColor = ThemeProvider.colors.accent,
-//                    uncheckedBorderColor = ThemeProvider.colors.accent,
-                ),
-                thumbContent = {
-                    if (isDarkModeEnabled) {
-                        Icon(
-                            imageVector = FreshNewsIcons.DONE,
-                            contentDescription = null,
-//                            tint = ThemeProvider.colors.accent,
-                        )
-                    }
-                }
-            )
-        }
-    }
 }
 
 @Composable
@@ -164,49 +101,48 @@ private fun AuthenticateButton(
         modifier = Modifier.fillMaxWidth(),
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
-//            containerColor = ThemeProvider.colors.accent,
+            containerColor = ThemeProvider.colors.buttonContainer,
         ),
         shape = RoundedCornerShape(8.dp),
     ) {
         Text(
             text = "Log In",
-//            color = ThemeProvider.colors.primary,
+            color = ThemeProvider.colors.buttonContent,
+            style = ThemeProvider.typography.button,
         )
     }
 }
 
 @Composable
-private fun LogOutButton(
-    onClick: () -> Unit,
-) {
+private fun LogOutButton(onClick: () -> Unit) {
     OutlinedButton(
         modifier = Modifier.fillMaxWidth(),
         onClick = onClick,
-//        border = BorderStroke(1.dp, ThemeProvider.colors.errorColor),
+        border = BorderStroke(1.dp, ThemeProvider.colors.error),
         shape = RoundedCornerShape(8.dp),
     ) {
         Text(
             text = "Log Out",
-//            color = ThemeProvider.colors.errorColor,
+            color = ThemeProvider.colors.error,
+            style = ThemeProvider.typography.button,
         )
     }
 }
 
 @Composable
-private fun DeleteProfileButton(
-    onClick: () -> Unit,
-) {
+private fun DeleteProfileButton(onClick: () -> Unit) {
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
-//            containerColor = ThemeProvider.colors.errorColor,
+            containerColor = ThemeProvider.colors.error,
         ),
         shape = RoundedCornerShape(8.dp),
     ) {
         Text(
             text = "Delete profile",
-//            color = ThemeProvider.colors.primary,
+            color = ThemeProvider.colors.buttonContent,
+            style = ThemeProvider.typography.button,
         )
     }
 }
@@ -218,26 +154,33 @@ private fun ConfirmationDialog(
     onConfirm: (DialogType) -> Unit,
 ) {
     AlertDialog(
+        containerColor = ThemeProvider.colors.bottomBar,
+        textContentColor = ThemeProvider.colors.mainText,
+        titleContentColor = ThemeProvider.colors.mainText,
         onDismissRequest = onDismiss,
         title = {
             Text(
                 text = when (dialogType) {
                     DialogType.LOGOUT -> "Do you want to Log Out?"
                     DialogType.PROFILE_DELETION -> "Do you want to delete your profile"
-                }
+                },
             )
         },
         confirmButton = {
-            TextButton(onClick = { onConfirm(dialogType) }) {
+            TextButton({ onConfirm(dialogType) }) {
                 Text(
                     text = "Confirm",
+                    color = ThemeProvider.colors.accent,
+                    style = ThemeProvider.typography.button,
                 )
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) {
+            TextButton(onDismiss) {
                 Text(
                     text = "Dismiss",
+                    color = ThemeProvider.colors.outline,
+                    style = ThemeProvider.typography.button,
                 )
             }
         }

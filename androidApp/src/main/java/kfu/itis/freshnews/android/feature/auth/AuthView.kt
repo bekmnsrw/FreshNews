@@ -1,6 +1,7 @@
 package kfu.itis.freshnews.android.feature.auth
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,7 +26,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import kfu.itis.freshnews.android.designsystem.icon.FreshNewsIcons
-//import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
+import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 import kfu.itis.freshnews.android.utils.ColumnSpacer
 import kfu.itis.freshnews.android.widget.FreshNewsIconButton
 import kfu.itis.freshnews.feature.auth.presentation.AuthEvent
@@ -37,14 +38,17 @@ fun AuthView(
     eventHandler: (AuthEvent) -> Unit,
 ) {
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(ThemeProvider.colors.error),
         content = { paddingValues ->
             AuthContent(
                 scaffoldPadding = paddingValues,
                 state = state,
                 eventHandler = eventHandler,
             )
-        }
+        },
+        containerColor = ThemeProvider.colors.background,
     )
 }
 
@@ -106,8 +110,8 @@ private fun AuthContent(
 private fun WelcomeLabel() {
     Text(
         text = "Welcome to FreshNews",
-//        color = ThemeProvider.colors.accent,
-//        style = ThemeProvider.typography.welcomeTitle,
+        color = ThemeProvider.colors.accent,
+        style = ThemeProvider.typography.screenHeading,
     )
 }
 
@@ -136,14 +140,16 @@ private fun LoginField(
                         isTextFieldEmpty -> "Login mustn't be empty"
                         else -> ""
                     },
-//                    color = ThemeProvider.colors.errorColor,
+                    color = ThemeProvider.colors.accent,
                 )
             }
         },
         colors = TextFieldDefaults.outlinedTextFieldColors(
-//            focusedBorderColor = ThemeProvider.colors.accent,
-//            focusedLabelColor = ThemeProvider.colors.accent,
-//            cursorColor = ThemeProvider.colors.accent,
+            focusedBorderColor = ThemeProvider.colors.accent,
+            focusedLabelColor = ThemeProvider.colors.accent,
+            cursorColor = ThemeProvider.colors.accent,
+            focusedTextColor = ThemeProvider.colors.mainText,
+            unfocusedTextColor = ThemeProvider.colors.mainText,
         )
     )
 }
@@ -167,7 +173,7 @@ private fun PasswordField(
         trailingIcon = {
             FreshNewsIconButton(
                 icon = if (isPasswordHidden) FreshNewsIcons.VISIBILITY else FreshNewsIcons.VISIBILITY_OFF,
-//                tint = ThemeProvider.colors.accent,
+                tint = ThemeProvider.colors.accent,
                 onClick = onHidePasswordClick,
             )
         },
@@ -175,15 +181,18 @@ private fun PasswordField(
             if (isTextFieldEmpty) {
                 Text(
                     text = "Password mustn't be empty",
-//                    color = ThemeProvider.colors.errorColor,
+                    color = ThemeProvider.colors.error,
                 )
             }
         },
         singleLine = true,
         colors = TextFieldDefaults.outlinedTextFieldColors(
-//            focusedBorderColor = ThemeProvider.colors.accent,
-//            focusedLabelColor = ThemeProvider.colors.accent,
-//            cursorColor = ThemeProvider.colors.accent,
+            focusedBorderColor = ThemeProvider.colors.accent,
+            focusedLabelColor = ThemeProvider.colors.accent,
+            cursorColor = ThemeProvider.colors.accent,
+            focusedTextColor = ThemeProvider.colors.mainText,
+            unfocusedTextColor = ThemeProvider.colors.mainText,
+            errorTextColor = ThemeProvider.colors.mainText,
         )
     )
 }
@@ -197,14 +206,14 @@ private fun SignInButton(
         modifier = Modifier.fillMaxWidth(),
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
-//            containerColor = ThemeProvider.colors.accent,
+            containerColor = ThemeProvider.colors.accent,
         ),
         shape = RoundedCornerShape(8.dp),
         enabled = isEnabled,
     ) {
         Text(
             text = "Sign In",
-//            color = ThemeProvider.colors.primary,
+            color = ThemeProvider.colors.buttonContent,
         )
     }
 }
@@ -217,25 +226,23 @@ private fun SingUpButton(
     OutlinedButton(
         modifier = Modifier.fillMaxWidth(),
         onClick = onClick,
-//        border = BorderStroke(1.dp, ThemeProvider.colors.accent),
+        border = BorderStroke(1.dp, ThemeProvider.colors.accent),
         shape = RoundedCornerShape(8.dp),
         enabled = isEnabled,
     ) {
         Text(
             text = "Sign Up",
-//            color = ThemeProvider.colors.accent,
+            color = ThemeProvider.colors.accent,
         )
     }
 }
 
 @Composable
-private fun SkipAuthButton(
-    onClick: () -> Unit,
-) {
+private fun SkipAuthButton(onClick: () -> Unit) {
     TextButton(onClick = onClick) {
         Text(
             text = "Skip for now",
-//            color = ThemeProvider.colors.onPrimaryVariant,
+            color = ThemeProvider.colors.outline,
         )
     }
 }

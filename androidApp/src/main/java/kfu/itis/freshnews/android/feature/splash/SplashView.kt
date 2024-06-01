@@ -1,6 +1,7 @@
 package kfu.itis.freshnews.android.feature.splash
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import kfu.itis.freshnews.android.designsystem.icon.FreshNewsIcons
-//import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
+import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 import kfu.itis.freshnews.feature.splash.presentation.SplashEvent
 import kfu.itis.freshnews.feature.splash.presentation.SplashState
 
@@ -43,6 +44,7 @@ private fun SplashContent(
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(ThemeProvider.colors.background)
             .padding(scaffoldPadding),
         contentAlignment = Alignment.Center,
     ) {
@@ -50,7 +52,7 @@ private fun SplashContent(
             imageVector = FreshNewsIcons.NEWSPAPER,
             contentDescription = null,
             modifier = Modifier.size(96.dp),
-//            colorFilter = ColorFilter.tint(ThemeProvider.colors.accent),
+            colorFilter = ColorFilter.tint(ThemeProvider.colors.accent),
         )
     }
 }

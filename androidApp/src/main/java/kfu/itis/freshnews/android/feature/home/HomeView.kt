@@ -1,5 +1,6 @@
 package kfu.itis.freshnews.android.feature.home
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kfu.itis.freshnews.android.R
+import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 import kfu.itis.freshnews.android.utils.ColumnSpacer
 import kfu.itis.freshnews.android.utils.LazyColumnSpacer
 import kfu.itis.freshnews.android.utils.toDate
@@ -50,7 +52,7 @@ fun HomeView(
                 eventHandler = eventHandler,
             )
         },
-//        containerColor = ThemeProvider.colors.primary,
+        containerColor = ThemeProvider.colors.background,
     )
 }
 
@@ -113,8 +115,8 @@ private fun LatestNewsTitle() {
                     start = 16.dp,
                 ),
             text = stringResource(id = R.string.latest_news),
-//            style = ThemeProvider.typography.screenTitle,
-//            color = ThemeProvider.colors.onPrimary,
+            style = ThemeProvider.typography.screenHeading,
+            color = ThemeProvider.colors.mainText,
         )
     }
 }
@@ -157,9 +159,7 @@ private fun NewsCategories(
         stringResource(id = R.string.technology) to ArticleCategory.TECHNOLOGY,
     )
 
-    Surface(
-//        color = ThemeProvider.colors.primary,
-    ) {
+    Surface(color = ThemeProvider.colors.background) {
         LazyRow(
             modifier = Modifier
                 .padding(vertical = 8.dp)
@@ -190,15 +190,15 @@ private fun NewsCategoryItem(
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
-//            containerColor = ThemeProvider.colors.primary,
+            containerColor = ThemeProvider.colors.background,
         ),
-//        border = BorderStroke(
-//            width = 1.dp,
-//            color = when (isSelected) {
-//                true -> ThemeProvider.colors.accent
-//                false -> ThemeProvider.colors.outline
-//            }
-//        ),
+        border = BorderStroke(
+            width = 1.dp,
+            color = when (isSelected) {
+                true -> ThemeProvider.colors.accent
+                false -> ThemeProvider.colors.outline
+            }
+        ),
         onClick = onClick,
     ) {
         Text(
@@ -207,6 +207,8 @@ private fun NewsCategoryItem(
                 vertical = 8.dp,
             ),
             text = name,
+            color = ThemeProvider.colors.mainText,
+            style = ThemeProvider.typography.category,
         )
     }
 }
@@ -240,51 +242,57 @@ private fun NewsItem(
         modifier = modifier,
         onClick = onClick,
         colors = CardDefaults.cardColors(
-//            containerColor = ThemeProvider.colors.primary,
+            containerColor = ThemeProvider.colors.background,
         )
     ) {
-        Column(
-            modifier = Modifier.padding(8.dp),
-        ) {
+        Column(modifier = Modifier.padding(8.dp)) {
             FreshNewsImage(
                 modifier = Modifier
                     .height(128.dp)
                     .clip(RoundedCornerShape(8.dp)),
                 imageUrl = article.urlToImage,
             )
-            ColumnSpacer(16.dp)
+
+            ColumnSpacer(4.dp)
+
             Text(
                 text = article.publishedAt.toDate(),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-//                style = ThemeProvider.typography.date,
-//                color = ThemeProvider.colors.onPrimaryVariant,
+                style = ThemeProvider.typography.cardSupportingText,
+                color = ThemeProvider.colors.supportingText,
             )
-            ColumnSpacer(8.dp)
+
+            ColumnSpacer(2.dp)
+
             Text(
                 text = article.title,
-                maxLines = 2,
+                maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-//                style = ThemeProvider.typography.cardTitle,
-//                color = ThemeProvider.colors.onPrimary,
+                style = ThemeProvider.typography.cardTitle,
+                color = ThemeProvider.colors.mainText,
             )
+
             if (article.description.isNotEmpty()) {
-                ColumnSpacer(8.dp)
+                ColumnSpacer(2.dp)
             }
+
             Text(
                 text = article.description,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-//                style = ThemeProvider.typography.newsDescription,
-//                color = ThemeProvider.colors.onPrimary,
+                style = ThemeProvider.typography.cardSupportingText,
+                color = ThemeProvider.colors.supportingText,
             )
-            ColumnSpacer(8.dp)
+
+            ColumnSpacer(2.dp)
+
             Text(
                 text = article.source,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-//                style = ThemeProvider.typography.cardSupportingText,
-//                color = ThemeProvider.colors.onPrimaryVariant,
+                style = ThemeProvider.typography.cardSupportingText,
+                color = ThemeProvider.colors.supportingText,
             )
         }
     }

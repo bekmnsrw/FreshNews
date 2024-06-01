@@ -7,10 +7,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import kfu.itis.freshnews.android.app.AppSettings
-import kfu.itis.freshnews.android.app.AppSettingsEvent
-import kfu.itis.freshnews.android.navigation.FreshNewsRoutes
 import kfu.itis.freshnews.android.designsystem.theme.FreshNewsTheme
+import kfu.itis.freshnews.android.navigation.FreshNewsRoutes
 import kfu.itis.freshnews.android.utils.rememberEvent
 import kfu.itis.freshnews.feature.profile.presentation.ProfileAction
 import kfu.itis.freshnews.feature.profile.presentation.ProfileEvent
@@ -20,17 +18,14 @@ import kfu.itis.freshnews.feature.profile.presentation.ProfileViewModel
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel = viewModel(),
-    appSettings: AppSettings,
     navController: NavController,
 ) {
     val state by viewModel.states.collectAsStateWithLifecycle(initialValue = ProfileState())
     val action by viewModel.actions.collectAsStateWithLifecycle(initialValue = null)
     val eventHandler = rememberEvent<ProfileEvent> { profileEvent -> viewModel.handleEvent(profileEvent) }
-    val appSettingsEventHandler = rememberEvent<AppSettingsEvent> { appSettingsEvent -> appSettings.eventHandler(appSettingsEvent) }
 
     ProfileView(
         state = state,
-        appSettingsEventHandler = appSettingsEventHandler,
         eventHandler = eventHandler,
     )
 
@@ -61,7 +56,6 @@ private fun ProfileScreenPreview() {
         ProfileView(
             state = ProfileState(),
             eventHandler = {},
-            appSettingsEventHandler = {},
         )
     }
 }

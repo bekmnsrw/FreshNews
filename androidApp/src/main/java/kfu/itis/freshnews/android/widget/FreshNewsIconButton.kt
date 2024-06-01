@@ -10,14 +10,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
 fun FreshNewsIconButton(
     onClick: () -> Unit,
     icon: ImageVector,
-//    tint: Color,
+    tint: Color,
 ) {
     IconButton(
         onClick = onClick,
     ) {
         Icon(
             imageVector = icon,
-//            tint = tint,
+            tint = tint,
             contentDescription = null,
         )
     }
