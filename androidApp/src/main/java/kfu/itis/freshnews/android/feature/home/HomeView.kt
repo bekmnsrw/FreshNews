@@ -268,11 +268,11 @@ private fun NewsItem(
 //                style = ThemeProvider.typography.cardTitle,
 //                color = ThemeProvider.colors.onPrimary,
             )
-            if (article.description.isNotEmpty()) {
+            if (article.descr.isNotEmpty()) {
                 ColumnSpacer(8.dp)
             }
             Text(
-                text = article.description,
+                text = article.descr,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
 //                style = ThemeProvider.typography.newsDescription,

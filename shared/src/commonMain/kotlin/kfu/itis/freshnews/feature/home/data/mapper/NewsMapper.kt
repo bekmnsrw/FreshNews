@@ -4,7 +4,7 @@ import kfu.itis.freshnews.feature.home.data.datasource.remote.response.ArticleRe
 import kfu.itis.freshnews.feature.home.domain.model.Article
 
 fun ArticleResponse.toArticle(): Article = Article(
-    description = description ?: "",
+    descr = description ?: "",
     publishedAt = publishedAt ?: "",
     source = sourceResponse?.name ?: "",
     title = title ?: "",

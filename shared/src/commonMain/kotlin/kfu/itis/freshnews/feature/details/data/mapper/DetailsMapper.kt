@@ -15,7 +15,7 @@ fun ArticleDetails.toFavoritesArticle(userId: Long): FavoritesArticle = Favorite
 )
 
 fun Article.toArticleDetails(): ArticleDetails = ArticleDetails(
-    description = description,
+    description = descr,
     publishedAt = publishedAt,
     source = source,
     title = title,
