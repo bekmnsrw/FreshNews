@@ -15,7 +15,9 @@ fun NavGraphBuilder.favoritesNavGraph(navController: NavController) {
         startDestination = FreshNewsRoutes.FAVORITES_SCREEN_ROUTE,
     ) {
         composable(route = FreshNewsRoutes.FAVORITES_SCREEN_ROUTE) {
-            FavoritesScreen(navController = navController)
+            FavoritesScreen(
+                navController = navController,
+            )
         }
         composable(route = NestedScreen.DetailsScreenFromFavorites.route) {
             DetailsScreen(

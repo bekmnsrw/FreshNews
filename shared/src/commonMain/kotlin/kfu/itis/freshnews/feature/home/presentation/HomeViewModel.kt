@@ -22,6 +22,7 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
     private val firebaseAnalyticsBinding: FirebaseAnalyticsBinding by PlatformSDK.lazyInstance()
 
     override fun handleEvent(event: HomeEvent) = when (event) {
+        HomeEvent.OnInit -> onInit()
         is HomeEvent.OnArticleClick -> onArticleClick(event.article)
         is HomeEvent.OnQueryChange -> onQueryChange(event.query)
         is HomeEvent.OnActiveChange -> onActiveChange(event.isSearchActive)
@@ -33,6 +34,10 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
         loadLatestArticles()
         loadArticlesOfCategory()
         logOpenScreen()
+    }
+
+    private fun onInit() {
+
     }
 
     private fun loadLatestArticles() {

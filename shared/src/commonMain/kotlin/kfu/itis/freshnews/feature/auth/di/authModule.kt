@@ -7,12 +7,14 @@ import kfu.itis.freshnews.feature.auth.data.datasource.local.LocalAuthDataSource
 import kfu.itis.freshnews.feature.auth.domain.AuthRepository
 import kfu.itis.freshnews.feature.auth.domain.usecase.GetUserIdUseCase
 import kfu.itis.freshnews.feature.auth.domain.usecase.IsWelcomeScreenShownUseCase
+import kfu.itis.freshnews.feature.auth.domain.usecase.LogOutUseCase
 import kfu.itis.freshnews.feature.auth.domain.usecase.SaveUserIdUseCase
 import kfu.itis.freshnews.feature.auth.domain.usecase.SetWelcomeScreenShownUseCase
 import kfu.itis.freshnews.feature.auth.domain.usecase.SignInUseCase
 import kfu.itis.freshnews.feature.auth.domain.usecase.SignUpUseCase
 import kfu.itis.freshnews.feature.auth.domain.usecase.impl.GetUserIdUseCaseImpl
 import kfu.itis.freshnews.feature.auth.domain.usecase.impl.IsWelcomeScreenShownUseCaseImpl
+import kfu.itis.freshnews.feature.auth.domain.usecase.impl.LogOutUseCaseImpl
 import kfu.itis.freshnews.feature.auth.domain.usecase.impl.SaveUserIdUseCaseImpl
 import kfu.itis.freshnews.feature.auth.domain.usecase.impl.SetWelcomeScreenShowUseCaseImpl
 import kfu.itis.freshnews.feature.auth.domain.usecase.impl.SignInUseCaseImpl
@@ -71,6 +73,12 @@ val authModule = DI.Module(MODULE_NAME) {
 
     bindSingleton<SetWelcomeScreenShownUseCase> {
         SetWelcomeScreenShowUseCaseImpl(
+            authRepository = instance<AuthRepository>(),
+        )
+    }
+
+    bindProvider<LogOutUseCase> {
+        LogOutUseCaseImpl(
             authRepository = instance<AuthRepository>(),
         )
     }

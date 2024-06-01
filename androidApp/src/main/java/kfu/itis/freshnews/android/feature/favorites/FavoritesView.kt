@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import kfu.itis.freshnews.android.theme.ThemeProvider
+//import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 import kfu.itis.freshnews.android.utils.ColumnSpacer
 import kfu.itis.freshnews.android.utils.LazyColumnSpacer
 import kfu.itis.freshnews.android.utils.toDate
@@ -75,7 +75,7 @@ private fun FavoritesContent(
                 )
             }
         } else {
-            AuthenticateButton(
+            NotAuthenticatedContent(
                 onClick = onAuthButtonClick,
             )
         }
@@ -90,7 +90,7 @@ private fun EmptyFavoritesList() {
 }
 
 @Composable
-private fun AuthenticateButton(
+private fun NotAuthenticatedContent(
     onClick: () -> Unit,
 ) {
     Column(
@@ -99,20 +99,20 @@ private fun AuthenticateButton(
     ) {
         Text(
             text = "Log In to add favorite articles",
-            style = ThemeProvider.typography.screenHeadline,
+//            style = ThemeProvider.typography.screenHeadline,
         )
         ColumnSpacer(8.dp)
         Button(
             modifier = Modifier.fillMaxWidth(),
             onClick = onClick,
             colors = ButtonDefaults.buttonColors(
-                containerColor = ThemeProvider.colors.accent,
+//                containerColor = ThemeProvider.colors.accent,
             ),
             shape = RoundedCornerShape(8.dp),
         ) {
             Text(
                 text = "Log In",
-                color = ThemeProvider.colors.primary,
+//                color = ThemeProvider.colors.primary,
             )
         }
     }
@@ -155,7 +155,7 @@ private fun FavoritesArticleItem(
         modifier = Modifier.fillMaxWidth(),
         onClick = { favoritesArticle.id?.let(onItemClick) },
         colors = CardDefaults.cardColors(
-            containerColor = ThemeProvider.colors.primary,
+//            containerColor = ThemeProvider.colors.primary,
         )
     ) {
         Column(
@@ -172,16 +172,16 @@ private fun FavoritesArticleItem(
                 text = favoritesArticle.publishedAt.toDate(),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                style = ThemeProvider.typography.date,
-                color = ThemeProvider.colors.onPrimaryVariant,
+//                style = ThemeProvider.typography.date,
+//                color = ThemeProvider.colors.onPrimaryVariant,
             )
             ColumnSpacer(8.dp)
             Text(
                 text = favoritesArticle.title,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
-                style = ThemeProvider.typography.cardTitle,
-                color = ThemeProvider.colors.onPrimary,
+//                style = ThemeProvider.typography.cardTitle,
+//                color = ThemeProvider.colors.onPrimary,
             )
             if (favoritesArticle.description.isNotEmpty()) {
                 ColumnSpacer(8.dp)
@@ -190,16 +190,16 @@ private fun FavoritesArticleItem(
                 text = favoritesArticle.description,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                style = ThemeProvider.typography.newsDescription,
-                color = ThemeProvider.colors.onPrimary,
+//                style = ThemeProvider.typography.newsDescription,
+//                color = ThemeProvider.colors.onPrimary,
             )
             ColumnSpacer(8.dp)
             Text(
                 text = favoritesArticle.source,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                style = ThemeProvider.typography.cardSupportingText,
-                color = ThemeProvider.colors.onPrimaryVariant,
+//                style = ThemeProvider.typography.cardSupportingText,
+//                color = ThemeProvider.colors.onPrimaryVariant,
             )
         }
     }
