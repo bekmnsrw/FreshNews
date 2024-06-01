@@ -1,4 +1,4 @@
-package kfu.itis.freshnews.android.theme
+package kfu.itis.freshnews.android.designsystem.color
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color

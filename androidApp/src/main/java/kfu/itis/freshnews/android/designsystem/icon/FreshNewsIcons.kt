@@ -1,4 +1,4 @@
-package kfu.itis.freshnews.android.theme
+package kfu.itis.freshnews.android.designsystem.icon
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack

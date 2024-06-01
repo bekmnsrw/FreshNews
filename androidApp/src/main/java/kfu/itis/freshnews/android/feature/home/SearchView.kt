@@ -24,8 +24,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kfu.itis.freshnews.android.R
-import kfu.itis.freshnews.android.theme.FreshNewsIcons
-import kfu.itis.freshnews.android.theme.ThemeProvider
+import kfu.itis.freshnews.android.designsystem.icon.FreshNewsIcons
+//import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 import kfu.itis.freshnews.android.widget.FreshNewsIcon
 import kfu.itis.freshnews.android.widget.FreshNewsIconButton
 import kfu.itis.freshnews.feature.home.domain.model.Article
@@ -44,7 +44,7 @@ fun SearchToolbar(
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    ProvideTextStyle(value = ThemeProvider.typography.searchBarText) {
+//    ProvideTextStyle(value = ThemeProvider.typography.searchBarText) {
         SearchBar(
             modifier = Modifier
                 .fillMaxWidth()
@@ -69,8 +69,8 @@ fun SearchToolbar(
             placeholder = {
                 Text(
                     text = stringResource(id = R.string.search),
-                    style = ThemeProvider.typography.searchBarText,
-                    color = ThemeProvider.colors.onOutline,
+//                    style = ThemeProvider.typography.searchBarText,
+//                    color = ThemeProvider.colors.onOutline,
                 )
             },
             leadingIcon = {
@@ -81,11 +81,11 @@ fun SearchToolbar(
                             onQueryChange("")
                         },
                         icon = FreshNewsIcons.ARROW_BACK,
-                        tint = ThemeProvider.colors.onOutline,
+//                        tint = ThemeProvider.colors.onOutline,
                     )
                     false -> FreshNewsIcon(
                         icon = FreshNewsIcons.SEARCH,
-                        tint = ThemeProvider.colors.onOutline,
+//                        tint = ThemeProvider.colors.onOutline,
                     )
                 }
             },
@@ -94,15 +94,15 @@ fun SearchToolbar(
                     FreshNewsIconButton(
                         onClick = { onQueryChange("") },
                         icon = FreshNewsIcons.CLOSE,
-                        tint = ThemeProvider.colors.onOutline,
+//                        tint = ThemeProvider.colors.onOutline,
                     )
                 }
             },
             colors = SearchBarDefaults.colors(
-                containerColor = ThemeProvider.colors.outline,
+//                containerColor = ThemeProvider.colors.outline,
                 inputFieldColors = TextFieldDefaults.colors(
-                    cursorColor = ThemeProvider.colors.accent,
-                    focusedTextColor = ThemeProvider.colors.onPrimary,
+//                    cursorColor = ThemeProvider.colors.accent,
+//                    focusedTextColor = ThemeProvider.colors.onPrimary,
                 )
             ),
         ) {
@@ -115,7 +115,7 @@ fun SearchToolbar(
                 )
             }
         }
-    }
+//    }
 }
 
 @Composable
@@ -159,8 +159,8 @@ private fun SearchedNewsItem(
             text = article.title,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
-            style = ThemeProvider.typography.searchBarText,
-            color = ThemeProvider.colors.onPrimary,
+//            style = ThemeProvider.typography.searchBarText,
+//            color = ThemeProvider.colors.onPrimary,
         )
         HorizontalDivider()
     }
@@ -176,8 +176,8 @@ private fun NoSearchedNews() {
     ) {
         Text(
             text = stringResource(id = R.string.no_search_results),
-            style = ThemeProvider.typography.searchBarText,
-            color = ThemeProvider.colors.onPrimary,
+//            style = ThemeProvider.typography.searchBarText,
+//            color = ThemeProvider.colors.onPrimary,
         )
     }
 }

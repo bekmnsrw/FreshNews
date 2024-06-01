@@ -23,8 +23,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import kfu.itis.freshnews.android.theme.FreshNewsIcons
-import kfu.itis.freshnews.android.theme.ThemeProvider
+import kfu.itis.freshnews.android.app.AppSettingsEvent
+import kfu.itis.freshnews.android.designsystem.icon.FreshNewsIcons
+//import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 import kfu.itis.freshnews.feature.profile.presentation.DialogType
 import kfu.itis.freshnews.feature.profile.presentation.ProfileEvent
 import kfu.itis.freshnews.feature.profile.presentation.ProfileState
@@ -32,6 +33,7 @@ import kfu.itis.freshnews.feature.profile.presentation.ProfileState
 @Composable
 fun ProfileView(
     state: ProfileState,
+    appSettingsEventHandler: (AppSettingsEvent) -> Unit,
     eventHandler: (ProfileEvent) -> Unit,
 ) {
     Scaffold(
@@ -43,7 +45,10 @@ fun ProfileView(
                 login = state.profile?.login,
                 isDarkModeEnabled = state.isDarkModeEnabled,
                 onAuthenticateClick = { eventHandler(ProfileEvent.OnAuthenticateClick) },
-                onDarkModeChanged = { eventHandler(ProfileEvent.OnDarkModeChanged) },
+                onDarkModeChanged = {
+                    eventHandler(ProfileEvent.OnDarkModeChanged)
+                    appSettingsEventHandler(AppSettingsEvent.ChangeDarkModeEnabled)
+                },
                 onLogOutClick = { eventHandler(ProfileEvent.OnLogOutClick) },
                 onDeleteProfileClick = { eventHandler(ProfileEvent.OnDeleteAccountClick) },
             )
@@ -106,7 +111,7 @@ private fun ProfileTitle(
     val visibleText = login ?: "Dear Guest"
     Text(
         text = "Hello, $visibleText!",
-        style = ThemeProvider.typography.screenHeadline,
+//        style = ThemeProvider.typography.screenHeadline,
     )
 }
 
@@ -130,19 +135,19 @@ private fun DarkThemeSwitch(
                 checked = isDarkModeEnabled,
                 onCheckedChange = { onCheckedChange() },
                 colors = SwitchDefaults.colors(
-                    checkedThumbColor = ThemeProvider.colors.primary,
-                    checkedTrackColor = ThemeProvider.colors.accent,
-                    uncheckedThumbColor = ThemeProvider.colors.accent,
-                    uncheckedTrackColor = ThemeProvider.colors.outline,
-                    checkedBorderColor = ThemeProvider.colors.accent,
-                    uncheckedBorderColor = ThemeProvider.colors.accent,
+//                    checkedThumbColor = ThemeProvider.colors.primary,
+//                    checkedTrackColor = ThemeProvider.colors.accent,
+//                    uncheckedThumbColor = ThemeProvider.colors.accent,
+//                    uncheckedTrackColor = ThemeProvider.colors.outline,
+//                    checkedBorderColor = ThemeProvider.colors.accent,
+//                    uncheckedBorderColor = ThemeProvider.colors.accent,
                 ),
                 thumbContent = {
                     if (isDarkModeEnabled) {
                         Icon(
                             imageVector = FreshNewsIcons.DONE,
                             contentDescription = null,
-                            tint = ThemeProvider.colors.accent,
+//                            tint = ThemeProvider.colors.accent,
                         )
                     }
                 }
@@ -159,13 +164,13 @@ private fun AuthenticateButton(
         modifier = Modifier.fillMaxWidth(),
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
-            containerColor = ThemeProvider.colors.accent,
+//            containerColor = ThemeProvider.colors.accent,
         ),
         shape = RoundedCornerShape(8.dp),
     ) {
         Text(
             text = "Log In",
-            color = ThemeProvider.colors.primary,
+//            color = ThemeProvider.colors.primary,
         )
     }
 }
@@ -177,12 +182,12 @@ private fun LogOutButton(
     OutlinedButton(
         modifier = Modifier.fillMaxWidth(),
         onClick = onClick,
-        border = BorderStroke(1.dp, ThemeProvider.colors.errorColor),
+//        border = BorderStroke(1.dp, ThemeProvider.colors.errorColor),
         shape = RoundedCornerShape(8.dp),
     ) {
         Text(
             text = "Log Out",
-            color = ThemeProvider.colors.errorColor,
+//            color = ThemeProvider.colors.errorColor,
         )
     }
 }
@@ -195,13 +200,13 @@ private fun DeleteProfileButton(
         modifier = Modifier.fillMaxWidth(),
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
-            containerColor = ThemeProvider.colors.errorColor,
+//            containerColor = ThemeProvider.colors.errorColor,
         ),
         shape = RoundedCornerShape(8.dp),
     ) {
         Text(
             text = "Delete profile",
-            color = ThemeProvider.colors.primary,
+//            color = ThemeProvider.colors.primary,
         )
     }
 }

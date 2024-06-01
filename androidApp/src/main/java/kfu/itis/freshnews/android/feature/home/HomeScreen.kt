@@ -8,7 +8,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import kfu.itis.freshnews.android.navigation.NestedScreen
-import kfu.itis.freshnews.android.theme.FreshNewsTheme
+import kfu.itis.freshnews.android.designsystem.theme.FreshNewsTheme
 import kfu.itis.freshnews.android.utils.rememberEvent
 import kfu.itis.freshnews.feature.home.presentation.HomeAction
 import kfu.itis.freshnews.feature.home.presentation.HomeEvent

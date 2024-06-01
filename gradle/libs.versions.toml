@@ -41,19 +41,18 @@ androidx-espresso-core = "3.5.1" # https://developer.android.com/jetpack/android
 androidx-test-junit = "1.1.5" # https://developer.android.com/jetpack/androidx/releases/test
 
 # Firebase
-firebase-bom = "32.8.1" # https://firebase.google.com/docs/android/learn-more#bom
-firebase-crashlytics = "2.9.9"
+firebase-bom = "33.1.0" # https://firebase.google.com/docs/android/learn-more#bom
+firebase-crashlytics = "3.0.1"
 firebase-perf = "1.4.2"
 
 # Google Services
-google-services = "4.4.1"
+google-services = "4.4.2"
 
 # Android Specific
 coil = "2.4.0" # https://coil-kt.github.io/coil/
 okhttp = "5.0.0-alpha.12" # https://mvnrepository.com/artifact/com.squareup.okhttp3/logging-interceptor
 timber = "5.0.1" # https://github.com/JakeWharton/timber
 system-ui-controller = "0.30.1"
-runtimeSavedInstanceState = "1.0.0-alpha11"
 
 [libraries]
 # AndroidX

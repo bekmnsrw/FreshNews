@@ -8,11 +8,11 @@ import androidx.compose.ui.graphics.vector.ImageVector
 @Composable
 fun FreshNewsIcon(
     icon: ImageVector,
-    tint: Color,
+//    tint: Color,
 ) {
     Icon(
         imageVector = icon,
-        tint = tint,
+//        tint = tint,
         contentDescription = null,
     )
 }

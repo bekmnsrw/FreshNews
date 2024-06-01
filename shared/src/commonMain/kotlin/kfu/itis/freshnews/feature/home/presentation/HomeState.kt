@@ -17,6 +17,7 @@ data class HomeState(
 )
 
 sealed class HomeEvent {
+    object OnInit : HomeEvent()
     class OnArticleClick(val article: Article) : HomeEvent()
     class OnQueryChange(val query: String) : HomeEvent()
     class OnArticleCategoryClick(val category: ArticleCategory) : HomeEvent()

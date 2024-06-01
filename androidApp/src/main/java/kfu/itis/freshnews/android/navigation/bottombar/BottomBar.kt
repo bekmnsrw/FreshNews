@@ -10,7 +10,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import kfu.itis.freshnews.android.theme.ThemeProvider
+//import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 
 @Composable
 fun BottomBar(
@@ -23,18 +23,26 @@ fun BottomBar(
         TabItem.Profile,
     )
 
-    NavigationBar(containerColor = ThemeProvider.colors.bottomBarContainer) {
+    NavigationBar(
+//        containerColor = ThemeProvider.colors.bottomBarContainer
+    ) {
         tabItems.forEach { tabItem ->
             NavigationBarItem(
                 selected = tabItem == currentSelectedScreen,
-                onClick = { navController.navigateToRootScreen(tabItem) },
+                onClick = {
+                    navController.navigate(tabItem.route.lowercase()) {
+                        popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                },
                 icon = { Icon(tabItem.icon, null) },
                 label = { Text(stringResource(id = tabItem.name)) },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = ThemeProvider.colors.accent,
-                    selectedTextColor = ThemeProvider.colors.accent,
-                    unselectedIconColor = ThemeProvider.colors.bottomBarItemUnselected,
-                    unselectedTextColor = ThemeProvider.colors.bottomBarItemUnselected,
+//                    selectedIconColor = ThemeProvider.colors.accent,
+//                    selectedTextColor = ThemeProvider.colors.accent,
+//                    unselectedIconColor = ThemeProvider.colors.bottomBarItemUnselected,
+//                    unselectedTextColor = ThemeProvider.colors.bottomBarItemUnselected,
                 )
             )
         }
@@ -43,7 +51,7 @@ fun BottomBar(
 
 private fun NavController.navigateToRootScreen(rootScreen: TabItem) {
     navigate(rootScreen.route) {
-        popUpTo(graph.findStartDestination().id) { saveState = true }
+        popUpTo(this@navigateToRootScreen.graph.findStartDestination().id) { saveState = true }
         launchSingleTop = true
         restoreState = true
     }

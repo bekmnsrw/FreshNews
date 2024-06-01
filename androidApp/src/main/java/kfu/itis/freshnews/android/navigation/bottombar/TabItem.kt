@@ -4,7 +4,7 @@ import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.vector.ImageVector
 import kfu.itis.freshnews.android.R
 import kfu.itis.freshnews.android.navigation.FreshNewsRoutes
-import kfu.itis.freshnews.android.theme.FreshNewsIcons
+import kfu.itis.freshnews.android.designsystem.icon.FreshNewsIcons
 
 sealed class TabItem(
     val route: String,
