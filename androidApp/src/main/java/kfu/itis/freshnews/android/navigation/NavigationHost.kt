@@ -14,7 +14,6 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import kfu.itis.freshnews.android.app.AppSettings
 import kfu.itis.freshnews.android.navigation.bottombar.BottomBar
 import kfu.itis.freshnews.android.navigation.bottombar.TabItem
 import kfu.itis.freshnews.android.navigation.graph.authNavGraph
@@ -25,7 +24,7 @@ import kfu.itis.freshnews.android.navigation.graph.splashNavGraph
 
 @Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-fun NavigationHost(appSettings: AppSettings) {
+fun NavigationHost() {
     val navController: NavHostController = rememberNavController()
     val currentSelectedScreen by navController.currentScreenAsState()
     val currentRoute by navController.currentRouteAsState()
@@ -54,7 +53,7 @@ fun NavigationHost(appSettings: AppSettings) {
             authNavGraph(navController)
             homeNavGraph(navController)
             favoritesNavGraph(navController)
-            profileNavGraph(navController, appSettings)
+            profileNavGraph(navController)
         }
     }
 }

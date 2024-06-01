@@ -3,45 +3,52 @@ package kfu.itis.freshnews.android.designsystem.color
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
-val LocalColors = staticCompositionLocalOf<FreshNewsColors> {
-    error("No colors provided")
-}
+val LocalColors = staticCompositionLocalOf<FreshNewsColors> { error("No colors provided") }
 
 sealed interface FreshNewsColors {
-    val primary: Color
-    val onPrimary: Color
-    val onPrimaryVariant: Color
+    val background: Color
+    val mainText: Color
+    val supportingText: Color
     val accent: Color
+    val error: Color
     val outline: Color
-    val onOutline: Color
-    val bottomBarContainer: Color
-    val bottomBarItemUnselected: Color
-    val cardTransparent: Color
-    val errorColor: Color
+    val bottomBar: Color
+    val bottomBarSelected: Color
+    val bottomBarUnselected: Color
+    val iconContainer: Color
+    val iconContent: Color
+    val buttonContent: Color
+    val buttonContainer: Color
 
     class FreshNewsLightThemeColors(
-        override val primary: Color = Color(0xFFFFFFFF),
-        override val onPrimary: Color = Color(0xFF000000),
-        override val onPrimaryVariant: Color = Color(0xFF2E0505),
-        override val accent: Color = Color(0xFF0080FF),
-        override val outline: Color = Color(0x1F767680),
-        override val onOutline: Color = Color( 0x993C3C43),
-        override val bottomBarContainer: Color = Color(0xFFF9F9F9),
-        override val bottomBarItemUnselected: Color = Color(0xFF959595),
-        override val cardTransparent: Color = Color(0xFFF5F5F5),
-        override val errorColor: Color = Color(0xFFF44336),
+        override val background: Color = Color(255, 255,255),
+        override val mainText: Color = Color(0, 0, 0),
+        override val supportingText: Color = Color(142, 142, 147),
+        override val accent: Color = Color(0, 122, 255),
+        override val error: Color = Color(255, 59, 48),
+        override val outline: Color = Color(142, 142, 147),
+        override val bottomBar: Color = Color(0xFFF9F9F9),
+        override val bottomBarSelected: Color = Color(0, 122, 255),
+        override val bottomBarUnselected: Color = Color(0xFF959595),
+        override val iconContainer: Color = Color(0, 122, 255),
+        override val iconContent: Color = Color(255, 255,255),
+        override val buttonContainer: Color = Color(0, 122, 255),
+        override val buttonContent: Color = Color(255, 255, 255),
     ) : FreshNewsColors
 
     class FreshNewsDarkThemeColors(
-        override val primary: Color = Color(0xFFFFFFFF),
-        override val onPrimary: Color = Color(0xFF000000),
-        override val onPrimaryVariant: Color = Color(0xFF2E0505),
-        override val accent: Color = Color(0xFF0080FF),
-        override val outline: Color = Color(0x1F767680),
-        override val onOutline: Color = Color( 0x993C3C43),
-        override val bottomBarContainer: Color = Color(0xFFF9F9F9),
-        override val bottomBarItemUnselected: Color = Color(0xFF959595),
-        override val cardTransparent: Color = Color(0xFFF5F5F5),
-        override val errorColor: Color = Color(0xFFF44336),
+        override val background: Color = Color(0, 0,0),
+        override val mainText: Color = Color(255, 255, 255),
+        override val supportingText: Color = Color(142, 142, 147),
+        override val accent: Color = Color(10, 132, 255),
+        override val error: Color = Color(255, 69, 58),
+        override val outline: Color = Color(142, 142, 147),
+        override val bottomBar: Color = Color(28, 28, 30),
+        override val bottomBarSelected: Color = Color(0, 122, 255),
+        override val bottomBarUnselected: Color = Color(0xFF959595),
+        override val iconContainer: Color = Color(0, 122, 255),
+        override val iconContent: Color = Color(255, 255,255),
+        override val buttonContainer: Color = Color(0, 122, 255),
+        override val buttonContent: Color = Color(255, 255, 255),
     ) : FreshNewsColors
 }

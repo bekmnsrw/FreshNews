@@ -13,7 +13,6 @@ data class ProfileState(
 
 sealed class ProfileEvent {
     object OnAuthenticateClick : ProfileEvent()
-    object OnDarkModeChanged : ProfileEvent()
     object OnLogOutClick : ProfileEvent()
     object OnDeleteAccountClick : ProfileEvent()
     class OnDialogConfirm(val dialogType: DialogType) : ProfileEvent()

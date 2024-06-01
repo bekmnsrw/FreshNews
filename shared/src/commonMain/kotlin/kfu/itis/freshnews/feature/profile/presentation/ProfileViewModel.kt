@@ -35,7 +35,6 @@ class ProfileViewModel : BaseViewModel<ProfileState, ProfileAction, ProfileEvent
     override fun handleEvent(event: ProfileEvent) = when (event) {
         ProfileEvent.OnDeleteAccountClick -> onDeleteAccountClick()
         ProfileEvent.OnAuthenticateClick -> onAuthenticateClick()
-        ProfileEvent.OnDarkModeChanged -> onDarkModeChanged()
         ProfileEvent.OnLogOutClick -> onLogOutClick()
         is ProfileEvent.OnDialogConfirm -> onDialogConfirm(event.dialogType)
         is ProfileEvent.OnDialogDismiss -> onDialogDismiss()

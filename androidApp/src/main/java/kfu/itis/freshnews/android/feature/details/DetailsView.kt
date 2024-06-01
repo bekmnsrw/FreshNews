@@ -19,7 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kfu.itis.freshnews.android.designsystem.icon.FreshNewsIcons
-//import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
+import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 import kfu.itis.freshnews.android.utils.ColumnSpacer
 import kfu.itis.freshnews.android.utils.toDate
 import kfu.itis.freshnews.android.widget.FreshNewsImage
@@ -44,15 +44,16 @@ fun DetailsView(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { eventHandler(DetailsEvent.OnAddToFavoritesClick) },
-//                contentColor = ThemeProvider.colors.primary,
-//                containerColor = ThemeProvider.colors.accent,
+                contentColor = ThemeProvider.colors.buttonContent,
+                containerColor = ThemeProvider.colors.buttonContainer,
             ) {
                 Icon(
                     imageVector = if (state.isFavorite) FreshNewsIcons.FAVORITE_FILL else FreshNewsIcons.FAVORITE_BORDER,
                     contentDescription = null,
                 )
             }
-        }
+        },
+        containerColor = ThemeProvider.colors.background,
     )
 }
 
@@ -101,26 +102,26 @@ private fun ArticleDetailsContent(
             Column(modifier = Modifier.padding(horizontal = 16.dp)) {
                 Text(
                     text = article.publishedAt.toDate(),
-//                    style = ThemeProvider.typography.date,
-//                    color = ThemeProvider.colors.onPrimaryVariant,
+                    style = ThemeProvider.typography.cardSupportingText,
+                    color = ThemeProvider.colors.outline,
                 )
                 ColumnSpacer(8.dp)
                 Text(
                     text = article.title,
-//                    style = ThemeProvider.typography.cardTitle,
-//                    color = ThemeProvider.colors.onPrimaryVariant,
+                    style = ThemeProvider.typography.cardTitle,
+                    color = ThemeProvider.colors.mainText,
                 )
                 ColumnSpacer(8.dp)
                 Text(
                     text = article.source,
-//                    style = ThemeProvider.typography.cardSupportingText,
-//                    color = ThemeProvider.colors.onPrimaryVariant,
+                    style = ThemeProvider.typography.cardSupportingText,
+                    color = ThemeProvider.colors.outline,
                 )
                 ColumnSpacer(20.dp)
                 Text(
                     text = article.description,
-//                    style = ThemeProvider.typography.newsDescription,
-//                    color = ThemeProvider.colors.onPrimary,
+                    style = ThemeProvider.typography.cardSupportingText,
+                    color = ThemeProvider.colors.outline,
                 )
                 ColumnSpacer(16.dp)
             }
@@ -135,8 +136,8 @@ fun ArrowBack(
 ) {
     SmallFloatingActionButton(
         modifier = modifier,
-//        containerColor = ThemeProvider.colors.cardTransparent,
-//        contentColor = ThemeProvider.colors.onPrimary,
+        containerColor = ThemeProvider.colors.background,
+        contentColor = ThemeProvider.colors.mainText,
         onClick = onClick,
     ) {
         Icon(
