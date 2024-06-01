@@ -1,9 +1,10 @@
-package kfu.itis.freshnews.android.theme
+package kfu.itis.freshnews.android.designsystem.icon
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.Done
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material.icons.rounded.Home
@@ -24,4 +25,5 @@ object FreshNewsIcons {
     val VISIBILITY = Icons.Rounded.Visibility
     val VISIBILITY_OFF = Icons.Rounded.VisibilityOff
     val NEWSPAPER = Icons.Rounded.Newspaper
+    val DONE = Icons.Rounded.Done
 }

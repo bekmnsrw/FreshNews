@@ -30,12 +30,4 @@ internal class RemoteNewsDataSource(
             parameter("country", "us")
         }
     }.body()
-
-    suspend fun searchTopHeadlinesByPhrase(phrase: String): NewsResponse = httpClient.get {
-        url {
-            path("top-headlines")
-            parameter("q", phrase)
-            parameter("country", "us")
-        }
-    }.body()
 }

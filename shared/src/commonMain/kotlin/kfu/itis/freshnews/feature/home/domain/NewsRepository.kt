@@ -7,5 +7,4 @@ interface NewsRepository {
 
     suspend fun getTopHeadlines(): List<Article>
     suspend fun getTopHeadlinesByCategory(category: ArticleCategory): List<Article>
-    suspend fun searchTopHeadlinesByPhrase(phrase: String): List<Article>
 }

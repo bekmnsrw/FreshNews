@@ -12,8 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
-import kfu.itis.freshnews.android.theme.FreshNewsIcons
-import kfu.itis.freshnews.android.theme.ThemeProvider
+import kfu.itis.freshnews.android.designsystem.icon.FreshNewsIcons
+//import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 import kfu.itis.freshnews.feature.splash.presentation.SplashEvent
 import kfu.itis.freshnews.feature.splash.presentation.SplashState
 
@@ -50,7 +50,7 @@ private fun SplashContent(
             imageVector = FreshNewsIcons.NEWSPAPER,
             contentDescription = null,
             modifier = Modifier.size(96.dp),
-            colorFilter = ColorFilter.tint(ThemeProvider.colors.accent),
+//            colorFilter = ColorFilter.tint(ThemeProvider.colors.accent),
         )
     }
 }

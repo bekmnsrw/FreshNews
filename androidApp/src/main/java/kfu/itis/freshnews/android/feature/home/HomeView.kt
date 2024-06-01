@@ -1,6 +1,5 @@
 package kfu.itis.freshnews.android.feature.home
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,7 +27,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kfu.itis.freshnews.android.R
-import kfu.itis.freshnews.android.theme.ThemeProvider
 import kfu.itis.freshnews.android.utils.ColumnSpacer
 import kfu.itis.freshnews.android.utils.LazyColumnSpacer
 import kfu.itis.freshnews.android.utils.toDate
@@ -45,18 +43,6 @@ fun HomeView(
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = {
-            SearchToolbar(
-                searchQuery = state.searchQuery,
-                onQueryChange = { eventHandler(HomeEvent.OnQueryChange(it)) },
-                isSearchActive = state.isSearchActive,
-                onActiveChange = { eventHandler(HomeEvent.OnActiveChange(it)) },
-                onSearch = { eventHandler(HomeEvent.OnSearch(it)) },
-                onArticleClick = { eventHandler(HomeEvent.OnArticleClick(it)) },
-                searchedArticles = state.searchedArticles,
-                isLoading = state.isSearchedArticlesLoading,
-            )
-        },
         content = { paddingValues ->
             HomeContent(
                 scaffoldPadding = paddingValues,
@@ -64,7 +50,7 @@ fun HomeView(
                 eventHandler = eventHandler,
             )
         },
-        containerColor = ThemeProvider.colors.primary,
+//        containerColor = ThemeProvider.colors.primary,
     )
 }
 
@@ -127,8 +113,8 @@ private fun LatestNewsTitle() {
                     start = 16.dp,
                 ),
             text = stringResource(id = R.string.latest_news),
-            style = ThemeProvider.typography.screenTitle,
-            color = ThemeProvider.colors.onPrimary,
+//            style = ThemeProvider.typography.screenTitle,
+//            color = ThemeProvider.colors.onPrimary,
         )
     }
 }
@@ -172,7 +158,7 @@ private fun NewsCategories(
     )
 
     Surface(
-        color = ThemeProvider.colors.primary,
+//        color = ThemeProvider.colors.primary,
     ) {
         LazyRow(
             modifier = Modifier
@@ -204,15 +190,15 @@ private fun NewsCategoryItem(
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
-            containerColor = ThemeProvider.colors.primary,
+//            containerColor = ThemeProvider.colors.primary,
         ),
-        border = BorderStroke(
-            width = 1.dp,
-            color = when (isSelected) {
-                true -> ThemeProvider.colors.accent
-                false -> ThemeProvider.colors.outline
-            }
-        ),
+//        border = BorderStroke(
+//            width = 1.dp,
+//            color = when (isSelected) {
+//                true -> ThemeProvider.colors.accent
+//                false -> ThemeProvider.colors.outline
+//            }
+//        ),
         onClick = onClick,
     ) {
         Text(
@@ -254,7 +240,7 @@ private fun NewsItem(
         modifier = modifier,
         onClick = onClick,
         colors = CardDefaults.cardColors(
-            containerColor = ThemeProvider.colors.primary,
+//            containerColor = ThemeProvider.colors.primary,
         )
     ) {
         Column(
@@ -271,16 +257,16 @@ private fun NewsItem(
                 text = article.publishedAt.toDate(),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                style = ThemeProvider.typography.date,
-                color = ThemeProvider.colors.onPrimaryVariant,
+//                style = ThemeProvider.typography.date,
+//                color = ThemeProvider.colors.onPrimaryVariant,
             )
             ColumnSpacer(8.dp)
             Text(
                 text = article.title,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
-                style = ThemeProvider.typography.cardTitle,
-                color = ThemeProvider.colors.onPrimary,
+//                style = ThemeProvider.typography.cardTitle,
+//                color = ThemeProvider.colors.onPrimary,
             )
             if (article.description.isNotEmpty()) {
                 ColumnSpacer(8.dp)
@@ -289,16 +275,16 @@ private fun NewsItem(
                 text = article.description,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                style = ThemeProvider.typography.newsDescription,
-                color = ThemeProvider.colors.onPrimary,
+//                style = ThemeProvider.typography.newsDescription,
+//                color = ThemeProvider.colors.onPrimary,
             )
             ColumnSpacer(8.dp)
             Text(
                 text = article.source,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                style = ThemeProvider.typography.cardSupportingText,
-                color = ThemeProvider.colors.onPrimaryVariant,
+//                style = ThemeProvider.typography.cardSupportingText,
+//                color = ThemeProvider.colors.onPrimaryVariant,
             )
         }
     }
