@@ -25,6 +25,7 @@ struct FlowPublisher<T: Any> : Publisher {
         private var subscriber: S?
         private var job: Kotlinx_coroutines_coreJob?
         private let flow: Kotlinx_coroutines_coreFlow
+        
         init(flow: Kotlinx_coroutines_coreFlow, subscriber: S) {
             self.flow = flow
             self.subscriber = subscriber

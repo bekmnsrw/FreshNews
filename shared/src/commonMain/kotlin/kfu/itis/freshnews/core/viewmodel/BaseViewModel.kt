@@ -3,6 +3,8 @@ package kfu.itis.freshnews.core.viewmodel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
@@ -22,11 +24,11 @@ abstract class BaseViewModel<State, Action, Event>(
         get() = if (!_action.isEmpty) _action.tryReceive().getOrNull() else null
         set(value) { scope.launch { if (value != null) _action.send(value) else _action.cancel() } }
 
-    val states: FlowWrapper<State>
-        get() = _state.asStateFlow().asFlowWrapper()
+    val states: StateFlow<State>
+        get() = _state.asStateFlow()
 
-    val actions: FlowWrapper<Action>
-        get() = _action.receiveAsFlow().asFlowWrapper()
+    val actions: Flow<Action>
+        get() = _action.receiveAsFlow()
 
     abstract fun handleEvent(event: Event)
 }

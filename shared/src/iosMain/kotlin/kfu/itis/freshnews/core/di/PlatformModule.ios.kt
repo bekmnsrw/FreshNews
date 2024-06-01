@@ -13,7 +13,7 @@ import org.koin.dsl.module
 
 actual fun platformModule(): Module = module {
 
-    single { HomeViewModel() }
+    single<HomeViewModel> { HomeViewModel() }
     single { FavoritesViewModel() }
     single { ProfileViewModel() }
     single { AuthViewModel() }

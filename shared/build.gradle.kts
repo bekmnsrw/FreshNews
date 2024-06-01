@@ -54,6 +54,7 @@ kotlin {
             implementation(libs.sql.delight.android.driver)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.koin.android)
+            implementation(libs.koin)
         }
 
         iosMain.dependencies {

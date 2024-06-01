@@ -8,6 +8,6 @@ class AppDelegate : Application() {
     override fun onCreate() {
         super.onCreate()
         initShared()
-        initKoin()
+        initKoin(appDeclaration = {})
     }
 }

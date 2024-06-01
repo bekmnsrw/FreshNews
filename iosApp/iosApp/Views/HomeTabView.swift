@@ -3,13 +3,11 @@ import Shared
 
 struct HomeTabView: View {
     @State private var selectedCategory: String? = "Sport"
-        
-    var categories = ["Health", "Business", "Entertainment", "General", "Sports"]
+    private var latestNews: [Article] = []
     
-    init() {
-
-    }
-
+    @ObservedObject var viewModel = ViewModels().getHomeViewModel().asObserveableObject()
+    
+    private var categories = ["Health", "Business", "Entertainment", "General", "Sports"]
     
     var body: some View {
         NavigationView {
@@ -17,17 +15,22 @@ struct HomeTabView: View {
                 Text("Latest News")
                     .font(.system(size: 15, weight: .semibold))
                     .padding(.leading)
-                
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 5) {
-                        ForEach(0..<10) { index in
-                            NewsCell(
-                                image: Image("Image"),
-                                date: "",
-                                boldText: "KLVnkanldkvnskldefmvlsmedfvmsfl vkerklvmsler qkermvklemrflv",
-                                smallText: "Google News"
-                            )
-                            .frame(maxWidth: 250)
+                    LazyHStack(spacing: 5) {
+                        if viewModel.state.latestArticles.count != 0 {
+                            ForEach(0..<viewModel.state.latestArticles.count) { index in
+                                NewsCell(
+                                    image: Image("Image"),
+                                    date: "",
+                                    boldText: "KLVnkanldkvnskldefmvlsmedfvmsfl vkerklvmsler qkermvklemrflv",
+                                    smallText: "Google News"
+                                )
+                                .frame(maxWidth: 250)
+                            }
+                        } else {
+                            Text("Price not available")
+                                .italic()
+                                .foregroundColor(.gray)
                         }
                     }
                 }
