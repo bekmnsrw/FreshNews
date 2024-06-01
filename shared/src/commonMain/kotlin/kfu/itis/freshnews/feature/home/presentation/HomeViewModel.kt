@@ -8,7 +8,6 @@ import kfu.itis.freshnews.feature.home.domain.model.Article
 import kfu.itis.freshnews.feature.home.domain.model.ArticleCategory
 import kfu.itis.freshnews.feature.home.domain.usecase.GetTopHeadlinesByCategoryUseCase
 import kfu.itis.freshnews.feature.home.domain.usecase.GetTopHeadlinesUseCase
-import kfu.itis.freshnews.feature.home.domain.usecase.SearchTopHeadlinesByPhraseUseCase
 import kotlinx.coroutines.launch
 
 class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
@@ -16,28 +15,19 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
 ) {
 
     private val getTopHeadlinesUseCase: GetTopHeadlinesUseCase by PlatformSDK.lazyInstance()
-    private val searchTopHeadlinesByPhraseUseCase: SearchTopHeadlinesByPhraseUseCase by PlatformSDK.lazyInstance()
     private val getTopHeadlinesByCategoryUseCase: GetTopHeadlinesByCategoryUseCase by PlatformSDK.lazyInstance()
     private val firebaseCrashlyticsBinding: FirebaseCrashlyticsBinding by PlatformSDK.lazyInstance()
     private val firebaseAnalyticsBinding: FirebaseAnalyticsBinding by PlatformSDK.lazyInstance()
 
     override fun handleEvent(event: HomeEvent) = when (event) {
-        HomeEvent.OnInit -> onInit()
         is HomeEvent.OnArticleClick -> onArticleClick(event.article)
-        is HomeEvent.OnQueryChange -> onQueryChange(event.query)
-        is HomeEvent.OnActiveChange -> onActiveChange(event.isSearchActive)
         is HomeEvent.OnArticleCategoryClick -> onArticleCategoryClick(event.category)
-        is HomeEvent.OnSearch -> onSearch(event.query)
     }
 
     init {
         loadLatestArticles()
         loadArticlesOfCategory()
         logOpenScreen()
-    }
-
-    private fun onInit() {
-
     }
 
     private fun loadLatestArticles() {
@@ -72,15 +62,6 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
         action = HomeAction.NavigateDetails(article)
     }
 
-    private fun onQueryChange(query: String) {
-        if (query.isEmpty()) state = state.copy(searchedArticles = emptyList())
-        state = state.copy(searchQuery = query)
-    }
-
-    private fun onActiveChange(isSearchActive: Boolean) {
-        state = state.copy(isSearchActive = isSearchActive)
-    }
-
     private fun onArticleCategoryClick(category: ArticleCategory) {
         scope.launch {
             try {
@@ -88,23 +69,6 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
                 loadArticlesOfCategory()
             } catch (e: Throwable) {
                 handleError(e)
-            }
-        }
-    }
-
-    private fun onSearch(query: String) {
-        scope.launch {
-            try {
-                state = state.copy(isSearchedArticlesLoading = true)
-                val searchedArticles = searchTopHeadlinesByPhraseUseCase(query)
-                state = state.copy(
-                    searchQuery = query,
-                    searchedArticles = searchedArticles,
-                )
-            } catch (e: Throwable) {
-                handleError(e)
-            } finally {
-                state = state.copy(isSearchedArticlesLoading = false)
             }
         }
     }

@@ -6,10 +6,8 @@ import kfu.itis.freshnews.feature.home.data.datasource.remote.RemoteNewsDataSour
 import kfu.itis.freshnews.feature.home.domain.NewsRepository
 import kfu.itis.freshnews.feature.home.domain.usecase.GetTopHeadlinesByCategoryUseCase
 import kfu.itis.freshnews.feature.home.domain.usecase.GetTopHeadlinesUseCase
-import kfu.itis.freshnews.feature.home.domain.usecase.SearchTopHeadlinesByPhraseUseCase
 import kfu.itis.freshnews.feature.home.domain.usecase.impl.GetTopHeadlinesByCategoryUseCaseImpl
 import kfu.itis.freshnews.feature.home.domain.usecase.impl.GetTopHeadlinesUseCaseImpl
-import kfu.itis.freshnews.feature.home.domain.usecase.impl.SearchTopHeadlinesByPhraseUseCaseImpl
 import org.kodein.di.DI
 import org.kodein.di.bindProvider
 import org.kodein.di.instance
@@ -38,12 +36,6 @@ val homeModule = DI.Module(MODULE_NAME) {
 
     bindProvider<GetTopHeadlinesByCategoryUseCase> {
         GetTopHeadlinesByCategoryUseCaseImpl(
-            newsRepository = instance<NewsRepository>(),
-        )
-    }
-
-    bindProvider<SearchTopHeadlinesByPhraseUseCase> {
-        SearchTopHeadlinesByPhraseUseCaseImpl(
             newsRepository = instance<NewsRepository>(),
         )
     }

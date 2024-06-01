@@ -26,14 +26,6 @@ internal class NewsRepositoryImpl(
             .toArticles()
     }
 
-    override suspend fun searchTopHeadlinesByPhrase(phrase: String): List<Article> {
-        return remoteNewsDataSource
-            .searchTopHeadlinesByPhrase(phrase = phrase)
-            .articleResponses
-            .filterNot { articleResponse -> articleResponse.title == REMOVED_ARTICLE }
-            .toArticles()
-    }
-
     private companion object {
 
         const val REMOVED_ARTICLE = "[Removed]"

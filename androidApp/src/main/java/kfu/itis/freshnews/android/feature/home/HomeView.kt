@@ -1,6 +1,5 @@
 package kfu.itis.freshnews.android.feature.home
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,7 +27,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kfu.itis.freshnews.android.R
-//import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 import kfu.itis.freshnews.android.utils.ColumnSpacer
 import kfu.itis.freshnews.android.utils.LazyColumnSpacer
 import kfu.itis.freshnews.android.utils.toDate
@@ -45,18 +43,6 @@ fun HomeView(
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = {
-            SearchToolbar(
-                searchQuery = state.searchQuery,
-                onQueryChange = { eventHandler(HomeEvent.OnQueryChange(it)) },
-                isSearchActive = state.isSearchActive,
-                onActiveChange = { eventHandler(HomeEvent.OnActiveChange(it)) },
-                onSearch = { eventHandler(HomeEvent.OnSearch(it)) },
-                onArticleClick = { eventHandler(HomeEvent.OnArticleClick(it)) },
-                searchedArticles = state.searchedArticles,
-                isLoading = state.isSearchedArticlesLoading,
-            )
-        },
         content = { paddingValues ->
             HomeContent(
                 scaffoldPadding = paddingValues,
