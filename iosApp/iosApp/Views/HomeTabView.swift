@@ -2,22 +2,18 @@ import SwiftUI
 import Shared
 
 struct HomeTabView: View {
-    @State private var searchText = "Search"
     @State private var selectedCategory: String? = "Sport"
-    private var viewModel: HomeViewModel = HomeViewModel()
         
-    var categories = ["Health","Business", "Entertainment", "General", "Sports", ]
-    var homeViewModel = HomeViewModel()
+    var categories = ["Health", "Business", "Entertainment", "General", "Sports"]
     
     init() {
-      // получать что-то с shared части
+
     }
+
     
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 10) {
-                SearchBar(text: $searchText)
-                    .border(.background)
                 Text("Latest News")
                     .font(.system(size: 15, weight: .semibold))
                     .padding(.leading)
@@ -27,7 +23,7 @@ struct HomeTabView: View {
                         ForEach(0..<10) { index in
                             NewsCell(
                                 image: Image("Image"),
-                                date: "24/04/2024",
+                                date: "",
                                 boldText: "KLVnkanldkvnskldefmvlsmedfvmsfl vkerklvmsler qkermvklemrflv",
                                 smallText: "Google News"
                             )
