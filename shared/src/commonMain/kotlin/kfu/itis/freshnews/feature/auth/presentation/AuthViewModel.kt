@@ -116,7 +116,7 @@ class AuthViewModel : BaseViewModel<AuthState, AuthAction, AuthEvent>(
     }
 
     private fun handleError(e: Throwable) {
-        action = AuthAction.ShowError("")
+        action = AuthAction.ShowError
         firebaseCrashlyticsBinding.sendNonFatalErrorReport(e)
     }
 }

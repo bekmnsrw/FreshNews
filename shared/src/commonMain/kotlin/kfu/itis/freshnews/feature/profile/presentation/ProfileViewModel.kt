@@ -140,7 +140,7 @@ class ProfileViewModel : BaseViewModel<ProfileState, ProfileAction, ProfileEvent
 
     private fun handleError(e: Throwable) {
         state = state.copy(error = e)
-        action = ProfileAction.ShowError("")
+        action = ProfileAction.ShowError
         firebaseCrashlyticsBinding.sendNonFatalErrorReport(e)
     }
 }

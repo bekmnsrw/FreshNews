@@ -110,7 +110,7 @@ class DetailsViewModel : BaseViewModel<DetailsState, DetailsAction, DetailsEvent
 
     private fun handleError(e: Throwable) {
         state = state.copy(error = e)
-        action = DetailsAction.ShowError("Oops, something went wrong")
+        action = DetailsAction.ShowError
         firebaseCrashlyticsBinding.sendNonFatalErrorReport(e)
     }
 }

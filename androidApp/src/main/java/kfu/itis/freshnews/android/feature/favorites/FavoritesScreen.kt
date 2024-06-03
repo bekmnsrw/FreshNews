@@ -1,8 +1,10 @@
 package kfu.itis.freshnews.android.feature.favorites
 
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -15,11 +17,13 @@ import kfu.itis.freshnews.feature.favorites.presentation.FavoritesAction
 import kfu.itis.freshnews.feature.favorites.presentation.FavoritesEvent
 import kfu.itis.freshnews.feature.favorites.presentation.FavoritesState
 import kfu.itis.freshnews.feature.favorites.presentation.FavoritesViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun FavoritesScreen(
     viewModel: FavoritesViewModel = viewModel(),
     navController: NavController,
+    snackbarHostState: SnackbarHostState,
 ) {
     val state by viewModel.states.collectAsStateWithLifecycle(initialValue = FavoritesState())
     val action by viewModel.actions.collectAsStateWithLifecycle(initialValue = null)
@@ -33,6 +37,7 @@ fun FavoritesScreen(
     FavoritesActions(
         action = action,
         navController = navController,
+        snackbarHostState = snackbarHostState,
     )
 }
 
@@ -40,10 +45,14 @@ fun FavoritesScreen(
 private fun FavoritesActions(
     action: FavoritesAction?,
     navController: NavController,
+    snackbarHostState: SnackbarHostState,
 ) {
+    val coroutineScope = rememberCoroutineScope()
+
     LaunchedEffect(action) {
         when (action) {
             null -> Unit
+
             is FavoritesAction.NavigateDetails -> {
                 navController.currentBackStackEntry
                     ?.savedStateHandle
@@ -53,8 +62,19 @@ private fun FavoritesActions(
                     )
                 navController.navigate(NestedScreen.DetailsScreenFromFavorites.route)
             }
-            is FavoritesAction.ShowError -> Unit
-            FavoritesAction.NavigateAuth -> navController.navigate(FreshNewsRoutes.AUTH_GRAPH_ROUTE)
+
+            FavoritesAction.ShowError -> {
+                coroutineScope.launch {
+                    snackbarHostState.showSnackbar(
+                        message = "Oops, something went wrong :(",
+                        withDismissAction = true,
+                    )
+                }
+            }
+
+            FavoritesAction.NavigateAuth -> {
+                navController.navigate(FreshNewsRoutes.AUTH_GRAPH_ROUTE)
+            }
         }
     }
 }

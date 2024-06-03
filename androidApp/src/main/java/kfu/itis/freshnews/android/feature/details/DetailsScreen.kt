@@ -1,8 +1,10 @@
 package kfu.itis.freshnews.android.feature.details
 
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -14,6 +16,7 @@ import kfu.itis.freshnews.feature.details.presentation.DetailsAction
 import kfu.itis.freshnews.feature.details.presentation.DetailsEvent
 import kfu.itis.freshnews.feature.details.presentation.DetailsState
 import kfu.itis.freshnews.feature.details.presentation.DetailsViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun DetailsScreen(
@@ -21,6 +24,7 @@ fun DetailsScreen(
     navController: NavController,
     articleDetails: ArticleDetails? = null,
     favoriteArticleId: Long? = null,
+    snackbarHostState: SnackbarHostState,
 ) {
     val state by viewModel.states.collectAsStateWithLifecycle(initialValue = DetailsState())
     val action by viewModel.actions.collectAsStateWithLifecycle(initialValue = null)
@@ -43,6 +47,7 @@ fun DetailsScreen(
     DetailsActions(
         action = action,
         navController = navController,
+        snackbarHostState = snackbarHostState,
     )
 }
 
@@ -50,12 +55,26 @@ fun DetailsScreen(
 private fun DetailsActions(
     action: DetailsAction?,
     navController: NavController,
+    snackbarHostState: SnackbarHostState,
 ) {
+    val coroutineScope = rememberCoroutineScope()
+
     LaunchedEffect(action) {
         when (action) {
             null -> Unit
-            DetailsAction.NavigateBack -> navController.navigateUp()
-            is DetailsAction.ShowError -> Unit
+
+            DetailsAction.NavigateBack -> {
+                navController.navigateUp()
+            }
+
+            DetailsAction.ShowError -> {
+                coroutineScope.launch {
+                    snackbarHostState.showSnackbar(
+                        message = "Oops, something went wrong :(",
+                        withDismissAction = true,
+                    )
+                }
+            }
         }
     }
 }

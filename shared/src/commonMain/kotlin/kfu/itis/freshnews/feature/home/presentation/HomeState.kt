@@ -15,9 +15,12 @@ data class HomeState(
 sealed class HomeEvent {
     class OnArticleClick(val article: Article) : HomeEvent()
     class OnArticleCategoryClick(val category: ArticleCategory) : HomeEvent()
+    object OnOpenWiFiSettingsClick : HomeEvent()
+    object ReloadNews : HomeEvent()
 }
 
 sealed class HomeAction {
     class NavigateDetails(val article: Article) : HomeAction()
-    class ShowError(val errorMessage: String) : HomeAction()
+    object ShowError : HomeAction()
+    object OpenWiFiSettings : HomeAction()
 }

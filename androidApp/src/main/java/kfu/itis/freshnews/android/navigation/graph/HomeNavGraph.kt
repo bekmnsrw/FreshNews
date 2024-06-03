@@ -1,7 +1,6 @@
 package kfu.itis.freshnews.android.navigation.graph
 
-import androidx.lifecycle.ViewModelStoreOwner
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.material3.SnackbarHostState
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -15,13 +14,17 @@ import kfu.itis.freshnews.feature.home.domain.model.Article
 
 fun NavGraphBuilder.homeNavGraph(
     navController: NavController,
+    snackbarHostState: SnackbarHostState,
 ) {
     navigation(
         route = FreshNewsRoutes.HOME_GRAPH_ROUTE,
         startDestination = FreshNewsRoutes.HOME_SCREEN_ROUTE,
     ) {
         composable(route = FreshNewsRoutes.HOME_SCREEN_ROUTE) {
-            HomeScreen(navController = navController)
+            HomeScreen(
+                navController = navController,
+                snackbarHostState = snackbarHostState,
+            )
         }
         composable(NestedScreen.DetailsScreenFromHome.route) {
             DetailsScreen(
@@ -30,6 +33,7 @@ fun NavGraphBuilder.homeNavGraph(
                     ?.savedStateHandle
                     ?.get<Article>(NestedScreen.DetailsScreenFromHome.argKey)
                     ?.toArticleDetails(),
+                snackbarHostState = snackbarHostState,
             )
         }
     }

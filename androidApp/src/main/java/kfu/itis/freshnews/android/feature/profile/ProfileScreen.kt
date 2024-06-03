@@ -1,8 +1,10 @@
 package kfu.itis.freshnews.android.feature.profile
 
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -14,11 +16,13 @@ import kfu.itis.freshnews.feature.profile.presentation.ProfileAction
 import kfu.itis.freshnews.feature.profile.presentation.ProfileEvent
 import kfu.itis.freshnews.feature.profile.presentation.ProfileState
 import kfu.itis.freshnews.feature.profile.presentation.ProfileViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel = viewModel(),
     navController: NavController,
+    snackbarHostState: SnackbarHostState,
 ) {
     val state by viewModel.states.collectAsStateWithLifecycle(initialValue = ProfileState())
     val action by viewModel.actions.collectAsStateWithLifecycle(initialValue = null)
@@ -32,6 +36,7 @@ fun ProfileScreen(
     ProfileActions(
         action = action,
         navController = navController,
+        snackbarHostState = snackbarHostState,
     )
 }
 
@@ -39,12 +44,26 @@ fun ProfileScreen(
 private fun ProfileActions(
     action: ProfileAction?,
     navController: NavController,
+    snackbarHostState: SnackbarHostState,
 ) {
+    val coroutineScope = rememberCoroutineScope()
+
     LaunchedEffect(action) {
         when (action) {
             null -> Unit
-            ProfileAction.NavigateAuth -> navController.navigate(FreshNewsRoutes.AUTH_GRAPH_ROUTE)
-            is ProfileAction.ShowError -> Unit
+
+            ProfileAction.NavigateAuth -> {
+                navController.navigate(FreshNewsRoutes.AUTH_GRAPH_ROUTE)
+            }
+
+            ProfileAction.ShowError -> {
+                coroutineScope.launch {
+                    snackbarHostState.showSnackbar(
+                        message = "Oops, something went wrong :(",
+                        withDismissAction = true,
+                    )
+                }
+            }
         }
     }
 }

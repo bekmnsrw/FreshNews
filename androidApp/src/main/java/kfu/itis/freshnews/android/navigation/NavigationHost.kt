@@ -2,6 +2,8 @@ package kfu.itis.freshnews.android.navigation
 
 import android.annotation.SuppressLint
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.Stable
@@ -14,6 +16,7 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 import kfu.itis.freshnews.android.navigation.bottombar.BottomBar
 import kfu.itis.freshnews.android.navigation.bottombar.TabItem
 import kfu.itis.freshnews.android.navigation.graph.authNavGraph
@@ -29,6 +32,8 @@ fun NavigationHost() {
     val currentSelectedScreen by navController.currentScreenAsState()
     val currentRoute by navController.currentRouteAsState()
 
+    val snackbarHostState = remember { SnackbarHostState() }
+
     val tabItemRoutes = listOf(
         FreshNewsRoutes.HOME_SCREEN_ROUTE,
         FreshNewsRoutes.FAVORITES_SCREEN_ROUTE,
@@ -43,17 +48,19 @@ fun NavigationHost() {
                     currentSelectedScreen = currentSelectedScreen,
                 )
             }
-        }
+        },
+        containerColor = ThemeProvider.colors.background,
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
     ) {
         NavHost(
             navController = navController,
             startDestination = FreshNewsRoutes.SPLASH_GRAPH_ROUTE,
         ) {
             splashNavGraph(navController)
-            authNavGraph(navController)
-            homeNavGraph(navController)
-            favoritesNavGraph(navController)
-            profileNavGraph(navController)
+            authNavGraph(navController, snackbarHostState)
+            homeNavGraph(navController, snackbarHostState)
+            favoritesNavGraph(navController, snackbarHostState)
+            profileNavGraph(navController, snackbarHostState)
         }
     }
 }
