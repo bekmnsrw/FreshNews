@@ -18,7 +18,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import kfu.itis.freshnews.android.R
 import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 import kfu.itis.freshnews.android.utils.ColumnSpacer
 import kfu.itis.freshnews.feature.profile.presentation.DialogType
@@ -67,7 +69,7 @@ private fun ProfileContent(
             .fillMaxSize()
             .padding(scaffoldPadding),
     ) {
-        Column(modifier = Modifier.padding(horizontal = 24.dp)) {
+        Column(Modifier.padding(horizontal = 24.dp)) {
             ProfileTitle(login)
             ColumnSpacer(16.dp)
             if (!isUserAuthenticated) {
@@ -85,9 +87,9 @@ private fun ProfileContent(
 private fun ProfileTitle(
     login: String?,
 ) {
-    val visibleText = login ?: "Dear Guest"
+    val visibleText = login ?: stringResource(R.string.dear_guest)
     Text(
-        text = "Hello, $visibleText!",
+        text = stringResource(R.string.hello, visibleText),
         style = ThemeProvider.typography.screenHeading,
         color = ThemeProvider.colors.mainText,
     )
@@ -100,13 +102,11 @@ private fun AuthenticateButton(
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = ThemeProvider.colors.buttonContainer,
-        ),
+        colors = ButtonDefaults.buttonColors(containerColor = ThemeProvider.colors.buttonContainer,),
         shape = RoundedCornerShape(8.dp),
     ) {
         Text(
-            text = "Log In",
+            text = stringResource(R.string.sign_in),
             color = ThemeProvider.colors.buttonContent,
             style = ThemeProvider.typography.button,
         )
@@ -122,7 +122,7 @@ private fun LogOutButton(onClick: () -> Unit) {
         shape = RoundedCornerShape(8.dp),
     ) {
         Text(
-            text = "Log Out",
+            text = stringResource(R.string.log_out),
             color = ThemeProvider.colors.error,
             style = ThemeProvider.typography.button,
         )
@@ -134,13 +134,11 @@ private fun DeleteProfileButton(onClick: () -> Unit) {
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = ThemeProvider.colors.error,
-        ),
+        colors = ButtonDefaults.buttonColors(containerColor = ThemeProvider.colors.error),
         shape = RoundedCornerShape(8.dp),
     ) {
         Text(
-            text = "Delete profile",
+            text = stringResource(R.string.delete_profile),
             color = ThemeProvider.colors.buttonContent,
             style = ThemeProvider.typography.button,
         )
@@ -161,15 +159,15 @@ private fun ConfirmationDialog(
         title = {
             Text(
                 text = when (dialogType) {
-                    DialogType.LOGOUT -> "Do you want to Log Out?"
-                    DialogType.PROFILE_DELETION -> "Do you want to delete your profile"
+                    DialogType.LOGOUT -> stringResource(R.string.log_out_confirmation)
+                    DialogType.PROFILE_DELETION -> stringResource(R.string.delete_profile_confirmation)
                 },
             )
         },
         confirmButton = {
             TextButton({ onConfirm(dialogType) }) {
                 Text(
-                    text = "Confirm",
+                    text = stringResource(R.string.confirm),
                     color = ThemeProvider.colors.accent,
                     style = ThemeProvider.typography.button,
                 )
@@ -178,7 +176,7 @@ private fun ConfirmationDialog(
         dismissButton = {
             TextButton(onDismiss) {
                 Text(
-                    text = "Dismiss",
+                    text = stringResource(R.string.dismiss),
                     color = ThemeProvider.colors.outline,
                     style = ThemeProvider.typography.button,
                 )

@@ -21,10 +21,12 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import kfu.itis.freshnews.android.R
 import kfu.itis.freshnews.android.designsystem.icon.FreshNewsIcons
 import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 import kfu.itis.freshnews.android.utils.ColumnSpacer
@@ -109,7 +111,7 @@ private fun AuthContent(
 @Composable
 private fun WelcomeLabel() {
     Text(
-        text = "Welcome to FreshNews",
+        text = stringResource(R.string.welcome),
         color = ThemeProvider.colors.accent,
         style = ThemeProvider.typography.screenHeading,
     )
@@ -128,16 +130,16 @@ private fun LoginField(
         modifier = Modifier.fillMaxWidth(),
         value = login,
         onValueChange = { loginInput -> onLoginChange(loginInput) },
-        label = { Text(text = "Login") },
+        label = { Text(stringResource(R.string.login_placeholder)) },
         isError = isSignUpErrorShown || isSignInErrorShown,
         singleLine = true,
         supportingText = {
             if (isSignUpErrorShown || isSignInErrorShown || isTextFieldEmpty) {
                 Text(
                     text = when {
-                        isSignInErrorShown -> "Incorrect login"
-                        isSignUpErrorShown -> "User with this login already exists"
-                        isTextFieldEmpty -> "Login mustn't be empty"
+                        isSignInErrorShown -> stringResource(R.string.incorrect_login)
+                        isSignUpErrorShown -> stringResource(R.string.user_already_exists)
+                        isTextFieldEmpty -> stringResource(R.string.empty_login)
                         else -> ""
                     },
                     color = ThemeProvider.colors.accent,
@@ -167,7 +169,7 @@ private fun PasswordField(
         modifier = Modifier.fillMaxWidth(),
         value = password,
         onValueChange = { passwordInput -> onPasswordChange(passwordInput) },
-        label = { Text(text = "Password") },
+        label = { Text(stringResource(R.string.password_placeholder)) },
         visualTransformation = if (isPasswordHidden) PasswordVisualTransformation() else VisualTransformation.None,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         trailingIcon = {
@@ -180,7 +182,7 @@ private fun PasswordField(
         supportingText = {
             if (isTextFieldEmpty) {
                 Text(
-                    text = "Password mustn't be empty",
+                    text = stringResource(R.string.empty_password),
                     color = ThemeProvider.colors.error,
                 )
             }
@@ -212,7 +214,7 @@ private fun SignInButton(
         enabled = isEnabled,
     ) {
         Text(
-            text = "Sign In",
+            text = stringResource(R.string.sign_in),
             color = ThemeProvider.colors.buttonContent,
         )
     }
@@ -231,7 +233,7 @@ private fun SingUpButton(
         enabled = isEnabled,
     ) {
         Text(
-            text = "Sign Up",
+            text = stringResource(R.string.sign_up),
             color = ThemeProvider.colors.accent,
         )
     }
@@ -241,7 +243,7 @@ private fun SingUpButton(
 private fun SkipAuthButton(onClick: () -> Unit) {
     TextButton(onClick = onClick) {
         Text(
-            text = "Skip for now",
+            text = stringResource(R.string.skip_for_now),
             color = ThemeProvider.colors.outline,
         )
     }

@@ -47,6 +47,6 @@ fun LazyListScope.NewsOfCategoryLoadingView() {
                 .clip(RoundedCornerShape(16.dp))
                 .shimmerEffect(),
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(Modifier.height(8.dp))
     }
 }

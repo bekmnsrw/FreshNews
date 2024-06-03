@@ -4,8 +4,6 @@
     <string name="bottom_bar_favorite">Favorite</string>
     <string name="bottom_bar_profile">Profile</string>
     <string name="latest_news">Latest News</string>
-    <string name="search">Search</string>
-    <string name="no_search_results">Your search returned no results</string>
 
     <string name="business">Business</string>
     <string name="entertainment">Entertainment</string>
@@ -14,4 +12,28 @@
     <string name="science">Science</string>
     <string name="sports">Sports</string>
     <string name="technology">Technology</string>
+
+    <string name="error_message">Oops, something went wrong!</string>
+    <string name="no_internet_connection">No Internet connection</string>
+    <string name="open_wifi_settings">Open Wi-Fi setting</string>
+    <string name="welcome">Welcome to FreshNews</string>
+    <string name="login_placeholder">Login</string>
+    <string name="incorrect_login">Incorrect login</string>
+    <string name="user_already_exists">User with this login already exists</string>
+    <string name="empty_login">Login mustn\'t be empty</string>
+    <string name="password_placeholder">Password</string>
+    <string name="empty_password">Password mustn\'t be empty</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="skip_for_now">Skip for now</string>
+    <string name="empty_favorites">You have no favorites articles added</string>
+    <string name="favorites_login_request">Sign In to add favorite articles</string>
+    <string name="dear_guest">Dear Guest</string>
+    <string name="hello">Hello, %!</string>
+    <string name="log_out">Log Out</string>
+    <string name="delete_profile">Delete profile</string>
+    <string name="log_out_confirmation">Do you want to Log Out?</string>
+    <string name="delete_profile_confirmation">Do you want to delete your profile?</string>
+    <string name="confirm">Confirm</string>
+    <string name="dismiss">Dismiss</string>
 </resources>

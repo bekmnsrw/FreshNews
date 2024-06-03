@@ -5,10 +5,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import kfu.itis.freshnews.android.R
 import kfu.itis.freshnews.android.designsystem.theme.FreshNewsTheme
 import kfu.itis.freshnews.android.navigation.FreshNewsRoutes
 import kfu.itis.freshnews.android.utils.rememberEvent
@@ -47,6 +49,7 @@ private fun ProfileActions(
     snackbarHostState: SnackbarHostState,
 ) {
     val coroutineScope = rememberCoroutineScope()
+    val errorMessage = stringResource(R.string.error_message)
 
     LaunchedEffect(action) {
         when (action) {
@@ -59,7 +62,7 @@ private fun ProfileActions(
             ProfileAction.ShowError -> {
                 coroutineScope.launch {
                     snackbarHostState.showSnackbar(
-                        message = "Oops, something went wrong :(",
+                        message = errorMessage,
                         withDismissAction = true,
                     )
                 }

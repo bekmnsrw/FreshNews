@@ -198,9 +198,7 @@ private fun NewsCategoryItem(
 ) {
     Card(
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = ThemeProvider.colors.background,
-        ),
+        colors = CardDefaults.cardColors(containerColor = ThemeProvider.colors.background,),
         border = BorderStroke(
             width = 1.dp,
             color = when (isSelected) {
@@ -315,7 +313,7 @@ private fun NoInternetConnection(onClick: () -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                text = "No Internet connection",
+                text = stringResource(R.string.no_internet_connection),
                 style = ThemeProvider.typography.commonText,
                 color = ThemeProvider.colors.outline,
             )
@@ -330,7 +328,7 @@ private fun NoInternetConnection(onClick: () -> Unit) {
                 shape = RoundedCornerShape(8.dp),
             ) {
                 Text(
-                    text = "Open WiFi settings",
+                    text = stringResource(R.string.open_wifi_settings),
                     style = ThemeProvider.typography.button,
                 )
             }

@@ -8,12 +8,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import kfu.itis.freshnews.android.R
 import kfu.itis.freshnews.android.navigation.NestedScreen
 import kfu.itis.freshnews.android.designsystem.theme.FreshNewsTheme
 import kfu.itis.freshnews.android.utils.rememberEvent
@@ -59,6 +61,7 @@ private fun HomeActions(
 ) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
+    val errorMessage = stringResource(R.string.error_message)
 
     LaunchedEffect(action) {
         when (action) {
@@ -77,7 +80,7 @@ private fun HomeActions(
             HomeAction.ShowError -> {
                 coroutineScope.launch {
                     snackbarHostState.showSnackbar(
-                        message = "Oops, something went wrong :(",
+                        message = errorMessage,
                         withDismissAction = true,
                     )
                 }

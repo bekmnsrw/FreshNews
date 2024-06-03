@@ -68,12 +68,8 @@ private fun DetailsContent(
             .fillMaxSize()
             .padding(scaffoldPadding)
     ) {
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
-            item {
-                ArticleDetailsContent(
-                    articleDetails = state.articleDetails,
-                )
-            }
+        LazyColumn(Modifier.fillMaxSize()) {
+            item { ArticleDetailsContent(state.articleDetails) }
         }
         ArrowBack(
             modifier = Modifier
@@ -85,12 +81,10 @@ private fun DetailsContent(
 }
 
 @Composable
-private fun ArticleDetailsContent(
-    articleDetails: ArticleDetails?,
-) {
+private fun ArticleDetailsContent(articleDetails: ArticleDetails?) {
     articleDetails?.let { article ->
         Column {
-            Box(modifier = Modifier.wrapContentSize()) {
+            Box(Modifier.wrapContentSize()) {
                 FreshNewsImage(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -99,7 +93,7 @@ private fun ArticleDetailsContent(
                 )
             }
             ColumnSpacer(16.dp)
-            Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+            Column(Modifier.padding(horizontal = 16.dp)) {
                 Text(
                     text = article.publishedAt.toDate(),
                     style = ThemeProvider.typography.cardSupportingText,
