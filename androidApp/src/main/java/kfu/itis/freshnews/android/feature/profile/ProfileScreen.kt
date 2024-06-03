@@ -8,7 +8,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import kfu.itis.freshnews.android.R
 import kfu.itis.freshnews.android.designsystem.theme.FreshNewsTheme
@@ -19,10 +18,11 @@ import kfu.itis.freshnews.feature.profile.presentation.ProfileEvent
 import kfu.itis.freshnews.feature.profile.presentation.ProfileState
 import kfu.itis.freshnews.feature.profile.presentation.ProfileViewModel
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ProfileScreen(
-    viewModel: ProfileViewModel = viewModel(),
+    viewModel: ProfileViewModel = koinViewModel(),
     navController: NavController,
     snackbarHostState: SnackbarHostState,
 ) {

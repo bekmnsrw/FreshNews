@@ -8,7 +8,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import kfu.itis.freshnews.android.R
 import kfu.itis.freshnews.android.navigation.FreshNewsRoutes
@@ -19,10 +18,11 @@ import kfu.itis.freshnews.feature.auth.presentation.AuthEvent
 import kfu.itis.freshnews.feature.auth.presentation.AuthState
 import kfu.itis.freshnews.feature.auth.presentation.AuthViewModel
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AuthScreen(
-    viewModel: AuthViewModel = viewModel(),
+    viewModel: AuthViewModel = koinViewModel(),
     navController: NavController,
     snackbarHostState: SnackbarHostState,
 ) {

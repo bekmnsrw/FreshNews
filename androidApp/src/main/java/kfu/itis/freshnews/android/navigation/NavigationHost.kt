@@ -24,6 +24,8 @@ import kfu.itis.freshnews.android.navigation.graph.favoritesNavGraph
 import kfu.itis.freshnews.android.navigation.graph.homeNavGraph
 import kfu.itis.freshnews.android.navigation.graph.profileNavGraph
 import kfu.itis.freshnews.android.navigation.graph.splashNavGraph
+import kfu.itis.freshnews.feature.home.presentation.HomeViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -39,6 +41,8 @@ fun NavigationHost() {
         FreshNewsRoutes.FAVORITES_SCREEN_ROUTE,
         FreshNewsRoutes.PROFILE_SCREEN_ROUTE,
     )
+
+    val homeViewModel = koinViewModel<HomeViewModel>()
 
     Scaffold(
         bottomBar = {
@@ -56,11 +60,26 @@ fun NavigationHost() {
             navController = navController,
             startDestination = FreshNewsRoutes.SPLASH_GRAPH_ROUTE,
         ) {
-            splashNavGraph(navController)
-            authNavGraph(navController, snackbarHostState)
-            homeNavGraph(navController, snackbarHostState)
-            favoritesNavGraph(navController, snackbarHostState)
-            profileNavGraph(navController, snackbarHostState)
+            splashNavGraph(
+                navController = navController,
+            )
+            authNavGraph(
+                navController = navController,
+                snackbarHostState = snackbarHostState,
+            )
+            homeNavGraph(
+                navController = navController,
+                snackbarHostState = snackbarHostState,
+                homeViewModel = homeViewModel,
+            )
+            favoritesNavGraph(
+                navController = navController,
+                snackbarHostState = snackbarHostState,
+            )
+            profileNavGraph(
+                navController = navController,
+                snackbarHostState = snackbarHostState,
+            )
         }
     }
 }

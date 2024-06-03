@@ -8,8 +8,10 @@ import kfu.itis.freshnews.feature.home.domain.usecase.GetTopHeadlinesByCategoryU
 import kfu.itis.freshnews.feature.home.domain.usecase.GetTopHeadlinesUseCase
 import kfu.itis.freshnews.feature.home.domain.usecase.impl.GetTopHeadlinesByCategoryUseCaseImpl
 import kfu.itis.freshnews.feature.home.domain.usecase.impl.GetTopHeadlinesUseCaseImpl
+import kfu.itis.freshnews.feature.home.presentation.HomeViewModel
 import org.kodein.di.DI
 import org.kodein.di.bindProvider
+import org.kodein.di.bindSingleton
 import org.kodein.di.instance
 
 private const val MODULE_NAME = "homeModule"

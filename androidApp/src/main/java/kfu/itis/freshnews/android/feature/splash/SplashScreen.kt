@@ -5,7 +5,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import kfu.itis.freshnews.android.navigation.FreshNewsRoutes
 import kfu.itis.freshnews.android.designsystem.theme.FreshNewsTheme
@@ -14,10 +13,11 @@ import kfu.itis.freshnews.feature.splash.presentation.SplashAction
 import kfu.itis.freshnews.feature.splash.presentation.SplashEvent
 import kfu.itis.freshnews.feature.splash.presentation.SplashState
 import kfu.itis.freshnews.feature.splash.presentation.SplashViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SplashScreen(
-    viewModel: SplashViewModel = viewModel(),
+    viewModel: SplashViewModel = koinViewModel(),
     navController: NavController,
 ) {
     val state by viewModel.states.collectAsStateWithLifecycle(initialValue = SplashState())

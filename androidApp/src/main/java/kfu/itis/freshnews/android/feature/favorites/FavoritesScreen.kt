@@ -8,7 +8,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import kfu.itis.freshnews.android.R
 import kfu.itis.freshnews.android.navigation.FreshNewsRoutes
@@ -20,10 +19,11 @@ import kfu.itis.freshnews.feature.favorites.presentation.FavoritesEvent
 import kfu.itis.freshnews.feature.favorites.presentation.FavoritesState
 import kfu.itis.freshnews.feature.favorites.presentation.FavoritesViewModel
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun FavoritesScreen(
-    viewModel: FavoritesViewModel = viewModel(),
+    viewModel: FavoritesViewModel = koinViewModel(),
     navController: NavController,
     snackbarHostState: SnackbarHostState,
 ) {

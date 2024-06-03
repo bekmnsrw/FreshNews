@@ -11,10 +11,12 @@ import kfu.itis.freshnews.android.navigation.FreshNewsRoutes
 import kfu.itis.freshnews.android.navigation.NestedScreen
 import kfu.itis.freshnews.feature.details.data.mapper.toArticleDetails
 import kfu.itis.freshnews.feature.home.domain.model.Article
+import kfu.itis.freshnews.feature.home.presentation.HomeViewModel
 
 fun NavGraphBuilder.homeNavGraph(
     navController: NavController,
     snackbarHostState: SnackbarHostState,
+    homeViewModel: HomeViewModel,
 ) {
     navigation(
         route = FreshNewsRoutes.HOME_GRAPH_ROUTE,
@@ -22,6 +24,7 @@ fun NavGraphBuilder.homeNavGraph(
     ) {
         composable(route = FreshNewsRoutes.HOME_SCREEN_ROUTE) {
             HomeScreen(
+                viewModel = homeViewModel,
                 navController = navController,
                 snackbarHostState = snackbarHostState,
             )
