@@ -1,22 +1,16 @@
 package kfu.itis.freshnews.android.feature.auth
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,7 +24,10 @@ import kfu.itis.freshnews.android.R
 import kfu.itis.freshnews.android.designsystem.icon.FreshNewsIcons
 import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 import kfu.itis.freshnews.android.utils.ColumnSpacer
+import kfu.itis.freshnews.android.widget.FreshNewsButton
 import kfu.itis.freshnews.android.widget.FreshNewsIconButton
+import kfu.itis.freshnews.android.widget.FreshNewsOutlinedButton
+import kfu.itis.freshnews.android.widget.FreshNewsTextButton
 import kfu.itis.freshnews.feature.auth.presentation.AuthEvent
 import kfu.itis.freshnews.feature.auth.presentation.AuthState
 
@@ -102,9 +99,7 @@ private fun AuthContent(
 
         ColumnSpacer(4.dp)
 
-        SkipAuthButton(
-            onClick = { eventHandler(AuthEvent.OnSkipAuthClick) },
-        )
+        SkipAuthButton { eventHandler(AuthEvent.OnSkipAuthClick) }
     }
 }
 
@@ -204,20 +199,13 @@ private fun SignInButton(
     onClick: () -> Unit,
     isEnabled: Boolean,
 ) {
-    Button(
-        modifier = Modifier.fillMaxWidth(),
+    FreshNewsButton(
+        text = stringResource(R.string.sign_in),
+        containerColor = ThemeProvider.colors.buttonContainer,
+        contentColor = ThemeProvider.colors.buttonContent,
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = ThemeProvider.colors.accent,
-        ),
-        shape = RoundedCornerShape(8.dp),
-        enabled = isEnabled,
-    ) {
-        Text(
-            text = stringResource(R.string.sign_in),
-            color = ThemeProvider.colors.buttonContent,
-        )
-    }
+        isEnabled = isEnabled,
+    )
 }
 
 @Composable
@@ -225,26 +213,20 @@ private fun SingUpButton(
     onClick: () -> Unit,
     isEnabled: Boolean,
 ) {
-    OutlinedButton(
-        modifier = Modifier.fillMaxWidth(),
+    FreshNewsOutlinedButton(
+        text = stringResource(R.string.sign_up),
+        containerColor = ThemeProvider.colors.buttonContainer,
+        contentColor = ThemeProvider.colors.buttonContent,
+        isEnabled = isEnabled,
         onClick = onClick,
-        border = BorderStroke(1.dp, ThemeProvider.colors.accent),
-        shape = RoundedCornerShape(8.dp),
-        enabled = isEnabled,
-    ) {
-        Text(
-            text = stringResource(R.string.sign_up),
-            color = ThemeProvider.colors.accent,
-        )
-    }
+    )
 }
 
 @Composable
 private fun SkipAuthButton(onClick: () -> Unit) {
-    TextButton(onClick = onClick) {
-        Text(
-            text = stringResource(R.string.skip_for_now),
-            color = ThemeProvider.colors.outline,
-        )
-    }
+    FreshNewsTextButton(
+        text = stringResource(R.string.skip_for_now),
+        textColor = ThemeProvider.colors.outline,
+        onClick = onClick,
+    )
 }

@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
@@ -29,6 +27,7 @@ import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 import kfu.itis.freshnews.android.utils.ColumnSpacer
 import kfu.itis.freshnews.android.utils.LazyColumnSpacer
 import kfu.itis.freshnews.android.utils.toDate
+import kfu.itis.freshnews.android.widget.FreshNewsButton
 import kfu.itis.freshnews.android.widget.FreshNewsImage
 import kfu.itis.freshnews.feature.favorites.domain.model.FavoritesArticle
 import kfu.itis.freshnews.feature.favorites.presentation.FavoritesEvent
@@ -106,18 +105,12 @@ private fun NotAuthenticatedContent(onClick: () -> Unit) {
 
         ColumnSpacer(8.dp)
 
-        Button(
-            modifier = Modifier.fillMaxWidth(),
+        FreshNewsButton(
+            text = stringResource(R.string.sign_in),
+            containerColor = ThemeProvider.colors.buttonContainer,
+            contentColor = ThemeProvider.colors.buttonContent,
             onClick = onClick,
-            colors = ButtonDefaults.buttonColors(containerColor = ThemeProvider.colors.buttonContainer),
-            shape = RoundedCornerShape(8.dp),
-        ) {
-            Text(
-                text = stringResource(R.string.sign_in),
-                color = ThemeProvider.colors.buttonContent,
-                style = ThemeProvider.typography.button,
-            )
-        }
+        )
     }
 }
 

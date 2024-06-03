@@ -1,21 +1,13 @@
 package kfu.itis.freshnews.android.feature.profile
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -23,6 +15,9 @@ import androidx.compose.ui.unit.dp
 import kfu.itis.freshnews.android.R
 import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 import kfu.itis.freshnews.android.utils.ColumnSpacer
+import kfu.itis.freshnews.android.widget.FreshNewsButton
+import kfu.itis.freshnews.android.widget.FreshNewsOutlinedButton
+import kfu.itis.freshnews.android.widget.FreshNewsTextButton
 import kfu.itis.freshnews.feature.profile.presentation.DialogType
 import kfu.itis.freshnews.feature.profile.presentation.ProfileEvent
 import kfu.itis.freshnews.feature.profile.presentation.ProfileState
@@ -99,50 +94,32 @@ private fun ProfileTitle(
 private fun AuthenticateButton(
     onClick: () -> Unit,
 ) {
-    Button(
-        modifier = Modifier.fillMaxWidth(),
+    FreshNewsButton(
+        text = stringResource(R.string.sign_in),
+        containerColor = ThemeProvider.colors.buttonContainer,
+        contentColor = ThemeProvider.colors.buttonContent,
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(containerColor = ThemeProvider.colors.buttonContainer,),
-        shape = RoundedCornerShape(8.dp),
-    ) {
-        Text(
-            text = stringResource(R.string.sign_in),
-            color = ThemeProvider.colors.buttonContent,
-            style = ThemeProvider.typography.button,
-        )
-    }
+    )
 }
 
 @Composable
 private fun LogOutButton(onClick: () -> Unit) {
-    OutlinedButton(
-        modifier = Modifier.fillMaxWidth(),
+    FreshNewsOutlinedButton(
+        text = stringResource(R.string.log_out),
+        containerColor = ThemeProvider.colors.error,
+        contentColor = ThemeProvider.colors.error,
         onClick = onClick,
-        border = BorderStroke(1.dp, ThemeProvider.colors.error),
-        shape = RoundedCornerShape(8.dp),
-    ) {
-        Text(
-            text = stringResource(R.string.log_out),
-            color = ThemeProvider.colors.error,
-            style = ThemeProvider.typography.button,
-        )
-    }
+    )
 }
 
 @Composable
 private fun DeleteProfileButton(onClick: () -> Unit) {
-    Button(
-        modifier = Modifier.fillMaxWidth(),
+    FreshNewsButton(
+        text = stringResource(R.string.delete_profile),
+        containerColor = ThemeProvider.colors.error,
+        contentColor = ThemeProvider.colors.buttonContent,
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(containerColor = ThemeProvider.colors.error),
-        shape = RoundedCornerShape(8.dp),
-    ) {
-        Text(
-            text = stringResource(R.string.delete_profile),
-            color = ThemeProvider.colors.buttonContent,
-            style = ThemeProvider.typography.button,
-        )
-    }
+    )
 }
 
 @Composable
@@ -165,22 +142,18 @@ private fun ConfirmationDialog(
             )
         },
         confirmButton = {
-            TextButton({ onConfirm(dialogType) }) {
-                Text(
-                    text = stringResource(R.string.confirm),
-                    color = ThemeProvider.colors.accent,
-                    style = ThemeProvider.typography.button,
-                )
-            }
+            FreshNewsTextButton(
+                text = stringResource(R.string.confirm),
+                textColor = ThemeProvider.colors.accent,
+                onClick = { onConfirm(dialogType) },
+            )
         },
         dismissButton = {
-            TextButton(onDismiss) {
-                Text(
-                    text = stringResource(R.string.dismiss),
-                    color = ThemeProvider.colors.outline,
-                    style = ThemeProvider.typography.button,
-                )
-            }
+            FreshNewsTextButton(
+                text = stringResource(R.string.dismiss),
+                textColor = ThemeProvider.colors.outline,
+                onClick = onDismiss,
+            )
         }
     )
 }

@@ -29,7 +29,7 @@
     <string name="empty_favorites">You have no favorites articles added</string>
     <string name="favorites_login_request">Sign In to add favorite articles</string>
     <string name="dear_guest">Dear Guest</string>
-    <string name="hello">Hello, %!</string>
+    <string name="hello">Hello, %1$s!</string>
     <string name="log_out">Log Out</string>
     <string name="delete_profile">Delete profile</string>
     <string name="log_out_confirmation">Do you want to Log Out?</string>

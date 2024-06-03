@@ -17,8 +17,6 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
@@ -36,6 +34,7 @@ import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 import kfu.itis.freshnews.android.utils.ColumnSpacer
 import kfu.itis.freshnews.android.utils.LazyColumnSpacer
 import kfu.itis.freshnews.android.utils.toDate
+import kfu.itis.freshnews.android.widget.FreshNewsButton
 import kfu.itis.freshnews.android.widget.FreshNewsImage
 import kfu.itis.freshnews.feature.home.domain.model.Article
 import kfu.itis.freshnews.feature.home.domain.model.ArticleCategory
@@ -318,20 +317,12 @@ private fun NoInternetConnection(onClick: () -> Unit) {
                 color = ThemeProvider.colors.outline,
             )
             ColumnSpacer(8.dp)
-            Button(
-                modifier = Modifier.fillMaxWidth(),
+            FreshNewsButton(
+                text = stringResource(R.string.open_wifi_settings),
+                containerColor = ThemeProvider.colors.buttonContainer,
+                contentColor = ThemeProvider.colors.buttonContent,
                 onClick = onClick,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = ThemeProvider.colors.buttonContainer,
-                    contentColor = ThemeProvider.colors.buttonContent,
-                ),
-                shape = RoundedCornerShape(8.dp),
-            ) {
-                Text(
-                    text = stringResource(R.string.open_wifi_settings),
-                    style = ThemeProvider.typography.button,
-                )
-            }
+            )
         }
     }
 }
