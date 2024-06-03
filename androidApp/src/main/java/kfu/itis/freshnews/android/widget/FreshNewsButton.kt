@@ -29,6 +29,8 @@ fun FreshNewsButton(
         colors = ButtonDefaults.buttonColors(
             containerColor = containerColor,
             contentColor = contentColor,
+            disabledContentColor = Color.White,
+            disabledContainerColor = ThemeProvider.colors.outline,
         ),
         enabled = isEnabled,
         shape = RoundedCornerShape(8.dp),
@@ -54,11 +56,13 @@ fun FreshNewsOutlinedButton(
         onClick = onClick,
         border = BorderStroke(
             width = 1.dp,
-            color = containerColor,
+            color = if (isEnabled) containerColor else ThemeProvider.colors.outline,
         ),
         colors = ButtonDefaults.buttonColors(
             contentColor = contentColor,
             containerColor = ThemeProvider.colors.background,
+            disabledContentColor = ThemeProvider.colors.outline,
+            disabledContainerColor = ThemeProvider.colors.background,
         ),
         enabled = isEnabled,
         shape = RoundedCornerShape(8.dp),
