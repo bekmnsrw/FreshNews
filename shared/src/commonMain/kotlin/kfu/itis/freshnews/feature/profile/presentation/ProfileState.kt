@@ -21,7 +21,7 @@ sealed class ProfileEvent {
 
 sealed class ProfileAction {
     object NavigateAuth : ProfileAction()
-    class ShowError(val errorMessage: String) : ProfileAction()
+    object ShowError : ProfileAction()
 }
 
 enum class DialogType {

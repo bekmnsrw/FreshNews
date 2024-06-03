@@ -1,34 +1,25 @@
 package kfu.itis.freshnews.android.feature.auth
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import kfu.itis.freshnews.android.designsystem.icon.FreshNewsIcons
+import kfu.itis.freshnews.android.R
 import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 import kfu.itis.freshnews.android.utils.ColumnSpacer
-import kfu.itis.freshnews.android.widget.FreshNewsIconButton
+import kfu.itis.freshnews.android.widget.FreshNewsButton
+import kfu.itis.freshnews.android.widget.FreshNewsOutlinedButton
+import kfu.itis.freshnews.android.widget.FreshNewsTextButton
+import kfu.itis.freshnews.android.widget.FreshNewsTextField
 import kfu.itis.freshnews.feature.auth.presentation.AuthEvent
 import kfu.itis.freshnews.feature.auth.presentation.AuthState
 
@@ -100,22 +91,19 @@ private fun AuthContent(
 
         ColumnSpacer(4.dp)
 
-        SkipAuthButton(
-            onClick = { eventHandler(AuthEvent.OnSkipAuthClick) },
-        )
+        SkipAuthButton { eventHandler(AuthEvent.OnSkipAuthClick) }
     }
 }
 
 @Composable
 private fun WelcomeLabel() {
     Text(
-        text = "Welcome to FreshNews",
+        text = stringResource(R.string.welcome),
         color = ThemeProvider.colors.accent,
         style = ThemeProvider.typography.screenHeading,
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun LoginField(
     login: String,
@@ -124,37 +112,21 @@ private fun LoginField(
     isSignUpErrorShown: Boolean,
     isTextFieldEmpty: Boolean,
 ) {
-    OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(),
+    FreshNewsTextField(
         value = login,
         onValueChange = { loginInput -> onLoginChange(loginInput) },
-        label = { Text(text = "Login") },
+        label = stringResource(R.string.login_placeholder),
         isError = isSignUpErrorShown || isSignInErrorShown,
-        singleLine = true,
-        supportingText = {
-            if (isSignUpErrorShown || isSignInErrorShown || isTextFieldEmpty) {
-                Text(
-                    text = when {
-                        isSignInErrorShown -> "Incorrect login"
-                        isSignUpErrorShown -> "User with this login already exists"
-                        isTextFieldEmpty -> "Login mustn't be empty"
-                        else -> ""
-                    },
-                    color = ThemeProvider.colors.accent,
-                )
-            }
+        shouldShowSupportingText = isSignUpErrorShown || isSignInErrorShown || isTextFieldEmpty,
+        supportingText = when {
+            isSignInErrorShown -> stringResource(R.string.incorrect_login)
+            isSignUpErrorShown -> stringResource(R.string.user_already_exists)
+            isTextFieldEmpty -> stringResource(R.string.empty_login)
+            else -> ""
         },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = ThemeProvider.colors.accent,
-            focusedLabelColor = ThemeProvider.colors.accent,
-            cursorColor = ThemeProvider.colors.accent,
-            focusedTextColor = ThemeProvider.colors.mainText,
-            unfocusedTextColor = ThemeProvider.colors.mainText,
-        )
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun PasswordField(
     isPasswordHidden: Boolean,
@@ -163,37 +135,15 @@ private fun PasswordField(
     onPasswordChange: (String) -> Unit,
     isTextFieldEmpty: Boolean,
 ) {
-    OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(),
+    FreshNewsTextField(
         value = password,
         onValueChange = { passwordInput -> onPasswordChange(passwordInput) },
-        label = { Text(text = "Password") },
-        visualTransformation = if (isPasswordHidden) PasswordVisualTransformation() else VisualTransformation.None,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        trailingIcon = {
-            FreshNewsIconButton(
-                icon = if (isPasswordHidden) FreshNewsIcons.VISIBILITY else FreshNewsIcons.VISIBILITY_OFF,
-                tint = ThemeProvider.colors.accent,
-                onClick = onHidePasswordClick,
-            )
-        },
-        supportingText = {
-            if (isTextFieldEmpty) {
-                Text(
-                    text = "Password mustn't be empty",
-                    color = ThemeProvider.colors.error,
-                )
-            }
-        },
-        singleLine = true,
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = ThemeProvider.colors.accent,
-            focusedLabelColor = ThemeProvider.colors.accent,
-            cursorColor = ThemeProvider.colors.accent,
-            focusedTextColor = ThemeProvider.colors.mainText,
-            unfocusedTextColor = ThemeProvider.colors.mainText,
-            errorTextColor = ThemeProvider.colors.mainText,
-        )
+        label = stringResource(R.string.password_placeholder),
+        shouldShowSupportingText = isTextFieldEmpty,
+        supportingText = stringResource(R.string.empty_password),
+        isPassword = true,
+        onTrailingIconClick = onHidePasswordClick,
+        isPasswordHidden = isPasswordHidden,
     )
 }
 
@@ -202,20 +152,13 @@ private fun SignInButton(
     onClick: () -> Unit,
     isEnabled: Boolean,
 ) {
-    Button(
-        modifier = Modifier.fillMaxWidth(),
+    FreshNewsButton(
+        text = stringResource(R.string.sign_in),
+        containerColor = ThemeProvider.colors.buttonContainer,
+        contentColor = ThemeProvider.colors.buttonContent,
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = ThemeProvider.colors.accent,
-        ),
-        shape = RoundedCornerShape(8.dp),
-        enabled = isEnabled,
-    ) {
-        Text(
-            text = "Sign In",
-            color = ThemeProvider.colors.buttonContent,
-        )
-    }
+        isEnabled = isEnabled,
+    )
 }
 
 @Composable
@@ -223,26 +166,20 @@ private fun SingUpButton(
     onClick: () -> Unit,
     isEnabled: Boolean,
 ) {
-    OutlinedButton(
-        modifier = Modifier.fillMaxWidth(),
+    FreshNewsOutlinedButton(
+        text = stringResource(R.string.sign_up),
+        containerColor = ThemeProvider.colors.buttonContainer,
+        contentColor = ThemeProvider.colors.buttonContainer,
+        isEnabled = isEnabled,
         onClick = onClick,
-        border = BorderStroke(1.dp, ThemeProvider.colors.accent),
-        shape = RoundedCornerShape(8.dp),
-        enabled = isEnabled,
-    ) {
-        Text(
-            text = "Sign Up",
-            color = ThemeProvider.colors.accent,
-        )
-    }
+    )
 }
 
 @Composable
 private fun SkipAuthButton(onClick: () -> Unit) {
-    TextButton(onClick = onClick) {
-        Text(
-            text = "Skip for now",
-            color = ThemeProvider.colors.outline,
-        )
-    }
+    FreshNewsTextButton(
+        text = stringResource(R.string.skip_for_now),
+        textColor = ThemeProvider.colors.outline,
+        onClick = onClick,
+    )
 }

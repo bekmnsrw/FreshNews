@@ -20,5 +20,5 @@ sealed class DetailsEvent {
 
 sealed class DetailsAction {
     object NavigateBack : DetailsAction()
-    class ShowError(val errorMessage: String) : DetailsAction()
+    object ShowError : DetailsAction()
 }

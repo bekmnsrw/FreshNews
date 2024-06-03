@@ -3,6 +3,7 @@ package kfu.itis.freshnews.android.feature.home
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -22,6 +23,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
@@ -32,11 +34,13 @@ import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 import kfu.itis.freshnews.android.utils.ColumnSpacer
 import kfu.itis.freshnews.android.utils.LazyColumnSpacer
 import kfu.itis.freshnews.android.utils.toDate
+import kfu.itis.freshnews.android.widget.FreshNewsButton
 import kfu.itis.freshnews.android.widget.FreshNewsImage
 import kfu.itis.freshnews.feature.home.domain.model.Article
 import kfu.itis.freshnews.feature.home.domain.model.ArticleCategory
 import kfu.itis.freshnews.feature.home.presentation.HomeEvent
 import kfu.itis.freshnews.feature.home.presentation.HomeState
+import java.net.UnknownHostException
 
 @Composable
 fun HomeView(
@@ -63,45 +67,49 @@ private fun HomeContent(
     state: HomeState,
     eventHandler: (HomeEvent) -> Unit,
 ) {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(scaffoldPadding),
-    ) {
-        LazyColumnSpacer(36.dp)
+    if (state.error is UnknownHostException) {
+        NoInternetConnection { eventHandler(HomeEvent.OnOpenWiFiSettingsClick) }
+    } else {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(scaffoldPadding),
+        ) {
+            LazyColumnSpacer(36.dp)
 
-        item { LatestNewsTitle() }
+            item { LatestNewsTitle() }
 
-        item {
-            when (state.isLatestArticlesLoading) {
-                true -> LatestNewsLoadingView()
-                false -> LatestNews(
-                    latestNews = state.latestArticles,
+            item {
+                when (state.isLatestArticlesLoading) {
+                    true -> LatestNewsLoadingView()
+                    false -> LatestNews(
+                        latestNews = state.latestArticles,
+                        onArticleClick = { eventHandler(HomeEvent.OnArticleClick(it)) },
+                    )
+                }
+            }
+
+            LazyColumnSpacer(16.dp)
+
+            stickyHeader {
+                NewsCategories(
+                    selectedCategory = state.selectedArticleCategory,
+                    onCategoryClick = { eventHandler(HomeEvent.OnArticleCategoryClick(it)) },
+                )
+            }
+
+            LazyColumnSpacer(8.dp)
+
+            when (state.isArticlesOfCategoryLoading) {
+                true -> NewsOfCategoryLoadingView()
+                false -> NewsOfCategory(
+                    articlesByCategory = state.articlesOfCategory,
                     onArticleClick = { eventHandler(HomeEvent.OnArticleClick(it)) },
                 )
             }
+
+            LazyColumnSpacer(80.dp)
         }
-
-        LazyColumnSpacer(16.dp)
-
-        stickyHeader {
-            NewsCategories(
-                selectedCategory = state.selectedArticleCategory,
-                onCategoryClick = { eventHandler(HomeEvent.OnArticleCategoryClick(it)) },
-            )
-        }
-
-        LazyColumnSpacer(8.dp)
-
-        when (state.isArticlesOfCategoryLoading) {
-            true -> NewsOfCategoryLoadingView()
-            false -> NewsOfCategory(
-                articlesByCategory = state.articlesOfCategory,
-                onArticleClick = { eventHandler(HomeEvent.OnArticleClick(it)) },
-            )
-        }
-
-        LazyColumnSpacer(80.dp)
     }
 }
 
@@ -114,7 +122,7 @@ private fun LatestNewsTitle() {
                     bottom = 4.dp,
                     start = 16.dp,
                 ),
-            text = stringResource(id = R.string.latest_news),
+            text = stringResource(R.string.latest_news),
             style = ThemeProvider.typography.screenHeading,
             color = ThemeProvider.colors.mainText,
         )
@@ -150,13 +158,13 @@ private fun NewsCategories(
     onCategoryClick: (ArticleCategory) -> Unit,
 ) {
     val categories = listOf(
-        stringResource(id = R.string.health) to ArticleCategory.HEALTH,
-        stringResource(id = R.string.business) to ArticleCategory.BUSINESS,
-        stringResource(id = R.string.entertainment) to ArticleCategory.ENTERTAINMENT,
-        stringResource(id = R.string.general) to ArticleCategory.GENERAL,
-        stringResource(id = R.string.science) to ArticleCategory.SCIENCE,
-        stringResource(id = R.string.sports) to ArticleCategory.SPORTS,
-        stringResource(id = R.string.technology) to ArticleCategory.TECHNOLOGY,
+        stringResource(R.string.health) to ArticleCategory.HEALTH,
+        stringResource(R.string.business) to ArticleCategory.BUSINESS,
+        stringResource(R.string.entertainment) to ArticleCategory.ENTERTAINMENT,
+        stringResource(R.string.general) to ArticleCategory.GENERAL,
+        stringResource(R.string.science) to ArticleCategory.SCIENCE,
+        stringResource(R.string.sports) to ArticleCategory.SPORTS,
+        stringResource(R.string.technology) to ArticleCategory.TECHNOLOGY,
     )
 
     Surface(color = ThemeProvider.colors.background) {
@@ -189,9 +197,7 @@ private fun NewsCategoryItem(
 ) {
     Card(
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = ThemeProvider.colors.background,
-        ),
+        colors = CardDefaults.cardColors(containerColor = ThemeProvider.colors.background,),
         border = BorderStroke(
             width = 1.dp,
             color = when (isSelected) {
@@ -228,7 +234,7 @@ private fun LazyListScope.NewsOfCategory(
             article = article,
             onClick = { onArticleClick(article) },
         )
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(Modifier.height(24.dp))
     }
 }
 
@@ -241,11 +247,9 @@ private fun NewsItem(
     Card(
         modifier = modifier,
         onClick = onClick,
-        colors = CardDefaults.cardColors(
-            containerColor = ThemeProvider.colors.background,
-        )
+        colors = CardDefaults.cardColors(containerColor = ThemeProvider.colors.background)
     ) {
-        Column(modifier = Modifier.padding(8.dp)) {
+        Column(Modifier.padding(8.dp)) {
             FreshNewsImage(
                 modifier = Modifier
                     .height(128.dp)
@@ -293,6 +297,31 @@ private fun NewsItem(
                 overflow = TextOverflow.Ellipsis,
                 style = ThemeProvider.typography.cardSupportingText,
                 color = ThemeProvider.colors.supportingText,
+            )
+        }
+    }
+}
+
+@Composable
+private fun NoInternetConnection(onClick: () -> Unit) {
+    Box(Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .align(Alignment.Center)
+                .padding(horizontal = 24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(
+                text = stringResource(R.string.no_internet_connection),
+                style = ThemeProvider.typography.commonText,
+                color = ThemeProvider.colors.outline,
+            )
+            ColumnSpacer(8.dp)
+            FreshNewsButton(
+                text = stringResource(R.string.open_wifi_settings),
+                containerColor = ThemeProvider.colors.buttonContainer,
+                contentColor = ThemeProvider.colors.buttonContent,
+                onClick = onClick,
             )
         }
     }

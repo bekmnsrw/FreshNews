@@ -15,6 +15,6 @@ sealed class FavoritesEvent {
 
 sealed class FavoritesAction {
     class NavigateDetails(val id: Long) : FavoritesAction()
-    class ShowError(val errorMessage: String) : FavoritesAction()
+    object ShowError : FavoritesAction()
     object NavigateAuth : FavoritesAction()
 }

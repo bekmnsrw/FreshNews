@@ -21,5 +21,5 @@ sealed class AuthEvent {
 
 sealed class AuthAction {
     object NavigateHome : AuthAction()
-    class ShowError(val errorMessage: String) : AuthAction()
+    object ShowError : AuthAction()
 }

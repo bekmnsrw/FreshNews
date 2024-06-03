@@ -62,7 +62,7 @@ class FavoritesViewModel : BaseViewModel<FavoritesState, FavoritesAction, Favori
 
     private fun handleError(e: Throwable) {
         state = state.copy(error = e)
-        action = FavoritesAction.ShowError("Oops, something went wrong")
+        action = FavoritesAction.ShowError
         firebaseCrashlyticsBinding.sendNonFatalErrorReport(e)
     }
 }

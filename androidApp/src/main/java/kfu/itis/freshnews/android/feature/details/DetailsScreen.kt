@@ -1,12 +1,15 @@
 package kfu.itis.freshnews.android.feature.details
 
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import kfu.itis.freshnews.android.R
 import kfu.itis.freshnews.android.designsystem.theme.FreshNewsTheme
 import kfu.itis.freshnews.android.utils.rememberEvent
 import kfu.itis.freshnews.feature.details.domain.model.ArticleDetails
@@ -14,13 +17,16 @@ import kfu.itis.freshnews.feature.details.presentation.DetailsAction
 import kfu.itis.freshnews.feature.details.presentation.DetailsEvent
 import kfu.itis.freshnews.feature.details.presentation.DetailsState
 import kfu.itis.freshnews.feature.details.presentation.DetailsViewModel
+import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun DetailsScreen(
-    viewModel: DetailsViewModel = viewModel(),
+    viewModel: DetailsViewModel = koinViewModel(),
     navController: NavController,
     articleDetails: ArticleDetails? = null,
     favoriteArticleId: Long? = null,
+    snackbarHostState: SnackbarHostState,
 ) {
     val state by viewModel.states.collectAsStateWithLifecycle(initialValue = DetailsState())
     val action by viewModel.actions.collectAsStateWithLifecycle(initialValue = null)
@@ -43,6 +49,7 @@ fun DetailsScreen(
     DetailsActions(
         action = action,
         navController = navController,
+        snackbarHostState = snackbarHostState,
     )
 }
 
@@ -50,12 +57,27 @@ fun DetailsScreen(
 private fun DetailsActions(
     action: DetailsAction?,
     navController: NavController,
+    snackbarHostState: SnackbarHostState,
 ) {
+    val coroutineScope = rememberCoroutineScope()
+    val errorMessage = stringResource(R.string.error_message)
+
     LaunchedEffect(action) {
         when (action) {
             null -> Unit
-            DetailsAction.NavigateBack -> navController.navigateUp()
-            is DetailsAction.ShowError -> Unit
+
+            DetailsAction.NavigateBack -> {
+                navController.navigateUp()
+            }
+
+            DetailsAction.ShowError -> {
+                coroutineScope.launch {
+                    snackbarHostState.showSnackbar(
+                        message = errorMessage,
+                        withDismissAction = true,
+                    )
+                }
+            }
         }
     }
 }

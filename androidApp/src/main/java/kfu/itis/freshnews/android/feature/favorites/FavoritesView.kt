@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
@@ -21,12 +19,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import kfu.itis.freshnews.android.R
 import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 import kfu.itis.freshnews.android.utils.ColumnSpacer
 import kfu.itis.freshnews.android.utils.LazyColumnSpacer
 import kfu.itis.freshnews.android.utils.toDate
+import kfu.itis.freshnews.android.widget.FreshNewsButton
 import kfu.itis.freshnews.android.widget.FreshNewsImage
 import kfu.itis.freshnews.feature.favorites.domain.model.FavoritesArticle
 import kfu.itis.freshnews.feature.favorites.presentation.FavoritesEvent
@@ -84,7 +85,7 @@ private fun FavoritesContent(
 @Composable
 private fun EmptyFavoritesList() {
     Text(
-        text = "You have no favorites articles added",
+        text = stringResource(R.string.empty_favorites),
         color = ThemeProvider.colors.outline,
         style = ThemeProvider.typography.commonText,
     )
@@ -97,27 +98,19 @@ private fun NotAuthenticatedContent(onClick: () -> Unit) {
         modifier = Modifier.padding(horizontal = 24.dp),
     ) {
         Text(
-            text = "Log In to add favorite articles",
+            text = stringResource(R.string.favorites_login_request),
             color = ThemeProvider.colors.outline,
             style = ThemeProvider.typography.commonText,
         )
 
         ColumnSpacer(8.dp)
 
-        Button(
-            modifier = Modifier.fillMaxWidth(),
+        FreshNewsButton(
+            text = stringResource(R.string.sign_in),
+            containerColor = ThemeProvider.colors.buttonContainer,
+            contentColor = ThemeProvider.colors.buttonContent,
             onClick = onClick,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = ThemeProvider.colors.buttonContainer,
-            ),
-            shape = RoundedCornerShape(8.dp),
-        ) {
-            Text(
-                text = "Log In",
-                color = ThemeProvider.colors.buttonContent,
-                style = ThemeProvider.typography.button,
-            )
-        }
+        )
     }
 }
 
@@ -158,11 +151,9 @@ private fun FavoritesArticleItem(
     Card(
         modifier = Modifier.fillMaxWidth(),
         onClick = { favoritesArticle.id?.let(onItemClick) },
-        colors = CardDefaults.cardColors(
-            containerColor = ThemeProvider.colors.background,
-        )
+        colors = CardDefaults.cardColors(containerColor = ThemeProvider.colors.background,)
     ) {
-        Column(modifier = Modifier.padding(8.dp)) {
+        Column(Modifier.padding(8.dp)) {
             FreshNewsImage(
                 modifier = Modifier
                     .height(128.dp)

@@ -27,8 +27,9 @@ fun LatestNewsLoadingView() {
         items(2) {
             Box(
                 modifier = Modifier
-                    .height(240.dp)
+                    .height(220.dp)
                     .width(320.dp)
+                    .padding(8.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .shimmerEffect(),
             )
@@ -40,12 +41,12 @@ fun LazyListScope.NewsOfCategoryLoadingView() {
     items(5) {
         Box(
             modifier = Modifier
-                .height(240.dp)
+                .height(220.dp)
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
                 .clip(RoundedCornerShape(16.dp))
                 .shimmerEffect(),
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(Modifier.height(8.dp))
     }
 }

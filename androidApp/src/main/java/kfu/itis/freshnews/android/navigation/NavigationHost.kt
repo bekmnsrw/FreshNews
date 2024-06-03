@@ -2,6 +2,8 @@ package kfu.itis.freshnews.android.navigation
 
 import android.annotation.SuppressLint
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.Stable
@@ -14,6 +16,7 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import kfu.itis.freshnews.android.designsystem.theme.ThemeProvider
 import kfu.itis.freshnews.android.navigation.bottombar.BottomBar
 import kfu.itis.freshnews.android.navigation.bottombar.TabItem
 import kfu.itis.freshnews.android.navigation.graph.authNavGraph
@@ -21,6 +24,8 @@ import kfu.itis.freshnews.android.navigation.graph.favoritesNavGraph
 import kfu.itis.freshnews.android.navigation.graph.homeNavGraph
 import kfu.itis.freshnews.android.navigation.graph.profileNavGraph
 import kfu.itis.freshnews.android.navigation.graph.splashNavGraph
+import kfu.itis.freshnews.feature.home.presentation.HomeViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -29,11 +34,15 @@ fun NavigationHost() {
     val currentSelectedScreen by navController.currentScreenAsState()
     val currentRoute by navController.currentRouteAsState()
 
+    val snackbarHostState = remember { SnackbarHostState() }
+
     val tabItemRoutes = listOf(
         FreshNewsRoutes.HOME_SCREEN_ROUTE,
         FreshNewsRoutes.FAVORITES_SCREEN_ROUTE,
         FreshNewsRoutes.PROFILE_SCREEN_ROUTE,
     )
+
+    val homeViewModel = koinViewModel<HomeViewModel>()
 
     Scaffold(
         bottomBar = {
@@ -43,17 +52,34 @@ fun NavigationHost() {
                     currentSelectedScreen = currentSelectedScreen,
                 )
             }
-        }
+        },
+        containerColor = ThemeProvider.colors.background,
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
     ) {
         NavHost(
             navController = navController,
             startDestination = FreshNewsRoutes.SPLASH_GRAPH_ROUTE,
         ) {
-            splashNavGraph(navController)
-            authNavGraph(navController)
-            homeNavGraph(navController)
-            favoritesNavGraph(navController)
-            profileNavGraph(navController)
+            splashNavGraph(
+                navController = navController,
+            )
+            authNavGraph(
+                navController = navController,
+                snackbarHostState = snackbarHostState,
+            )
+            homeNavGraph(
+                navController = navController,
+                snackbarHostState = snackbarHostState,
+                homeViewModel = homeViewModel,
+            )
+            favoritesNavGraph(
+                navController = navController,
+                snackbarHostState = snackbarHostState,
+            )
+            profileNavGraph(
+                navController = navController,
+                snackbarHostState = snackbarHostState,
+            )
         }
     }
 }

@@ -22,6 +22,8 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
     override fun handleEvent(event: HomeEvent) = when (event) {
         is HomeEvent.OnArticleClick -> onArticleClick(event.article)
         is HomeEvent.OnArticleCategoryClick -> onArticleCategoryClick(event.category)
+        HomeEvent.OnOpenWiFiSettingsClick -> onOpenWiFiSettingsClick()
+        HomeEvent.ReloadNews -> reloadNews()
     }
 
     init {
@@ -35,7 +37,10 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
             try {
                 state = state.copy(isLatestArticlesLoading = true)
                 val latestArticles = getTopHeadlinesUseCase()
-                state = state.copy(latestArticles = latestArticles)
+                state = state.copy(
+                    latestArticles = latestArticles,
+                    error = null,
+                )
             } catch (e: Throwable) {
                 handleError(e)
             } finally {
@@ -49,7 +54,10 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
             try {
                 state = state.copy(isArticlesOfCategoryLoading = true)
                 val articlesOfCategory = getTopHeadlinesByCategoryUseCase(state.selectedArticleCategory)
-                state = state.copy(articlesOfCategory = articlesOfCategory)
+                state = state.copy(
+                    articlesOfCategory = articlesOfCategory,
+                    error = null,
+                )
             } catch (e: Throwable) {
                 handleError(e)
             } finally {
@@ -73,13 +81,22 @@ class HomeViewModel : BaseViewModel<HomeState, HomeAction, HomeEvent>(
         }
     }
 
+    private fun onOpenWiFiSettingsClick() {
+        action = HomeAction.OpenWiFiSettings
+    }
+
+    private fun reloadNews() {
+        loadLatestArticles()
+        loadArticlesOfCategory()
+    }
+
     private fun logOpenScreen() {
         firebaseAnalyticsBinding.logOpenScreen("home_screen")
     }
 
     private fun handleError(e: Throwable) {
         state = state.copy(error = e)
-        action = HomeAction.ShowError("Oops, something went wrong")
+        action = HomeAction.ShowError
         firebaseCrashlyticsBinding.sendNonFatalErrorReport(e)
     }
 }
