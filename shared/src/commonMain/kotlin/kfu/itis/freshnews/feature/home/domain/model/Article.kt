@@ -5,7 +5,7 @@ import dev.icerock.moko.parcelize.Parcelize
 
 @Parcelize
 data class Article(
-    val description: String,
+    val descr: String,
     val publishedAt: String,
     val source: String,
     val title: String,

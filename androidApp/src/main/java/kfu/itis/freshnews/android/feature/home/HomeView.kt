@@ -273,7 +273,7 @@ private fun NewsItem(
             }
 
             Text(
-                text = article.description,
+                text = article.descr,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 style = ThemeProvider.typography.cardSupportingText,

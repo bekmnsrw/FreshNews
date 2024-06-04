@@ -1,7 +1,7 @@
 import SwiftUI
 import Shared
 
-struct LatestArticlesView: View {
+struct ArticlesOfCategoryListView: View {
     
     @State private var news: [Article]
     
@@ -10,10 +10,12 @@ struct LatestArticlesView: View {
     }
     
     var body: some View {
-        ForEach($news) { article in
-            convert(article: article.wrappedValue)
-                .cornerRadius(10)
-                .frame(width: 250, height: 220, alignment: .leading)
+        List {
+            ForEach($news) { article in
+                convert(article: article.wrappedValue)
+                    .cornerRadius(10)
+                    .frame(width: 250, height: 220, alignment: .leading)
+            }
         }
     }
     
@@ -27,5 +29,3 @@ struct LatestArticlesView: View {
         )
     }
 }
-
-extension Article: Identifiable {}
