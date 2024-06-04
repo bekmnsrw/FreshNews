@@ -268,7 +268,7 @@ private fun NewsItem(
                 color = ThemeProvider.colors.mainText,
             )
 
-            if (article.description.isNotEmpty()) {
+            if (article.descr.isNotEmpty()) {
                 ColumnSpacer(2.dp)
             }
 
