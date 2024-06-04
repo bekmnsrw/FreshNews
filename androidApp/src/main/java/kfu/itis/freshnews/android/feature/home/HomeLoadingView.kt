@@ -3,12 +3,11 @@ package kfu.itis.freshnews.android.feature.home
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -27,7 +26,7 @@ fun LatestNewsLoadingView() {
         items(2) {
             Box(
                 modifier = Modifier
-                    .height(220.dp)
+                    .height(238.dp)
                     .width(320.dp)
                     .padding(8.dp)
                     .clip(RoundedCornerShape(8.dp))
@@ -37,16 +36,22 @@ fun LatestNewsLoadingView() {
     }
 }
 
-fun LazyListScope.NewsOfCategoryLoadingView() {
-    items(5) {
-        Box(
-            modifier = Modifier
-                .height(220.dp)
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-                .clip(RoundedCornerShape(16.dp))
-                .shimmerEffect(),
-        )
-        Spacer(Modifier.height(8.dp))
+@Composable
+fun NewsOfCategoryLoadingView() {
+    LazyColumn(
+        modifier = Modifier.fillMaxWidth(),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp),
+    ) {
+        items(2) {
+            Box(
+                modifier = Modifier
+                    .height(238.dp)
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .shimmerEffect(),
+            )
+        }
     }
 }
