@@ -81,7 +81,7 @@ struct LikeButton: View {
     var body: some View {
         Button(action: {
             viewModel.viewModel.handleEvent(
-                event: DetailsEvent.OnInit(articleDetails: ArticleDetails.from(article), favoriteArticleId: nil)
+                event: DetailsEvent.OnInit(articleDetails: .from(article), favoriteArticleId: nil)
             )
             viewModel.viewModel.handleEvent(
                 event: DetailsEvent.OnAddToFavoritesClick()

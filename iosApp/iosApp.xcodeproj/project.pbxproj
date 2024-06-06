@@ -31,7 +31,6 @@
 		2973477A2C12175400BC74FC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297347792C12175400BC74FC /* SceneDelegate.swift */; };
 		2973477C2C12193A00BC74FC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2973477B2C12193A00BC74FC /* Router.swift */; };
 		297347802C1269DC00BC74FC /* LatestNewsText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2973477F2C1269DC00BC74FC /* LatestNewsText.swift */; };
-		297347822C126A7D00BC74FC /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297347812C126A7D00BC74FC /* CategoryButton.swift */; };
 		299DBB052C0F8AD400501389 /* ArticlesOfCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299DBB042C0F8AD400501389 /* ArticlesOfCategoryCell.swift */; };
 		299DBB0B2C0FAF6700501389 /* FavoritesObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299DBB0A2C0FAF6700501389 /* FavoritesObservableObject.swift */; };
 		299DBB0F2C0FB6D500501389 /* SignInToAuthViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299DBB0E2C0FB6D500501389 /* SignInToAuthViewButton.swift */; };
@@ -78,7 +77,6 @@
 		297347792C12175400BC74FC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2973477B2C12193A00BC74FC /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		2973477F2C1269DC00BC74FC /* LatestNewsText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestNewsText.swift; sourceTree = "<group>"; };
-		297347812C126A7D00BC74FC /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		299DBB042C0F8AD400501389 /* ArticlesOfCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesOfCategoryCell.swift; sourceTree = "<group>"; };
 		299DBB0A2C0FAF6700501389 /* FavoritesObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesObservableObject.swift; sourceTree = "<group>"; };
 		299DBB0E2C0FB6D500501389 /* SignInToAuthViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInToAuthViewButton.swift; sourceTree = "<group>"; };
@@ -330,7 +328,6 @@
 			children = (
 				290EA6AA2C0B590300EF88C9 /* HomeNewsList */,
 				2973477F2C1269DC00BC74FC /* LatestNewsText.swift */,
-				297347812C126A7D00BC74FC /* CategoryButton.swift */,
 			);
 			path = "UI-components";
 			sourceTree = "<group>";
@@ -510,7 +507,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				290EA6BF2C0B63D900EF88C9 /* HomeObservableObject.swift in Sources */,
-				297347822C126A7D00BC74FC /* CategoryButton.swift in Sources */,
 				290EA6C32C0BAB2300EF88C9 /* ArticlesOfCategoryListView.swift in Sources */,
 				293BDFD32C03D31B00441048 /* HomeTabView.swift in Sources */,
 				2973477A2C12175400BC74FC /* SceneDelegate.swift in Sources */,

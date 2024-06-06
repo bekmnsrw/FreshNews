@@ -35,31 +35,42 @@ struct HomeTabView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 10) {
                         ForEach(categories, id: \.self) { category in
-                            CategoryButton(selectedCategory: selectedCategory,action: {
+                            Button(action: {
                                 selectedCategory = category
                                 handleEvent(with: category)
                                 articlesOfCategory = viewModel.state.articlesOfCategory
-                            })
+                            }) {
+                                Text(category.rawValue)
+                                    .font(.system(size: 13))
+                                    .padding(10)
+                                    .foregroundColor(colorScheme == ColorScheme.light ? Color.black : Color.white)
+                                    .clipShape(Capsule())
+                                    .background(Color(UIColor.systemBackground))
+                                    .overlay(
+                                        Capsule().stroke(selectedCategory == category ? Color.blue : Color.gray
+                                                         , lineWidth: 1)
+                                    )
+                            }
                         }
                     }
                 }
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .center,  spacing: 10) {
-                    if viewModel.state.isArticlesOfCategoryLoading {
-                        ProgressView()
-                            .frame(width: 100, height: 100, alignment: .center)
-                            .padding([.leading, .trailing, .top], 120)
-                    } else if !viewModel.state.articlesOfCategory.isEmpty {
-                        ArticlesOfCategoryListView(news: viewModel.state.articlesOfCategory)
-                    } else {
-                        Text("No articles available.")
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(alignment: .center,  spacing: 10) {
+                        if viewModel.state.isArticlesOfCategoryLoading {
+                            ProgressView()
+                                .frame(width: 100, height: 100, alignment: .center)
+                                .padding([.leading, .trailing, .top], 120)
+                        } else if !viewModel.state.articlesOfCategory.isEmpty {
+                            ArticlesOfCategoryListView(news: viewModel.state.articlesOfCategory)
+                        } else {
+                            Text("No articles available.")
+                        }
                     }
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
+                Spacer()
             }
-            Spacer()
-        }
-        .padding(.horizontal)
+            .padding(.horizontal)
         }
         .navigationBarBackButtonHidden(true)
     }
