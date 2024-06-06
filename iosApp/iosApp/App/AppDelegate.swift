@@ -14,4 +14,15 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     KoinModuleKt.doInitKoin()
     return true
   }
+    
+    func application(
+        _ application: UIApplication,
+        configurationForConnecting connectingSceneSession: UISceneSession,
+        options: UIScene.ConnectionOptions
+    ) -> UISceneConfiguration {
+        let sessionRole = connectingSceneSession.role
+        let sceneConfig = UISceneConfiguration(name: nil, sessionRole: sessionRole)
+        sceneConfig.delegateClass = SceneDelegate.self
+        return sceneConfig
+    }
 }

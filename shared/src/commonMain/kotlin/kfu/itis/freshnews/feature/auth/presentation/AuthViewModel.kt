@@ -54,6 +54,7 @@ class AuthViewModel : BaseViewModel<AuthState, AuthAction, AuthEvent>(
     private fun onSignInClick() {
         scope.launch {
             try {
+                state = state.copy(isSignInErrorShown = false)
                 if (areTextFieldsEmpty()) return@launch
                 val userProfile = signInUseCase(state.login, state.password).first()
                 if (userProfile == null) {
@@ -78,6 +79,7 @@ class AuthViewModel : BaseViewModel<AuthState, AuthAction, AuthEvent>(
     private fun onSignUpClick() {
         scope.launch {
             try {
+                state = state.copy(isSignUpErrorShown = false)
                 if (areTextFieldsEmpty()) return@launch
                 val userProfile = signUpUseCase(state.login, state.password).first()
                 if (userProfile == null) {

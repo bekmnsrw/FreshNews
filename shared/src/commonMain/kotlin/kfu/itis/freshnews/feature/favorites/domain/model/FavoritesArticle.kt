@@ -4,7 +4,7 @@ data class FavoritesArticle(
     val id: Long?,
     val imageUrl: String,
     val title: String,
-    val description: String,
+    val descr: String,
     val source: String,
     val publishedAt: String,
     val profileId: Long,

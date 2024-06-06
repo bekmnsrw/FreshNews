@@ -1,18 +1,19 @@
 import SwiftUI
 import Shared
 
-@main
-struct iOSApp: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+final class SceneDelegate: NSObject, UIWindowSceneDelegate {
+        
+    private let coordinator: Coordinator<Router> = .init(startingRoute: .mainFirst)
     
-    init() {
+    var window: UIWindow?
+
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(windowScene: windowScene)
         initShared()
-    }
-    
-    var body: some Scene {
-        WindowGroup {
-            Locator.mainView
-        }
+        window?.rootViewController = coordinator.navigationController
+        window?.makeKeyAndVisible()
+        coordinator.start()
     }
     
     private func initShared() {

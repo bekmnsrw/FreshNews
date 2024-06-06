@@ -38,6 +38,11 @@ class ProfileViewModel : BaseViewModel<ProfileState, ProfileAction, ProfileEvent
         ProfileEvent.OnLogOutClick -> onLogOutClick()
         is ProfileEvent.OnDialogConfirm -> onDialogConfirm(event.dialogType)
         is ProfileEvent.OnDialogDismiss -> onDialogDismiss()
+        ProfileEvent.OnInit -> onInit()
+    }
+
+    private fun onInit() {
+        loadProfile()
     }
 
     private fun onDeleteAccountClick() {

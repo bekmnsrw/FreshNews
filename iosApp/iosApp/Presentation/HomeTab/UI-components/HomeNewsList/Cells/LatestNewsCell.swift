@@ -1,7 +1,9 @@
 import SwiftUI
 import Shared
 
-struct NewsCell: View {
+struct LatestNewsCell: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     var imageUrl: String
     var date: String
     var title: String
@@ -10,18 +12,25 @@ struct NewsCell: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            AsyncImage(url: URL(string: imageUrl)) { image in
-                image
-                    .resizable()
-                    .frame(width: 250, height: 120)
-                    .clipped()
-                    .cornerRadius(10)
-                    .scaledToFit()
-            } placeholder: {
+            if imageUrl == "EmptyImage" {
                 ProgressView()
                     .frame(width: 250, height: 120)
                     .clipped()
                     .cornerRadius(10)
+            } else {
+                AsyncImage(url: URL(string: imageUrl)) { image in
+                    image
+                        .resizable()
+                        .frame(width: 250, height: 120)
+                        .clipped()
+                        .cornerRadius(10)
+                        .scaledToFit()
+                } placeholder: {
+                    ProgressView()
+                        .frame(width: 250, height: 120)
+                        .clipped()
+                        .cornerRadius(10)
+                }
             }
             Text(date)
                 .font(.system(size: 12))
@@ -38,6 +47,7 @@ struct NewsCell: View {
                 .frame(width: 250)
                 .clipped()
                 .frame(alignment: .leading)
+                .foregroundColor(colorScheme == ColorScheme.light ? Color.black : Color.white)
             Text(description)
                 .font(.system(size: 12))
                 .foregroundColor(.gray)
@@ -54,7 +64,7 @@ struct NewsCell: View {
                 .clipped()
                 .frame(alignment: .leading)
         }
-        .background(Color.white)
+        .background(Color(UIColor.systemBackground))
         .cornerRadius(10)
         .overlay(
             RoundedRectangle(cornerRadius: 10)

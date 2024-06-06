@@ -8,7 +8,7 @@ fun FavoritesNews.toFavoritesArticle(): FavoritesArticle = FavoritesArticle(
     id = id,
     imageUrl = image_url,
     title = title,
-    description = description,
+    descr = description,
     source = source,
     publishedAt = published_at,
     profileId = profile_id,
@@ -18,7 +18,7 @@ fun List<FavoritesNews>.toFavoritesArticleList(): List<FavoritesArticle> = this
     .map { favoritesNews -> favoritesNews.toFavoritesArticle() }
 
 fun FavoritesArticle.toArticleDetails(): ArticleDetails = ArticleDetails(
-    description = description,
+    descr = descr,
     publishedAt = publishedAt,
     source = source,
     title = title,

@@ -181,12 +181,12 @@ private fun FavoritesArticleItem(
                 color = ThemeProvider.colors.mainText,
             )
 
-            if (favoritesArticle.description.isNotEmpty()) {
+            if (favoritesArticle.descr.isNotEmpty()) {
                 ColumnSpacer(8.dp)
             }
 
             Text(
-                text = favoritesArticle.description,
+                text = favoritesArticle.descr,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 style = ThemeProvider.typography.cardSupportingText,

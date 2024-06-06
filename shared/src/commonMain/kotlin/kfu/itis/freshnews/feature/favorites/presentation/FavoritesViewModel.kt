@@ -20,11 +20,16 @@ class FavoritesViewModel : BaseViewModel<FavoritesState, FavoritesAction, Favori
     override fun handleEvent(event: FavoritesEvent) = when (event) {
         is FavoritesEvent.OnArticleClick -> onArticleClick(event.id)
         FavoritesEvent.OnAuthButtonClick -> onAuthButtonClick()
+        FavoritesEvent.OnInit -> onInit()
     }
 
     init {
         loadFavoriteArticles()
         logOpenScreen()
+    }
+
+    private fun onInit() {
+        loadFavoriteArticles()
     }
 
     private fun loadFavoriteArticles() {

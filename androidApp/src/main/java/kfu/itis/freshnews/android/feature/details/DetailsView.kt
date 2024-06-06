@@ -113,7 +113,7 @@ private fun ArticleDetailsContent(articleDetails: ArticleDetails?) {
                 )
                 ColumnSpacer(20.dp)
                 Text(
-                    text = article.description,
+                    text = article.descr,
                     style = ThemeProvider.typography.cardSupportingText,
                     color = ThemeProvider.colors.outline,
                 )

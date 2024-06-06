@@ -8,12 +8,17 @@ public class HomeObservableObject: ObservableObject {
     
     @Published private(set) var state: HomeState
     
+    private var cancellables = Set<AnyCancellable>()
+    
     init(wrapped: HomeViewModel) {
         viewModel = wrapped
         state = wrapped.state as! HomeState
         (wrapped.states.asPublisher() as AnyPublisher<HomeState, Never>)
             .receive(on: RunLoop.main)
-            .assign(to: &$state)
+            .sink { [weak self] newState in
+                self?.state = newState
+            }
+            .store(in: &cancellables)
     }
 }
 

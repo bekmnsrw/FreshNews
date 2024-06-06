@@ -6,6 +6,10 @@ public extension Kotlinx_coroutines_coreFlow {
     func asPublisher<T: AnyObject>() -> AnyPublisher<T, Never> {
         (FlowPublisher(flow: self) as FlowPublisher<T>).eraseToAnyPublisher()
     }
+    
+    func asPublisherWithNil<T: AnyObject>() -> AnyPublisher<T?, Never> {
+        (FlowPublisher(flow: self) as FlowPublisher<T?>).eraseToAnyPublisher()
+    }
 }
 
 struct FlowPublisher<T: Any> : Publisher {
@@ -29,11 +33,20 @@ struct FlowPublisher<T: Any> : Publisher {
         init(flow: Kotlinx_coroutines_coreFlow, subscriber: S) {
             self.flow = flow
             self.subscriber = subscriber
+            
             job = FlowExtensionsKt.subscribe(
                 flow,
-                onEach: { item in if let item = item as? T { _ = subscriber.receive(item) }},
-                onComplete: { subscriber.receive(completion: .finished) },
-                onThrow: { error in debugPrint(error) }
+                onEach: { item in
+                    if let item = item as? T {
+                        _ = subscriber.receive(item)
+                    }
+                },
+                onComplete: {
+                    subscriber.receive(completion: .finished)
+                },
+                onThrow: { error in
+                    debugPrint(error)
+                }
             )
         }
         

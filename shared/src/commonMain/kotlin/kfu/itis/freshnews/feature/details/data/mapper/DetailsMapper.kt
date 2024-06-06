@@ -8,14 +8,14 @@ fun ArticleDetails.toFavoritesArticle(userId: Long): FavoritesArticle = Favorite
     id = null,
     imageUrl = urlToImage,
     title = title,
-    description = description,
+    descr = descr,
     source = source,
     publishedAt = publishedAt,
     profileId = userId,
 )
 
 fun Article.toArticleDetails(): ArticleDetails = ArticleDetails(
-    description = descr,
+    descr = descr,
     publishedAt = publishedAt,
     source = source,
     title = title,

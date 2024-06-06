@@ -197,7 +197,7 @@ private fun NewsCategoryItem(
 ) {
     Card(
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = ThemeProvider.colors.background,),
+        colors = CardDefaults.cardColors(containerColor = ThemeProvider.colors.background),
         border = BorderStroke(
             width = 1.dp,
             color = when (isSelected) {
@@ -277,7 +277,7 @@ private fun NewsItem(
                 color = ThemeProvider.colors.mainText,
             )
 
-            if (article.description.isNotEmpty()) {
+            if (article.descr.isNotEmpty()) {
                 ColumnSpacer(2.dp)
             }
 

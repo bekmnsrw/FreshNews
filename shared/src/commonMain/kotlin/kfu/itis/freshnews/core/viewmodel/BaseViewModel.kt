@@ -5,7 +5,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel<State, Action, Event>(
@@ -27,8 +30,12 @@ abstract class BaseViewModel<State, Action, Event>(
     val states: StateFlow<State>
         get() = _state.asStateFlow()
 
-    val actions: Flow<Action>
-        get() = _action.receiveAsFlow()
+    val actions: SharedFlow<Action>
+        get() = _action.receiveAsFlow().shareIn(
+            scope = scope,
+            started = SharingStarted.WhileSubscribed(),
+            replay = 1,
+        )
 
     abstract fun handleEvent(event: Event)
 }

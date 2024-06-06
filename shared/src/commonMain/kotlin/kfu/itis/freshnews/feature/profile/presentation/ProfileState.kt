@@ -17,6 +17,7 @@ sealed class ProfileEvent {
     object OnDeleteAccountClick : ProfileEvent()
     class OnDialogConfirm(val dialogType: DialogType) : ProfileEvent()
     object OnDialogDismiss : ProfileEvent()
+    object OnInit : ProfileEvent()
 }
 
 sealed class ProfileAction {

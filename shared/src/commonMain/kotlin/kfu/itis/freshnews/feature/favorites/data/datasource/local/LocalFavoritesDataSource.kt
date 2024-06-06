@@ -21,7 +21,7 @@ internal class LocalFavoritesDataSource(
             id = favoritesArticle.id,
             image_url = favoritesArticle.imageUrl,
             title = favoritesArticle.title,
-            description = favoritesArticle.description,
+            description = favoritesArticle.descr,
             source = favoritesArticle.source,
             published_at = favoritesArticle.publishedAt,
             profile_id = favoritesArticle.profileId,

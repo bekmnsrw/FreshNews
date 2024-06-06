@@ -9,6 +9,7 @@ data class FavoritesState(
 )
 
 sealed class FavoritesEvent {
+    object OnInit : FavoritesEvent()
     class OnArticleClick(val id: Long) : FavoritesEvent()
     object OnAuthButtonClick : FavoritesEvent()
 }
