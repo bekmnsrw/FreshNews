@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.*
  * flow extension to be used with combine framework in swift ui
  */
 
-
 fun Flow<*>.subscribe(
     onEach: (item: Any) -> Unit,
     onComplete: () -> Unit,
